@@ -1,0 +1,21 @@
+{
+  "name": "mumsched",
+  "homepage": "https://github.com/rozig/mumsched",
+  "authors": [
+    "Kenzo <swganzo@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "uikit": "^2.27.5",
+    "gentelella": "^1.4.0"
+  }
+}
