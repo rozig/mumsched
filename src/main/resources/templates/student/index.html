@@ -5,8 +5,8 @@
 </head>
 <body>
     <div th:each="student : ${students}">
-        <div th:text="${student.firstName}"></div>
-        <div th:text="${student.lastName}"></div>
+        <div th:text="${student.id}"></div>
+        <div th:text="${student.name}"></div>
         <div th:text="${student.email}"></div>
         <div>
             <a th:href="@{'/student/' + ${student.id}}">Edit</a>&nbsp;
