@@ -6,7 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class MumSchedApplication {
 
-	public static void main(String[] args) {
+ static void main(String[] args) {
+	 	//test
 		SpringApplication.run(MumSchedApplication.class, args);
 	}
 }
