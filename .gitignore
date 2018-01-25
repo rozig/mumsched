@@ -36,3 +36,5 @@ target
 transaction-logs
 .flattened-pom.xml
 secrets.yml
+src/main/resources/static/bower_components
+src/main/resources/static/bower_components/*
