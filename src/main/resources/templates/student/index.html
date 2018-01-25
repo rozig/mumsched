@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Student List</title>
+</head>
+<body>
+    <div th:each="student : ${students}">
+        <div th:text="${student.firstName}"></div>
+        <div th:text="${student.lastName}"></div>
+        <div th:text="${student.email}"></div>
+        <div>
+            <a th:href="@{'/student/' + ${student.id}}">Edit</a>&nbsp;
+            <a th:href="@{'/student/delete/' + ${student.id}}">Delete</a>
+        </div>
+    </div>
+</body>
+</html>

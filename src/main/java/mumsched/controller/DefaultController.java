@@ -11,6 +11,6 @@ public class DefaultController {
     @RequestMapping("/")
     public String index(Map<String, Object> model) {
         model.put("message", "Hello World");
-        return "index";
+        return "home/index";
     }
 }
