@@ -1,38 +1,48 @@
 <!DOCTYPE html >
-<html layout:decorator="shared/homelayout"
+<html layout:decorator="layout/mainlayout"
       xmlns:th="http://www.thymeleaf.org">
 <body>
 
 <th:block layout:fragment="content">
 
-    <h2>Courses list</h2>
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Courses list</h2>
 
-    <div class="control">
-        <a th:href="@{/course/new}" class="btn btn-link">Add new course</a>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li><a th:href="@{/course/new}" class="close-link"><i class="fa fa-plus"></i> Add new course</a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Code</th>
+                        <th>Name</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="course : ${courses}">
+                        <th scope="row" th:text="${course.id}"></th>
+                        <td th:text="${course.code}"></td>
+                        <td th:text="${course.name}"></td>
+                        <td>
+                            <a th:href="@{/course/read/{id}(id=${course.id})}" class="btn btn-sm btn-default">Details</a>
+                            <a th:href="@{/course/edit/{id}(id=${course.id})}" class="btn btn-sm btn-default">Edit</a>
+                            <button class="delete btn btn-sm btn-default" th:attr="data-id=${course.id}">Remove</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
     </div>
-
-    <table class="table-condensed table-bordered">
-        <thead>
-        <tr>
-            <th>#</th>
-            <th>Code</th>
-            <th>Name</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="course : ${courses}">
-            <td th:text="${course.id}"></td>
-            <td th:text="${course.code}"></td>
-            <td th:text="${course.name}"></td>
-            <td>
-                <a th:href="@{/course/read/{id}(id=${course.id})}" class="btn btn-sm default">Details</a>
-                <a th:href="@{/course/edit/{id}(id=${course.id})}" class="btn btn-sm default">Edit</a>
-                <button class="delete btn btn-sm btn-default" th:attr="data-id=${course.id}">Remove</button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
 </th:block>
 
 
