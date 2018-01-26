@@ -31,13 +31,11 @@ public class DefaultController {
 
     @RequestMapping(value="/", method=RequestMethod.GET)
     public String index(Map<String, Object> model) {
-        model.put("message", "Hello World");
-        return "home/index";
+        return "login";
     }
 
     @RequestMapping(value="/dashboard", method=RequestMethod.GET)
     public String dashboard(Map<String, Object> model) {
-        model.put("message", "Hello World");
         return "index";
     }
 
