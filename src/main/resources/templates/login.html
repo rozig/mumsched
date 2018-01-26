@@ -1,0 +1,32 @@
+<!DOCTYPE html >
+<html layout:decorator="layout/emptylayout"
+	xmlns:th="http://www.thymeleaf.org">
+<body>
+	<th:block layout:fragment="header">
+		<title>MUMSched - Login page</title>
+	</th:block>
+	
+	<th:block layout:fragment="content">
+		<section class="login_content">
+		   <form>
+		     <h1>MUMSched login</h1>
+		     <div>
+		       <input type="email" class="form-control" placeholder="Email" required="" />
+		     </div>
+		     <div>
+		       <input type="password" class="form-control" placeholder="Password" required="" />
+		     </div>
+		     <div>
+		       <a class="btn btn-default submit" href="dashboard">Log in</a>
+		       
+		     </div>
+		
+		     <div class="clearfix"></div>
+		   </form>
+		 </section>
+	</th:block>
+	
+	<th:block layout:fragment="footer">
+	</th:block>
+</body>
+</html>
