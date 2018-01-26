@@ -21,6 +21,8 @@
 
     <!-- Custom Theme Style -->
     <link href="/bower_components/gentelella/build/css/custom.min.css" rel="stylesheet"/>
+    
+    <link href="/css/mainlayout.css" rel="stylesheet"/>
   </head>
 
   <body class="nav-md">
@@ -95,8 +97,7 @@
                     <li><a href="javascript:;">Help</a></li>
                     <li>
                       <form th:action="@{/logout}" method="post">
-                        <button type="submit">
-                          <i class="fa fa-sign-out pull-right"></i>
+                        <button type="submit" class="btn-logout">
                           Log Out
                         </button>
                       </form>
