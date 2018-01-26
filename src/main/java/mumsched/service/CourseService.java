@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface CourseService {
     List<Course> findAll();
+    List<Course> findAllExcept(Long id);
     Course save(Course course);
     Course findOne(Long id);
     void delete(Long id);

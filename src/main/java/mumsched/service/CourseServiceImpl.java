@@ -18,6 +18,11 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public List<Course> findAllExcept(Long id) {
+        return courseRepository.findAllExcept(id);
+    }
+
+    @Override
     public Course save(Course course) {
         return courseRepository.save(course);
     }

@@ -44,6 +44,7 @@ public class CourseController {
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String newCourse(Model model) {
         model.addAttribute("course", new Course());
+        model.addAttribute("courses", courseService.findAll());
 
         return "course/create";
     }
@@ -54,6 +55,7 @@ public class CourseController {
         if (bindingResult.hasErrors()) {
             model.addAttribute("errors", bindingResult.getAllErrors());
             model.addAttribute("course", course);
+            model.addAttribute("courses", courseService.findAll());
             return "course/create";
         }
 
@@ -71,6 +73,7 @@ public class CourseController {
             return "404";
         }
         model.addAttribute("course", course);
+        model.addAttribute("courses", courseService.findAllExcept(course.getId()));
 
         return "course/update";
     }
@@ -81,6 +84,7 @@ public class CourseController {
                          BindingResult result, Model model) {
 
         if (result.hasErrors()) {
+            model.addAttribute("courses", courseService.findAllExcept(course.getId()));
             model.addAttribute("course", course);
             model.addAttribute("errors", result.getAllErrors());
             return "course/update";
@@ -89,6 +93,7 @@ public class CourseController {
         c.setCode(course.getCode());
         c.setName(course.getName());
         c.setDescription(course.getDescription());
+        c.setPreRequisite(course.getPreRequisite());
         courseService.save(c);
 
         return "redirect:/course/";

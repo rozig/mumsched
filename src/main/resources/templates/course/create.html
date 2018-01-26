@@ -18,6 +18,20 @@
                     <form th:action="@{/course/create}" th:object="${course}"
                           method="post" class="form-horizontal form-label-left">
 
+                        <div class="item form-group" th:classappend="${#fields.hasErrors('preRequisite')}? 'has-error'">
+                            <label for="preRequisite" class="control-label col-md-3 col-sm-3 col-xs-12">Pre Requisite</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <select class="form-control col-md-7 col-xs-12" id="preRequisite" th:field="*{preRequisite}">
+                                    <option value="">No pre requisite</option>
+                                    <option th:each="c : ${courses}"
+                                            th:value="${c.id}"
+                                            th:text="${c.name}"
+                                            th:selected="${c.id == course.id}">Course name</option>
+                                </select>
+                                <span class="help-block" th:if="${#fields.hasErrors('preRequisite')}" th:errors="*{preRequisite}">Invalid</span>
+                            </div>
+                        </div>
+
                         <div class="item form-group" th:classappend="${#fields.hasErrors('code')}? 'has-error'">
                             <label for="code" class="control-label col-md-3 col-sm-3 col-xs-12">Code <span class="required">*</span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
