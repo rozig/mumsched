@@ -7,28 +7,58 @@
 
     <h2>Courses list</h2>
 
+    <div class="control">
+        <a th:href="@{/course/new}" class="btn btn-link">Add new course</a>
+    </div>
 
     <table class="table-condensed table-bordered">
         <thead>
         <tr>
             <th>#</th>
+            <th>Code</th>
             <th>Name</th>
-            <th>Description</th>
             <th></th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="course : ${courses}">
             <td th:text="${course.id}"></td>
+            <td th:text="${course.code}"></td>
             <td th:text="${course.name}"></td>
-            <td th:text="${course.description}"></td>
             <td>
-                <a href="#" class="btn btn-sm btn-default">Edit</a>
-                <button class="btn btn-sm btn-danger">Remove</button>
+                <a th:href="@{/course/read/{id}(id=${course.id})}" class="btn btn-sm default">Details</a>
+                <a th:href="@{/course/edit/{id}(id=${course.id})}" class="btn btn-sm default">Edit</a>
+                <button class="delete btn btn-sm btn-default" th:attr="data-id=${course.id}">Remove</button>
             </td>
         </tr>
         </tbody>
     </table>
+</th:block>
+
+
+<th:block layout:fragment="footer">
+    <script type="text/javascript" th:inline="javascript">
+        /*<![CDATA[*/
+        $(document).ready(function () {
+            $(document).on('click', '.delete', function () {
+                var id = $(this).data('id');
+                console.log(id);
+                if (id && confirm('Confirm delete')) {
+                    $.ajax({
+                        url: '/course/delete/' + id,
+                        method: 'DELETE'
+                    }).done(function (response) {
+                        console.log(response);
+                    }).fail(function (error) {
+                        console.log(error);
+                    }).always(function () {
+                        window.location.reload();
+                    });
+                }
+            })
+        });
+        /*]]>*/
+    </script>
 </th:block>
 
 </body>

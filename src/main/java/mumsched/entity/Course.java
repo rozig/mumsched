@@ -1,5 +1,7 @@
 package mumsched.entity;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,14 +11,26 @@ import javax.persistence.Id;
 public class Course {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer id;
+    private Long id;
 
+    @NotBlank(message = "{notBlank.message}")
+    private String code;
+
+    @NotBlank(message = "{notBlank.message}")
     private String name;
 
     private String description;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getName() {

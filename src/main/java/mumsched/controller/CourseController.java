@@ -84,12 +84,16 @@ public class CourseController {
             model.addAttribute("errors", result.getAllErrors());
             return "course/update";
         }
-        course = courseRepo.save(course);
+        Course c = courseRepo.findOne(id);
+        c.setCode(course.getCode());
+        c.setName(course.getName());
+        c.setDescription(course.getDescription());
+        courseRepo.save(c);
 
         return "redirect:/course/";
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     public String delete(@PathVariable(value = "id") Long id) {
         Course course = courseRepo.findOne(id);
         if (course != null) {
