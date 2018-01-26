@@ -21,18 +21,14 @@
 
     <!-- Custom Theme Style -->
     <link href="/bower_components/gentelella/build/css/custom.min.css" rel="stylesheet"/>
+    
+    <link href="/css/emptylayout.css" rel="stylesheet"/>
   </head>
 
   <body class="login">
-    <div>
-      <a class="hiddenanchor" id="signup"></a>
-      <a class="hiddenanchor" id="signin"></a>
-
-      <div class="login_wrapper">
-        <div class="animate form login_form">
-          <th:block layout:fragment="content"></th:block>
-        </div>
-      </div>
+    
+    <div class="login-wrapper">
+    	<th:block layout:fragment="content"></th:block>
     </div>
     
     <th:block layout:fragment="footer"></th:block>
