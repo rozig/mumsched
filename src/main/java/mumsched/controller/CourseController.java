@@ -4,6 +4,7 @@ import mumsched.entity.Course;
 import mumsched.repository.CourseRepository;
 import mumsched.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -103,7 +104,12 @@ public class CourseController {
     public String delete(@PathVariable(value = "id") Long id) {
         Course course = courseService.findOne(id);
         if (course != null) {
-            courseService.delete(id);
+            try {
+                courseService.delete(id);
+            } catch (DataIntegrityViolationException ignore) {
+                // Cannot remove course that is prerequisite of other course.
+                // TODO: write flash message to session
+            }
         }
         return "redirect:/course/";
     }
