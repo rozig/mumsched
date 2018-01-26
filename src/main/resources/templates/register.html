@@ -1,0 +1,42 @@
+<!DOCTYPE html >
+<html layout:decorator="layout/emptylayout"
+    xmlns:th="http://www.thymeleaf.org">
+<body>
+    <th:block layout:fragment="header">
+        <title>MUMSched - Register page</title>
+    </th:block>
+
+    <th:block layout:fragment="content">
+        <section class="login_content">
+           <form autocomplete="off" th:object="${user}" th:action="@{/register}" method="post">
+             <h1>MUMSched login</h1>
+             <div>
+                <label th:if="${#fields.hasErrors('name')}" class="validation-message"></label>
+               <input type="text" class="form-control" placeholder="Name" th:field="*{name}" />
+             </div>
+             <div>
+                <label th:if="${#fields.hasErrors('lastName')}" class="validation-message"></label>
+                <input type="text" class="form-control" placeholder="Last Name" th:field="*{lastName}" />
+             </div>
+             <div>
+                <label th:if="${#fields.hasErrors('email')}" class="validation-message"></label>
+                <input type="email" class="form-control" placeholder="Email address" th:field="*{email}" />
+             </div>
+             <div>
+                <label th:if="${#fields.hasErrors('password')}" class="validation-message"></label>
+                <input type="password" class="form-control" placeholder="Password" th:field="*{password}" />
+             </div>
+             <div>
+               <button class="btn btn-default submit" type="submit">Register</button>
+
+             </div>
+
+             <div class="clearfix"></div>
+           </form>
+         </section>
+    </th:block>
+
+    <th:block layout:fragment="footer">
+    </th:block>
+</body>
+</html>
