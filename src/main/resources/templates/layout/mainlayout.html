@@ -93,7 +93,14 @@
                       </a>
                     </li>
                     <li><a href="javascript:;">Help</a></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                    <li>
+                      <form th:action="@{/logout}" method="post">
+                        <button type="submit">
+                          <i class="fa fa-sign-out pull-right"></i>
+                          Log Out
+                        </button>
+                      </form>
+                    </li>
                   </ul>
                 </li>
               </ul>
@@ -104,9 +111,9 @@
 
         <!-- page content -->
         <div class="right_col" role="main">
-        	
+
         	<th:block layout:fragment="content"></th:block>
-        
+
         </div>
         <!-- /page content -->
 
@@ -148,10 +155,10 @@
     <!-- bootstrap-daterangepicker -->
     <script src="/bower_components/gentelella/vendors/moment/min/moment.min.js"></script>
     <script src="/bower_components/gentelella/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
-    
+
     <!-- Custom Theme Scripts -->
     <script src="/bower_components/gentelella/build/js/custom.min.js"></script>
-    
+
     <th:block layout:fragment="footer"></th:block>
   </body>
 </html>

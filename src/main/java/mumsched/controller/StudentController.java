@@ -15,12 +15,12 @@ import mumsched.repository.StudentRepository;
 import mumsched.entity.Student;
 
 @Controller
-@RequestMapping(path="/students")
+@RequestMapping(path="/student")
 public class StudentController {
     @Autowired
     private StudentRepository studentRepo;
 
-    @RequestMapping(value="/list", method=RequestMethod.GET)
+    @RequestMapping(value="/", method=RequestMethod.GET)
     public ModelAndView index() {
         List<Student> students = studentRepo.findAll();
         ModelAndView modelAndView = new ModelAndView();

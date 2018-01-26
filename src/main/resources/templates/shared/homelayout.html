@@ -6,7 +6,7 @@
 	<title>Student Info</title>
 	<link rel="stylesheet" href="/css/bootstrap.min.css" />
 	<link rel="stylesheet" type="text/css" th:href="@{/css/homelayout.css}" />
-	<th:block layout:fragment="header"></th:block>	
+	<th:block layout:fragment="header"></th:block>
 </head>
 
 <body>
@@ -22,7 +22,7 @@
         <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/students">Student List</a>
+        <a class="nav-link" href="/student/">Student List</a>
       </li>
     </ul>
   </div>
@@ -30,10 +30,10 @@
 	<div id="mainpanel">
 		<th:block  layout:fragment="content"></th:block>
 	</div>
-		
-	
+
+
   <script src="/js/jquery-3.3.1.min.js"></script>
   	<script src="/js/bootstrap.bundle.min.js"></script>
-	<th:block layout:fragment="footer"></th:block>	
+	<th:block layout:fragment="footer"></th:block>
 </body>
 </html>
