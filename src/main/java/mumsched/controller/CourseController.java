@@ -2,6 +2,7 @@ package mumsched.controller;
 
 import mumsched.entity.Course;
 import mumsched.repository.CourseRepository;
+import mumsched.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,11 +17,11 @@ import java.util.List;
 @RequestMapping(path = "/course")
 public class CourseController {
     @Autowired
-    private CourseRepository courseRepo;
+    private CourseService courseService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView index() {
-        List<Course> courses = courseRepo.findAll();
+        List<Course> courses = courseService.findAll();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("courses", courses);
         modelAndView.setViewName("course/index");
@@ -30,7 +31,7 @@ public class CourseController {
     @RequestMapping(value = "/read/{id}", method = RequestMethod.GET)
     public String read(@PathVariable(value = "id") Long id, Model model) {
 
-        Course course = courseRepo.findOne(id);
+        Course course = courseService.findOne(id);
         if (course == null) {
             // not found
             return "404";
@@ -56,7 +57,7 @@ public class CourseController {
             return "course/create";
         }
 
-        courseRepo.save(course);
+        courseService.save(course);
 
         return "redirect:/course/";
     }
@@ -64,7 +65,7 @@ public class CourseController {
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String edit(@PathVariable(value = "id") Long id, Model model) {
 
-        Course course = courseRepo.findOne(id);
+        Course course = courseService.findOne(id);
         if (course == null) {
             // not found
             return "404";
@@ -84,20 +85,20 @@ public class CourseController {
             model.addAttribute("errors", result.getAllErrors());
             return "course/update";
         }
-        Course c = courseRepo.findOne(id);
+        Course c = courseService.findOne(id);
         c.setCode(course.getCode());
         c.setName(course.getName());
         c.setDescription(course.getDescription());
-        courseRepo.save(c);
+        courseService.save(c);
 
         return "redirect:/course/";
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     public String delete(@PathVariable(value = "id") Long id) {
-        Course course = courseRepo.findOne(id);
+        Course course = courseService.findOne(id);
         if (course != null) {
-            courseRepo.delete(course);
+            courseService.delete(id);
         }
         return "redirect:/course/";
     }
