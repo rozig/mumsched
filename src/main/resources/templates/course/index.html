@@ -47,20 +47,46 @@
 <th:block layout:fragment="footer">
     <script type="text/javascript" th:inline="javascript">
         /*<![CDATA[*/
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
         $(document).ready(function () {
             $(document).on('click', '.delete', function () {
                 var id = $(this).data('id');
+                var that = $(this);
                 console.log(id);
                 if (id && confirm('Confirm delete')) {
                     $.ajax({
                         url: '/course/delete/' + id,
                         method: 'DELETE'
                     }).done(function (response) {
-                        console.log(response);
+                        console.log("success", response);
+                        if (response.success) {
+                            toastr.success(response.msg);
+                            that.fadeOut("slow", function () {
+                                that.parent().parent().remove();
+                            });
+                        } else {
+                            toastr["error"](response.msg);
+                        }
                     }).fail(function (error) {
-                        console.log(error);
+                        console.log("error", error);
                     }).always(function () {
-                        window.location.reload();
+                        //window.location.reload();
                     });
                 }
             })

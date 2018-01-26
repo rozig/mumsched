@@ -1,10 +1,11 @@
 package mumsched.controller;
 
+import mumsched.AjaxResponse;
 import mumsched.entity.Course;
-import mumsched.repository.CourseRepository;
 import mumsched.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -100,18 +101,22 @@ public class CourseController {
         return "redirect:/course/";
     }
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
-    public String delete(@PathVariable(value = "id") Long id) {
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody AjaxResponse delete(@PathVariable(value = "id") Long id) {
         Course course = courseService.findOne(id);
+        AjaxResponse response = new AjaxResponse();
         if (course != null) {
             try {
                 courseService.delete(id);
+                response.success = true;
+                response.msg = "Successfully deleted.";
             } catch (DataIntegrityViolationException ignore) {
                 // Cannot remove course that is prerequisite of other course.
-                // TODO: write flash message to session
+                response.success = false;
+                response.msg = "Cannot remove course that is prerequisite of other course.";
             }
         }
-        return "redirect:/course/";
+        return response;
     }
 
 }
