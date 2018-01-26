@@ -10,19 +10,19 @@ INSERT INTO student(name, email) VALUES
 /*
     Course Seed
  */
-INSERT INTO course(name, description) VALUES
-    ("Web Programming", "Web Programming fundamentals"),
-    ("Advanced Software Development", "Web Programming fundamentals"),
-    (" Enterprise Architecture", "Web Programming fundamentals"),
-    ("Web Application Architecture", "Web Programming fundamentals"),
-    ("Algorithms", "Web Programming fundamentals"),
-    ("Parallel Programming", "Web Programming fundamentals"),
-    ("Mobile Device Programming", "Web Programming fundamentals"),
-    ("Big Data", "Web Programming fundamentals"),
-    ("Modern Web Applications", "Web Programming fundamentals"),
-    ("Big Data Technology", "Web Programming fundamentals"),
-    ("Machine Learning", "Web Programming fundamentals"),
-    ("Software Engineering", "Web Programming fundamentals");
+INSERT INTO course(code, name, description) VALUES
+    ("CS472", "Web Programming", "WAP"),
+    ("CS525", "Advanced Software Development", "ASD"),
+    ("CS544", " Enterprise Architecture", "EA"),
+    ("CS545", "Web Application Architecture", "WAA"),
+    ("CS435", "Algorithms", "Algo"),
+    ("CS471", "Parallel Programming", "PP"),
+    ("CS473", "Mobile Device Programming", "MDP"),
+    ("CS522", "Big Data", "BD"),
+    ("CS572", "Modern Web Applications", "MWA"),
+    ("CS523", "Big Data Technology", "BDT"),
+    ("CS582", "Machine Learning", "ML"),
+    ("CS425", "Software Engineering", "SWE");
 
 
 
