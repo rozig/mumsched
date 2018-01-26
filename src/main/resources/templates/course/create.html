@@ -1,57 +1,59 @@
 <!DOCTYPE html >
-<html layout:decorator="shared/homelayout"
+<html layout:decorator="layout/mainlayout"
       xmlns:th="http://www.thymeleaf.org">
 <body>
 
 <th:block layout:fragment="content">
 
-    <form th:action="@{/course/create}" th:object="${course}"
-          method="post" class="form form-horizontal">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>New Course</h2>
 
-        <th:block th:if="${#fields.hasErrors('${course.*}')}">
-            <div class="alert alert-dismissable alert-danger">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <span th:text="${'Form contains errors. Please try again.'}">Test</span>
-            </div>
-        </th:block>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
 
-        <fieldset>
-            <legend>New Course</legend>
+                    <form th:action="@{/course/create}" th:object="${course}"
+                          method="post" class="form-horizontal form-label-left">
 
-            <div class="form-group" th:classappend="${#fields.hasErrors('code')}? 'has-error'">
-                <label for="code" class="col-sm-2 control-label">Code</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="code" placeholder="Code" th:field="*{code}" />
-                    <span class="help-block" th:if="${#fields.hasErrors('code')}" th:errors="*{code}">Invalid</span>
+                        <div class="item form-group" th:classappend="${#fields.hasErrors('code')}? 'has-error'">
+                            <label for="code" class="control-label col-md-3 col-sm-3 col-xs-12">Code <span class="required">*</span></label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" class="form-control col-md-7 col-xs-12" id="code" placeholder="Code" th:field="*{code}" required="required"/>
+                                <span class="help-block" th:if="${#fields.hasErrors('code')}" th:errors="*{code}">Invalid</span>
+                            </div>
+                        </div>
+
+                        <div class="item form-group" th:classappend="${#fields.hasErrors('name')}? 'has-error'">
+                            <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12">Course name <span class="required">*</span></label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" class="form-control col-md-7 col-xs-12" id="name" placeholder="Name" th:field="*{name}" required="required"/>
+                                <span class="help-block" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Invalid</span>
+                            </div>
+                        </div>
+
+                        <div class="item form-group" th:classappend="${#fields.hasErrors('description')}? 'has-error'">
+                            <label for="description" class="control-label col-md-3 col-sm-3 col-xs-12">Course description</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" class="form-control col-md-7 col-xs-12" id="description" placeholder="Description" th:field="*{description}" />
+                                <span class="help-block" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Invalid</span>
+                            </div>
+                        </div>
+
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-3">
+                                <a th:href="@{/course/}" class="btn btn-primary">Cancel</a>
+                                <button id="send" type="submit" class="btn btn-success">Save</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-
-            <div class="form-group" th:classappend="${#fields.hasErrors('name')}? 'has-error'">
-                <label for="name" class="col-sm-2 control-label">Course name</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="name" placeholder="Name" th:field="*{name}" />
-                    <span class="help-block" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Invalid</span>
-                </div>
-            </div>
-
-            <div class="form-group" th:classappend="${#fields.hasErrors('description')}? 'has-error'">
-                <label for="description" class="col-sm-2 control-label">Course description</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="description" placeholder="Description" th:field="*{description}" />
-                    <span class="help-block" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Invalid</span>
-                </div>
-            </div>
-
-
-
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <a th:href="@{/course/}">Cancel</a>
-                    <button class="btn btn-primary">Save</button>
-                </div>
-            </div>
-        </fieldset>
-    </form>
+        </div>
+    </div>
 </th:block>
 
 </body>
