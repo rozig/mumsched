@@ -1,0 +1,60 @@
+<!DOCTYPE html >
+<html layout:decorator="layout/mainlayout"
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<th:block layout:fragment="content">
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>New Block</h2>
+
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+
+                    <form th:action="@{/block/create}" th:object="${block}"
+                          method="post" class="form-horizontal form-label-left">
+
+                        <div class="item form-group" th:classappend="${#fields.hasErrors('name')}? 'has-error'">
+                            <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12">Block name <span class="required">*</span></label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" class="form-control col-md-7 col-xs-12" id="name" placeholder="Name" th:field="*{name}" required="required"/>
+                                <span class="help-block" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Invalid</span>
+                            </div>
+                        </div>
+
+                        <div class="item form-group" th:classappend="${#fields.hasErrors('startDate')}? 'has-error'">
+                            <label for="startDate" class="control-label col-md-3 col-sm-3 col-xs-12">Start date</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="date" class="form-control col-md-7 col-xs-12" id="startDate" placeholder="Start Date" th:field="*{startDate}" />
+                                <span class="help-block" th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}">Invalid</span>
+                            </div>
+                        </div>
+
+                        <div class="item form-group" th:classappend="${#fields.hasErrors('endDate')}? 'has-error'">
+                            <label for="endDate" class="control-label col-md-3 col-sm-3 col-xs-12">End date</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="date" class="form-control col-md-7 col-xs-12" id="endDate" placeholder="End Date" th:field="*{endDate}" />
+                                <span class="help-block" th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}">Invalid</span>
+                            </div>
+                        </div>
+
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-3">
+                            	<button id="send" type="submit" class="btn btn-success">Add</button>
+                                <a th:href="@{/block/}" class="btn btn-primary">Cancel</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+</body>
+</html>
