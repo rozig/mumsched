@@ -5,8 +5,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Entry {
@@ -14,25 +14,32 @@ public class Entry {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
-    @NotBlank(message = "{notBlank.message}")
+    @NotBlank(message="{notBlank.message}")
     private String name;
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
     private LocalDate date;
 
-    private int mppNumber;
+    private Integer mppNumber;
 
-    private int fppNumber;
+    private Integer fppNumber;
 
-    private int optNumber;
+    private Integer optNumber;
 
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            },
-            mappedBy = "entries")
-    private Set<Block> blocks = new HashSet<>();
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="entry")
+    private List<Student> students = new ArrayList<>();
+
+    @ManyToMany(
+        fetch=FetchType.LAZY,
+        cascade={
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+        },
+        mappedBy="entries"
+    )
+    private List<Block> blocks = new ArrayList<>();
+
+    private Boolean schedulePublish;
 
     @Override
     public String toString() {
@@ -59,43 +66,59 @@ public class Entry {
         this.name = name;
     }
 
-    public int getMppNumber() {
+    public Integer getMppNumber() {
         return mppNumber;
     }
 
-    public void setMppNumber(int mppNumber) {
+    public void setMppNumber(Integer mppNumber) {
         this.mppNumber = mppNumber;
     }
 
-    public int getFppNumber() {
+    public Integer getFppNumber() {
         return fppNumber;
     }
 
-    public void setFppNumber(int fppNumber) {
+    public void setFppNumber(Integer fppNumber) {
         this.fppNumber = fppNumber;
     }
 
-    public int getOptNumber() {
+    public Integer getOptNumber() {
         return optNumber;
     }
 
-    public void setOptNumber(int optNumber) {
+    public void setOptNumber(Integer optNumber) {
         this.optNumber = optNumber;
     }
 
-    public Set<Block> getBlocks() {
-        return blocks;
+    public List<Student> getStudents() {
+        return students;
     }
 
-    public void setBlocks(Set<Block> blocks) {
-        this.blocks = blocks;
+    public void addStudent(Student student) {
+        this.students.add(student);
+    }
+
+    public List<Block> getBlocks() {
+        return blocks;
     }
 
     public void addBlock(Block block) {
         this.blocks.add(block);
     }
 
-    public void removeBlock(Block block) {
-        this.blocks.remove(block);
+    public Boolean getSchedulePublish() {
+        return schedulePublish;
+    }
+
+    public void setSchedulePublish(Boolean schedulePublish) {
+        this.schedulePublish = schedulePublish;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
+
+    public void setBlocks(List<Block> blocks) {
+        this.blocks = blocks;
     }
 }

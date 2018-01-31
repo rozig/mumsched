@@ -1,28 +1,38 @@
+
+/*
+    Entry Seed
+ */
+INSERT INTO entry(id, name, date, mpp_number, fpp_number, opt_number) VALUES
+    (1, 'Aug 2017', '2017-08-04', 70, 40, 30),
+    (2, 'Oct 2017', '2017-10-26', 60, 40, 20),
+    (3, 'Jan 2018', '2018-01-22', 40, 20, 10);
+
+
 /*
     Student Seed
  */
-INSERT INTO student(name, email) VALUES
-    ("Ganzorig", "gerdenebat@mum.edu"),
-    ("Enkhbayasgalan", "enk@mum.edu");
+-- INSERT INTO student(name, email) VALUES
+--     ("Ganzorig", "gerdenebat@mum.edu"),
+--     ("Enkhbayasgalan", "enk@mum.edu");
 
 
 
 /*
     Course Seed
  */
-INSERT INTO course(id, code, name, description, prereq_course_id) VALUES
-    (1, "CS472", "Web Programming", "WAP", null),
-    (2, "CS525", "Advanced Software Development", "ASD", null),
-    (3, "CS544", " Enterprise Architecture", "EA", null),
-    (4, "CS545", "Web Application Architecture", "WAA", 1),
-    (5, "CS435", "Algorithms", "Algo", null),
-    (6, "CS471", "Parallel Programming", "PP", null),
-    (7, "CS473", "Mobile Device Programming", "MDP", null),
-    (8, "CS522", "Big Data", "BD", null),
-    (9, "CS572", "Modern Web Applications", "MWA", 1),
-    (10, "CS523", "Big Data Technology", "BDT", null),
-    (11, "CS582", "Machine Learning", "ML", null),
-    (12, "CS425", "Software Engineering", "SWE", null);
+-- INSERT INTO course(id, code, name, description, prereq_course_id) VALUES
+--     (1, "CS472", "Web Programming", "WAP", null),
+--     (2, "CS525", "Advanced Software Development", "ASD", null),
+--     (3, "CS544", " Enterprise Architecture", "EA", null),
+--     (4, "CS545", "Web Application Architecture", "WAA", 1),
+--     (5, "CS435", "Algorithms", "Algo", null),
+--     (6, "CS471", "Parallel Programming", "PP", null),
+--     (7, "CS473", "Mobile Device Programming", "MDP", null),
+--     (8, "CS522", "Big Data", "BD", null),
+--     (9, "CS572", "Modern Web Applications", "MWA", 1),
+--     (10, "CS523", "Big Data Technology", "BDT", null),
+--     (11, "CS582", "Machine Learning", "ML", null),
+--     (12, "CS425", "Software Engineering", "SWE", null);
 
 
 
@@ -30,16 +40,16 @@ INSERT INTO course(id, code, name, description, prereq_course_id) VALUES
     Role Seed
  */
 INSERT INTO role(role) VALUES
-    ("USER"),
-    ("ADMIN"),
-    ("FACULTY");
+    ('USER'),
+    ('ADMIN'),
+    ('FACULTY');
 
 /*
     User Seed
  */
 INSERT INTO user(active, email, last_name, name, password) VALUES
-    (1, "gerdenebat@mum.edu", "Erdenebat", "Ganzorig", "$2a$10$8NFDu5a1mhVOiHavtl2cbOPXKTQNw2/9PEwJF1xhZvhyBj4mJrY4O"),
-    (2, "egalsandorj@mum.edu", "Galsandorj", "Enkhbayasgalan", "$2a$10$mL9l.om2APqDfuqIndw9a.XmE67dm/0e5tVMYo9ldAliD9U6CLNa2");
+    (1, 'gerdenebat@mum.edu', 'Erdenebat', 'Ganzorig', '$2a$10$8NFDu5a1mhVOiHavtl2cbOPXKTQNw2/9PEwJF1xhZvhyBj4mJrY4O'),
+    (2, 'egalsandorj@mum.edu', 'Galsandorj', 'Enkhbayasgalan', '$2a$10$mL9l.om2APqDfuqIndw9a.XmE67dm/0e5tVMYo9ldAliD9U6CLNa2');
 
 /*
     User-Role Seed

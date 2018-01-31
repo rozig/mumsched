@@ -5,8 +5,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Block {
@@ -17,21 +17,33 @@ public class Block {
     @NotBlank(message = "{notBlank.message}")
     private String name;
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
     private LocalDate startDate;
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
     private LocalDate endDate;
 
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            })
-    @JoinTable(name = "block_entry",
-            joinColumns = { @JoinColumn(name = "block_id") },
-            inverseJoinColumns = { @JoinColumn(name = "entry_id") })
-    private Set<Entry> entries = new HashSet<>();
+    @ManyToMany(
+        fetch=FetchType.LAZY,
+        cascade={
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+        }
+    )
+    @JoinTable(
+        name="entry_blocks",
+        joinColumns={@JoinColumn(name="block_id")},
+        inverseJoinColumns={@JoinColumn(name="entry_id")}
+    )
+    private List<Entry> entries = new ArrayList<>();
+
+    @OneToMany(mappedBy="block")
+    private List<Section> sections;
+
+    public Block() {
+        this.entries = new ArrayList<Entry>();
+        this.sections = new ArrayList<Section>();
+    }
 
     @Override
     public String toString() {
@@ -66,19 +78,27 @@ public class Block {
         this.endDate = endDate;
     }
 
-    public Set<Entry> getEntries() {
+    public List<Entry> getEntries() {
         return entries;
-    }
-
-    public void setEntries(Set<Entry> entries) {
-        this.entries = entries;
     }
 
     public void addEntry(Entry entry) {
         this.entries.add(entry);
     }
 
-    public void removeEntry(Entry entry) {
-        this.entries.remove(entry);
+    public List<Section> getSections() {
+        return sections;
+    }
+
+    public void addSection(Section section) {
+        this.sections.add(section);
+    }
+
+    public void setEntries(List<Entry> entries) {
+        this.entries = entries;
+    }
+
+    public void setSections(List<Section> sections) {
+        this.sections = sections;
     }
 }

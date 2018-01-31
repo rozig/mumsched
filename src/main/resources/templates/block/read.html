@@ -22,6 +22,12 @@
                         <td th:text="${block.id}"></td>
                     </tr>
                     <tr>
+                        <th scope="row">Entries</th>
+                        <td>
+                            <span th:each="e: ${block.entries}" th:text="${e.name}"></span>
+                        </td>
+                    </tr>
+                    <tr>
                         <th scope="row">Name</th>
                         <td th:text="${block.name}"></td>
                     </tr>

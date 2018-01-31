@@ -6,26 +6,53 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.CascadeType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.FetchType;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Course {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
-    @NotBlank(message = "{notBlank.message}")
-    private String code;
-
-    @NotBlank(message = "{notBlank.message}")
+    @NotBlank(message="{notBlank.message}")
     private String name;
 
-    private String description;
+    @NotBlank(message="{notBlank.message}")
+    private String code;
+
+    private Integer maxStudent;
+
+    private Integer level;
 
     @ManyToOne
-    @JoinColumn(name = "prereq_course_id")
+    @JoinColumn(name="prereq_course_id")
     private Course preRequisite;
+
+    @OneToMany(mappedBy="course")
+    private List<Section> sections;
+
+    @ManyToMany(
+        fetch=FetchType.LAZY,
+        cascade={
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+        },
+        mappedBy="courses"
+    )
+    private List<Faculty> faculties;
+
+    public Course() {
+        this.sections = new ArrayList<Section>();
+        this.faculties = new ArrayList<Faculty>();
+    }
 
     @Override
     public String toString() {
@@ -36,14 +63,6 @@ public class Course {
         return id;
     }
 
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
     public String getName() {
         return name;
     }
@@ -52,12 +71,28 @@ public class Course {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getCode() {
+        return code;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public Integer getMaxStudent() {
+        return maxStudent;
+    }
+
+    public void setMaxStudent(Integer maxStudent) {
+        this.maxStudent = maxStudent;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 
     public Course getPreRequisite() {
@@ -66,5 +101,33 @@ public class Course {
 
     public void setPreRequisite(Course preRequisite) {
         this.preRequisite = preRequisite;
+    }
+
+    public List<Section> getSections() {
+        return sections;
+    }
+
+    public void addSection(Section section) {
+        this.sections.add(section);
+    }
+
+    public List<Faculty> getFaculties() {
+        return faculties;
+    }
+
+    public void addFaculty(Faculty faculty) {
+        this.faculties.add(faculty);
+    }
+
+    public Boolean hasPreRequisite() {
+        return this.preRequisite != null;
+    }
+
+    public void setSections(List<Section> sections) {
+        this.sections = sections;
+    }
+
+    public void setFaculties(List<Faculty> faculties) {
+        this.faculties = faculties;
     }
 }

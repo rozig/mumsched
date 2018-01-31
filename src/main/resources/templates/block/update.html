@@ -27,6 +27,19 @@
                             </div>
                         </th:block>
 
+                        <div class="item form-group" th:classappend="${#fields.hasErrors('entries')}? 'has-error'">
+                            <label for="entries" class="control-label col-md-3 col-sm-3 col-xs-12">Entries</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <select class="form-control col-md-7 col-xs-12 select2" id="entries" th:field="*{entries}" multiple="multiple" required="required">
+                                    <option th:each="e : ${entries}"
+                                            th:field="*{entries}"
+                                            th:value="${e.id}"
+                                            th:text="${e.name}">Entry name</option>
+                                </select>
+                                <span class="help-block" th:if="${#fields.hasErrors('entries')}" th:errors="*{entries}">Invalid</span>
+                            </div>
+                        </div>
+
                         <div class="item form-group" th:classappend="${#fields.hasErrors('name')}? 'has-error'">
                             <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12">Block name <span class="required">*</span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">

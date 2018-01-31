@@ -1,42 +1,56 @@
 package mumsched.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
-@MappedSuperclass
-public class Profile {
+@Entity
+public class Faculty extends Profile {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer id;
+    private Long id;
 
-    private String name;
+    @ManyToMany(
+        fetch=FetchType.LAZY,
+        cascade={
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+        }
+    )
+    @JoinTable(
+        name="faculty_courses",
+        joinColumns={@JoinColumn(name="faculty_id")},
+        inverseJoinColumns={@JoinColumn(name="course_id")}
+    )
+    private List<Course> courses;
 
-    private String email;
+    @OneToMany(mappedBy="course")
+    private List<Section> sections;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public List<Course> getCourses() {
+        return courses;
     }
 
-    public String getName() {
-        return name;
+    public void addCourse(Course course) {
+        this.courses.add(course);
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public List<Section> getSections() {
+        return sections;
     }
 
-    public String getEmail() {
-        return email;
+    public void addSection(Section section) {
+        this.sections.add(section);
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
+    }
+
+    public void setSections(List<Section> sections) {
+        this.sections = sections;
     }
 }

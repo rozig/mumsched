@@ -22,7 +22,7 @@ import org.springframework.data.annotation.Transient;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
 
     @Email(message="*Please provide a valid Email")
     @NotEmpty(message="*Please provide an email")
@@ -45,12 +45,8 @@ public class User {
     @JoinTable(name="user_role", joinColumns=@JoinColumn(name="user_id"), inverseJoinColumns=@JoinColumn(name="role_id"))
     private Set<Role> roles;
 
-    public int getId() {
+    public Long getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getPassword() {

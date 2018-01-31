@@ -18,6 +18,8 @@
     <link href="/bower_components/gentelella/vendors/nprogress/nprogress.css" rel="stylesheet"/>
     <!-- bootstrap-daterangepicker -->
     <link href="/bower_components/gentelella/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet"/>
+    <!-- Select2 -->
+    <link href="/bower_components/gentelella/vendors/select2/dist/css/select2.min.css" rel="stylesheet"/>
 
     <!-- Custom Theme Style -->
     <link href="/bower_components/gentelella/build/css/custom.min.css" rel="stylesheet"/>
@@ -49,8 +51,8 @@
                   <li><a href="/faculty"><i class="fa fa-table"></i> Faculties</a></li>
                   <li><a href="/section"><i class="fa fa-bar-chart-o"></i> Sections</a></li>
                   <li><a href="/schedule"><i class="fa fa-clone"></i> Schedules</a></li>
-                  <li><a href="/block"><i class="fa fa-edit"></i> Blocks</a></li>
-                  <li><a href="/entry"><i class="fa fa-edit"></i> Entries</a></li>
+                  <li><a href="/block/"><i class="fa fa-edit"></i> Blocks</a></li>
+                  <li><a href="/entry/"><i class="fa fa-edit"></i> Entries</a></li>
                 </ul>
               </div>
             </div>
@@ -85,19 +87,13 @@
 
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
-                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false"
+                     th:text="${#authentication.name}">
                     John Doe
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="javascript:;"> Profile</a></li>
-                    <li>
-                      <a href="javascript:;">
-                        <span class="badge bg-red pull-right">50%</span>
-                        <span>Settings</span>
-                      </a>
-                    </li>
-                    <li><a href="javascript:;">Help</a></li>
+                    <li><a href="/profile/"> My Profile</a></li>
                     <li>
                       <form th:action="@{/logout}" method="post">
                         <button type="submit" class="btn-logout">
@@ -159,6 +155,8 @@
     <!-- bootstrap-daterangepicker -->
     <script src="/bower_components/gentelella/vendors/moment/min/moment.min.js"></script>
     <script src="/bower_components/gentelella/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- Select2 -->
+    <script src="/bower_components/gentelella/vendors/select2/dist/js/select2.full.min.js"></script>
 
     <!-- Custom Theme Scripts -->
     <script src="/bower_components/gentelella/build/js/custom.min.js"></script>
@@ -166,6 +164,11 @@
     <!-- TOASTR -->
     <script src="/bower_components/toastr/toastr.min.js"></script>
 
+    <script type="text/javascript">
+      $(function () {
+        $('.select2').select2();
+      });
+    </script>
     <th:block layout:fragment="footer"></th:block>
   </body>
 </html>

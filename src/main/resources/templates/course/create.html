@@ -21,7 +21,7 @@
                         <div class="item form-group" th:classappend="${#fields.hasErrors('preRequisite')}? 'has-error'">
                             <label for="preRequisite" class="control-label col-md-3 col-sm-3 col-xs-12">Pre Requisite</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <select class="form-control col-md-7 col-xs-12" id="preRequisite" th:field="*{preRequisite}">
+                                <select class="form-control col-md-7 col-xs-12 select2" id="preRequisite" th:field="*{preRequisite}">
                                     <option value="">No pre requisite</option>
                                     <option th:each="c : ${courses}"
                                             th:value="${c.id}"
