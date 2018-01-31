@@ -86,4 +86,24 @@ public class Student extends Profile {
     public void addRegisteredSection(Section section) {
         this.registeredSections.add(section);
     }
+
+    public void setRegisteredSections(List<Section> registeredSections) {
+        this.registeredSections = registeredSections;
+    }
+
+    public Boolean getUSResident() {
+        return isUSResident;
+    }
+
+    public void setUSResident(Boolean USResident) {
+        isUSResident = USResident;
+    }
+
+    public Entry getEntry() {
+        return entry;
+    }
+
+    public void setEntry(Entry entry) {
+        this.entry = entry;
+    }
 }

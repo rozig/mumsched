@@ -2,6 +2,7 @@ package mumsched.controller;
 
 import mumsched.AjaxResponse;
 import mumsched.entity.Block;
+import mumsched.entity.Entry;
 import mumsched.service.BlockService;
 import mumsched.service.EntryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,7 +103,9 @@ public class BlockController {
         c.setName(block.getName());
         c.setStartDate(block.getStartDate());
         c.setEndDate(block.getEndDate());
-        c.setEntries(block.getEntries());
+        c.getEntries().clear();
+        for (Entry e: block.getEntries())
+            c.addEntry(e);
         blockService.save(c);
 
         return "redirect:/block/";

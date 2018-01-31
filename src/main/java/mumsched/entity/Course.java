@@ -122,4 +122,12 @@ public class Course {
     public Boolean hasPreRequisite() {
         return this.preRequisite != null;
     }
+
+    public void setSections(List<Section> sections) {
+        this.sections = sections;
+    }
+
+    public void setFaculties(List<Faculty> faculties) {
+        this.faculties = faculties;
+    }
 }

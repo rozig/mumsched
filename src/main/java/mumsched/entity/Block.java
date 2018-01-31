@@ -93,4 +93,12 @@ public class Block {
     public void addSection(Section section) {
         this.sections.add(section);
     }
+
+    public void setEntries(List<Entry> entries) {
+        this.entries = entries;
+    }
+
+    public void setSections(List<Section> sections) {
+        this.sections = sections;
+    }
 }

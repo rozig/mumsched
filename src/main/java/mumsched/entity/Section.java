@@ -98,4 +98,8 @@ public class Section {
     public int getEnrolledStudentsCount() {
         return this.enrolledStudents.size();
     }
+
+    public void setEnrolledStudents(List<Student> enrolledStudents) {
+        this.enrolledStudents = enrolledStudents;
+    }
 }

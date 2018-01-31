@@ -113,4 +113,12 @@ public class Entry {
     public void setSchedulePublish(Boolean schedulePublish) {
         this.schedulePublish = schedulePublish;
     }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
+
+    public void setBlocks(List<Block> blocks) {
+        this.blocks = blocks;
+    }
 }

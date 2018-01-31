@@ -45,4 +45,12 @@ public class Faculty extends Profile {
     public void addSection(Section section) {
         this.sections.add(section);
     }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
+    }
+
+    public void setSections(List<Section> sections) {
+        this.sections = sections;
+    }
 }
