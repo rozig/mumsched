@@ -41,7 +41,12 @@ public class DefaultController {
 
     @RequestMapping(value="/login", method=RequestMethod.GET)
     public String login() {
-        return "login";
+        Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(user instanceof User) {
+            return "redirect:/dashboard";
+        } else {
+            return "login";
+        }
     }
 
     @RequestMapping(value="/register", method=RequestMethod.GET)
@@ -58,23 +63,49 @@ public class DefaultController {
         ModelAndView modelAndView = new ModelAndView();
 
         User userExists = userRepo.findByEmail(user.getEmail());
-        if (userExists != null) {
-            bindingResult
-                    .rejectValue("email", "error.user",
-                            "There is already a user registered with the email provided");
+        if(userExists != null) {
+            bindingResult.rejectValue("email", "error.user", "There is already a user registered with the email provided");
         }
-        if (bindingResult.hasErrors()) {
+        if(bindingResult.hasErrors()) {
             modelAndView.setViewName("register");
         } else {
             String password = bCryptPasswordEncoder.encode(user.getPassword());
             user.setActive(1);
             user.setPassword(password);
-            Role userRole = roleRepo.findByRole("ADMIN");
+            Role userRole = roleRepo.findByRole("STUDENT");
             user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
             userRepo.save(user);
-            modelAndView.addObject("successMessage", "User has been registered successfully");
-            modelAndView.addObject("user", new User());
+            modelAndView.addObject("message", "Student has been registered successfully");
             modelAndView.setViewName("login");
+
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping(value="/forgot", method=RequestMethod.GET)
+    public String forgot() {
+        return "forgot";
+    }
+
+    @RequestMapping(value="/forgot", method=RequestMethod.POST)
+    public ModelAndView forgotAction(@RequestParam("email") String email, BindingResult bindingResult) {
+        ModelAndView modelAndView = new ModelAndView();
+
+        User userExists = userRepo.findByEmail(email);
+        if(userExists == null) {
+            bindingResult.rejectValue("email", "error.user", "User not found!");
+        }
+        if(bindingResult.hasErrors()) {
+            modelAndView.setViewName("forgot");
+        } else {
+            // String password = bCryptPasswordEncoder.encode(user.getPassword());
+            // user.setActive(1);
+            // user.setPassword(password);
+            // Role userRole = roleRepo.findByRole("STUDENT");
+            // user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+            // userRepo.save(user);
+            // modelAndView.addObject("message", "Student has been registered successfully");
+            // modelAndView.setViewName("login");
 
         }
         return modelAndView;
