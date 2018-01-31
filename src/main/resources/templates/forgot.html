@@ -1,0 +1,37 @@
+<!DOCTYPE html >
+<html layout:decorator="layout/emptylayout"
+    xmlns:th="http://www.thymeleaf.org">
+<body>
+    <th:block layout:fragment="header">
+        <title>MUMSched - Forgot password</title>
+    </th:block>
+
+    <th:block layout:fragment="content">
+        <div class="sufee-login d-flex align-content-center flex-wrap">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="login-content">
+                            <div class="login-logo">
+                                <h3 class="login-title">MUMSched Forgot password</h3>
+                            </div>
+                            <div class="forgot-form">
+                                <form th:action="@{/forgot}" method="post">
+                                    <div class="form-group">
+                                        <label>Email address</label>
+                                        <input type="email" name="email" class="form-control" placeholder="Email" required=""/>
+                                    </div>
+                                    <button type="submit" class="btn btn-success btn-flat">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </th:block>
+
+    <th:block layout:fragment="footer">
+    </th:block>
+</body>
+</html>
