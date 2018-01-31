@@ -1,0 +1,53 @@
+<!DOCTYPE html >
+<html layout:decorator="layout/mainlayout"
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<th:entry layout:fragment="content">
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Entry details</h2>
+
+                <a th:href="@{/entry/}" class="btn btn-info pull-right" role="button">Back</a>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th scope="row">ID</th>
+                        <td th:text="${entry.id}"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Name</th>
+                        <td th:text="${entry.name}"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Start date</th>
+                        <td th:text="${entry.date}"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">MPP Number</th>
+                        <td th:text="${entry.mppNumber}"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">FPP Number</th>
+                        <td th:text="${entry.fppNumber}"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">OPT Number</th>
+                        <td th:text="${entry.optNumber}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</th:entry>
+
+</body>
+</html>

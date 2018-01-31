@@ -1,0 +1,105 @@
+<!DOCTYPE html >
+<html layout:decorator="layout/mainlayout"
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<th:entry layout:fragment="content">
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Entries list</h2>
+
+                <a th:href="@{/entry/new}" class="btn btn-success pull-right" role="button"><i class="fa fa-plus"></i> Add new entry</a>
+                
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Start date</th>
+                        <th>MPP</th>
+                        <th>FPP</th>
+                        <th>OPT</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="entry : ${entries}">
+                        <th scope="row" th:text="${entry.id}"></th>
+                        <td th:text="${entry.name}"></td>
+                        <td th:text="${entry.date}"></td>
+                        <td th:text="${entry.mppNumber}"></td>
+                        <td th:text="${entry.fppNumber}"></td>
+                        <td th:text="${entry.optNumber}"></td>
+                        <td>
+                            <a th:href="@{/entry/read/{id}(id=${entry.id})}" class="btn btn-sm btn-info">Details</a>
+                            <a th:href="@{/entry/edit/{id}(id=${entry.id})}" class="btn btn-sm btn-primary">Edit</a>
+                            <button class="delete btn btn-sm btn-danger" th:attr="data-id=${entry.id}">Remove</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</th:entry>
+
+
+<th:entry layout:fragment="footer">
+    <script type="text/javascript" th:inline="javascript">
+        /*<![CDATA[*/
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+        $(document).ready(function () {
+            $(document).on('click', '.delete', function () {
+                var id = $(this).data('id');
+                var that = $(this);
+                console.log(id);
+                if (id && confirm('Confirm delete')) {
+                    $.ajax({
+                        url: '/entry/delete/' + id,
+                        method: 'DELETE'
+                    }).done(function (response) {
+                        console.log("success", response);
+                        if (response.success) {
+                            toastr.success(response.msg);
+                            that.fadeOut("slow", function () {
+                                that.parent().parent().remove();
+                            });
+                        } else {
+                            toastr["error"](response.msg);
+                        }
+                    }).fail(function (error) {
+                        console.log("error", error);
+                    }).always(function () {
+                        //window.location.reload();
+                    });
+                }
+            })
+        });
+        /*]]>*/
+    </script>
+</th:entry>
+
+</body>
+</html>
