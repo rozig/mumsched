@@ -1,13 +1,12 @@
 package mumsched.entity;
 
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.MappedSuperclass;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public class Profile {
+public class Faculty {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;

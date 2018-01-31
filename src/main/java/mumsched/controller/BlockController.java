@@ -3,6 +3,7 @@ package mumsched.controller;
 import mumsched.AjaxResponse;
 import mumsched.entity.Block;
 import mumsched.service.BlockService;
+import mumsched.service.EntryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.MediaType;
@@ -20,6 +21,8 @@ import java.util.List;
 public class BlockController {
     @Autowired
     private BlockService blockService;
+    @Autowired
+    private EntryService entryService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView index() {
@@ -47,6 +50,7 @@ public class BlockController {
     public String newBlock(Model model) {
         model.addAttribute("block", new Block());
         model.addAttribute("blocks", blockService.findAll());
+        model.addAttribute("entries", entryService.findAll());
 
         return "block/create";
     }
@@ -58,6 +62,7 @@ public class BlockController {
             model.addAttribute("errors", bindingResult.getAllErrors());
             model.addAttribute("block", block);
             model.addAttribute("blocks", blockService.findAll());
+            model.addAttribute("entries", entryService.findAll());
             return "block/create";
         }
 
@@ -76,6 +81,7 @@ public class BlockController {
         }
         model.addAttribute("block", block);
         model.addAttribute("blocks", blockService.findAllExcept(block.getId()));
+        model.addAttribute("entries", entryService.findAll());
 
         return "block/update";
     }
@@ -87,6 +93,7 @@ public class BlockController {
 
         if (result.hasErrors()) {
             model.addAttribute("blocks", blockService.findAllExcept(block.getId()));
+            model.addAttribute("entries", entryService.findAll());
             model.addAttribute("block", block);
             model.addAttribute("errors", result.getAllErrors());
             return "block/update";
@@ -95,6 +102,7 @@ public class BlockController {
         c.setName(block.getName());
         c.setStartDate(block.getStartDate());
         c.setEndDate(block.getEndDate());
+        c.setEntries(block.getEntries());
         blockService.save(c);
 
         return "redirect:/block/";
