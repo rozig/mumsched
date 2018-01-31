@@ -1,0 +1,85 @@
+<!DOCTYPE html >
+<html layout:decorator="layout/mainlayout"
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<th:entry layout:fragment="content">
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Edit Entry</h2>
+
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+
+                    <form th:action="@{/entry/update/{id}(id=${entry.id})}" th:object="${entry}"
+                          method="post" class="form-horizontal form-label-left">
+
+                        <input type="hidden" th:field="*{id}" />
+
+                        <th:entry th:if="${#fields.hasErrors('${entry.*}')}">
+                            <div class="alert alert-dismissable alert-danger">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <span th:text="${'Form contains errors. Please try again.'}">Test</span>
+                            </div>
+                        </th:entry>
+
+                        <div class="item form-group" th:classappend="${#fields.hasErrors('name')}? 'has-error'">
+                            <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12">Entry name <span class="required">*</span></label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" class="form-control col-md-7 col-xs-12" id="name" placeholder="Name" th:field="*{name}" required="required"/>
+                                <span class="help-entry" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Invalid</span>
+                            </div>
+                        </div>
+
+                        <div class="item form-group" th:classappend="${#fields.hasErrors('date')}? 'has-error'">
+                            <label for="date" class="control-label col-md-3 col-sm-3 col-xs-12">Start date</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="date" class="form-control col-md-7 col-xs-12" id="date" placeholder="Start Date" th:field="*{date}" />
+                                <span class="help-entry" th:if="${#fields.hasErrors('date')}" th:errors="*{date}">Invalid</span>
+                            </div>
+                        </div>
+
+                        <div class="item form-group" th:classappend="${#fields.hasErrors('mppNumber')}? 'has-error'">
+                            <label for="mppNumber" class="control-label col-md-3 col-sm-3 col-xs-12">MPP number</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="number" class="form-control col-md-7 col-xs-12" id="mppNumber" placeholder="MPP number" th:field="*{mppNumber}" />
+                                <span class="help-entry" th:if="${#fields.hasErrors('mppNumber')}" th:errors="*{mppNumber}">Invalid</span>
+                            </div>
+                        </div>
+
+                        <div class="item form-group" th:classappend="${#fields.hasErrors('fppNumber')}? 'has-error'">
+                            <label for="fppNumber" class="control-label col-md-3 col-sm-3 col-xs-12">FPP number</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="number" class="form-control col-md-7 col-xs-12" id="fppNumber" placeholder="FPP number" th:field="*{fppNumber}" />
+                                <span class="help-entry" th:if="${#fields.hasErrors('fppNumber')}" th:errors="*{fppNumber}">Invalid</span>
+                            </div>
+                        </div>
+
+                        <div class="item form-group" th:classappend="${#fields.hasErrors('optNumber')}? 'has-error'">
+                            <label for="optNumber" class="control-label col-md-3 col-sm-3 col-xs-12">OPT number</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="number" class="form-control col-md-7 col-xs-12" id="optNumber" placeholder="OPT number" th:field="*{optNumber}" />
+                                <span class="help-entry" th:if="${#fields.hasErrors('optNumber')}" th:errors="*{optNumber}">Invalid</span>
+                            </div>
+                        </div>
+
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-3">
+                            	<button id="send" type="submit" class="btn btn-success">Save</button>
+                                <a th:href="@{/entry/}" class="btn btn-primary">Cancel</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:entry>
+
+</body>
+</html>
