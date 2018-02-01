@@ -18,11 +18,6 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> findAllExcept(Long id) {
-        return studentRepository.findAllExcept(id);
-    }
-
-    @Override
     public Student save(Student student) {
         return studentRepository.save(student);
     }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
 import mumsched.service.StudentService;
+import mumsched.entity.Entry;
 import mumsched.entity.Student;
 
 @Controller
@@ -40,5 +41,11 @@ public class StudentController {
 
         return "student/read";
     }
+    
+    @RequestMapping(value = "/new", method = RequestMethod.GET)
+    public String newStudent(Model model) {
+        model.addAttribute("student", new Student());
 
+        return "student/create";
+    }
 }

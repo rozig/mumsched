@@ -34,7 +34,7 @@ public class User {
     private String password;
 
     @NotEmpty(message="*Please provide your name")
-    private String name;
+    private String firstname;
 
     @NotEmpty(message = "*Please provide your last name")
     private String lastName;
@@ -57,12 +57,12 @@ public class User {
         this.password = password;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstname) {
+        this.firstname = firstname;
     }
 
     public String getLastName() {

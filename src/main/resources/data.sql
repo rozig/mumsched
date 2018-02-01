@@ -47,7 +47,7 @@ INSERT INTO role(role) VALUES
 /*
     User Seed
  */
-INSERT INTO user(active, email, last_name, name, password) VALUES
+INSERT INTO user(active, email, last_name, firstname, password) VALUES
     (1, 'gerdenebat@mum.edu', 'Erdenebat', 'Ganzorig', '$2a$10$8NFDu5a1mhVOiHavtl2cbOPXKTQNw2/9PEwJF1xhZvhyBj4mJrY4O'),
     (2, 'egalsandorj@mum.edu', 'Galsandorj', 'Enkhbayasgalan', '$2a$10$mL9l.om2APqDfuqIndw9a.XmE67dm/0e5tVMYo9ldAliD9U6CLNa2');
 

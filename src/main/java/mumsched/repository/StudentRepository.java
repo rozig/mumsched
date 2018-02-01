@@ -8,5 +8,4 @@ import mumsched.entity.Student;
 
 public interface StudentRepository extends JpaRepository<Student, Long> {
     Student findByFirstname(String firstname);
-	List<Student> findAllExcept(Long id);
 }
