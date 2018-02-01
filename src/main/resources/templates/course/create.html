@@ -48,11 +48,19 @@
                             </div>
                         </div>
 
-                        <div class="item form-group" th:classappend="${#fields.hasErrors('description')}? 'has-error'">
-                            <label for="description" class="control-label col-md-3 col-sm-3 col-xs-12">Course description</label>
+                        <div class="item form-group" th:classappend="${#fields.hasErrors('level')}? 'has-error'">
+                            <label for="level" class="control-label col-md-3 col-sm-3 col-xs-12">Course level</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" class="form-control col-md-7 col-xs-12" id="description" placeholder="Description" th:field="*{description}" />
-                                <span class="help-block" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Invalid</span>
+                                <input type="number" class="form-control col-md-7 col-xs-12" id="level" placeholder="level" th:field="*{level}" />
+                                <span class="help-block" th:if="${#fields.hasErrors('level')}" th:errors="*{level}">Invalid</span>
+                            </div>
+                        </div>
+                        
+                        <div class="item form-group" th:classappend="${#fields.hasErrors('maxStudent')}? 'has-error'">
+                            <label for="maxStudent" class="control-label col-md-3 col-sm-3 col-xs-12">Maximum number of student</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="number" class="form-control col-md-7 col-xs-12" id="maxStudent" placeholder="max student" th:field="*{maxStudent}" />
+                                <span class="help-block" th:if="${#fields.hasErrors('maxStudent')}" th:errors="*{maxStudent}">Invalid</span>
                             </div>
                         </div>
 

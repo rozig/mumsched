@@ -12,6 +12,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.FetchType;
+import javax.validation.constraints.Digits;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +29,11 @@ public class Course {
     @NotBlank(message="{notBlank.message}")
     private String code;
 
-    private Integer maxStudent;
+    @Digits(integer=10, fraction=0, message = "{invalidNumber.message}")
+    private int maxStudent;
 
-    private Integer level;
+    @Digits(integer=10, fraction=0, message = "{invalidNumber.message}")
+    private int level;
 
     @ManyToOne
     @JoinColumn(name="prereq_course_id")
@@ -79,19 +82,19 @@ public class Course {
         this.code = code;
     }
 
-    public Integer getMaxStudent() {
+    public int getMaxStudent() {
         return maxStudent;
     }
 
-    public void setMaxStudent(Integer maxStudent) {
+    public void setMaxStudent(int maxStudent) {
         this.maxStudent = maxStudent;
     }
 
-    public Integer getLevel() {
+    public int getLevel() {
         return level;
     }
 
-    public void setLevel(Integer level) {
+    public void setLevel(int level) {
         this.level = level;
     }
 

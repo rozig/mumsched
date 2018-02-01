@@ -94,7 +94,8 @@ public class CourseController {
         Course c = courseService.findOne(id);
         c.setCode(course.getCode());
         c.setName(course.getName());
-        // c.setDescription(course.getDescription());
+        c.setLevel(course.getLevel());
+        c.setMaxStudent(course.getMaxStudent());
         c.setPreRequisite(course.getPreRequisite());
         courseService.save(c);
 
