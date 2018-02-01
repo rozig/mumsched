@@ -1,17 +1,99 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Student List</title>
-</head>
+<!DOCTYPE html >
+<html layout:decorator="layout/mainlayout"
+      xmlns:th="http://www.thymeleaf.org">
 <body>
-    <div th:each="student : ${students}">
-        <div th:text="${student.id}"></div>
-        <div th:text="${student.name}"></div>
-        <div th:text="${student.email}"></div>
-        <div>
-            <a th:href="@{'/student/' + ${student.id}}">Edit</a>&nbsp;
-            <a th:href="@{'/student/delete/' + ${student.id}}">Delete</a>
+
+<th:block layout:fragment="content">
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Student list</h2>
+
+                <a th:href="@{/course/new}" class="btn btn-success pull-right" role="button"><i class="fa fa-plus"></i> Add new course</a>
+                
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="student : ${students}">
+                        <th scope="row" th:text="${student.id}"></th>
+                        <td th:text="${student.name}"></td>
+                        <td th:text="${student.email}"></td>
+                        <td>
+                            <a th:href="@{/student/read/{id}(id=${student.id})}" class="btn btn-sm btn-info">Details</a>
+                            <a th:href="@{/student/edit/{id}(id=${student.id})}" class="btn btn-sm btn-primary">Edit</a>
+                            <button class="delete btn btn-sm btn-danger" th:attr="data-id=${student.id}">Remove</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
         </div>
     </div>
+</th:block>
+
+
+<th:block layout:fragment="footer">
+    <script type="text/javascript" th:inline="javascript">
+        /*<![CDATA[*/
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+        $(document).ready(function () {
+            $(document).on('click', '.delete', function () {
+                var id = $(this).data('id');
+                var that = $(this);
+                console.log(id);
+                if (id && confirm('Confirm delete')) {
+                    $.ajax({
+                        url: '/student/delete/' + id,
+                        method: 'DELETE'
+                    }).done(function (response) {
+                        console.log("success", response);
+                        if (response.success) {
+                            toastr.success(response.msg);
+                            that.fadeOut("slow", function () {
+                                that.parent().parent().remove();
+                            });
+                        } else {
+                            toastr["error"](response.msg);
+                        }
+                    }).fail(function (error) {
+                        console.log("error", error);
+                    }).always(function () {
+                        //window.location.reload();
+                    });
+                }
+            })
+        });
+        /*]]>*/
+    </script>
+</th:block>
+
 </body>
 </html>
