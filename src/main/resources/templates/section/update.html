@@ -64,7 +64,7 @@
                         <div class="item form-group" th:classappend="${#fields.hasErrors('faculty')}? 'has-error'">
                             <label for="faculties" class="control-label col-md-3 col-sm-3 col-xs-12">Faculty</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <select class="form-control col-md-7 col-xs-12 select2" id="faculties" th:field="*{faculty}" required="required">
+                                <select class="form-control col-md-7 col-xs-12 select2" id="faculties" th:field="*{faculty}">
                                     <option th:each="f : ${faculties}"
                                             th:field="*{faculty}"
                                             th:value="${f.id}"
