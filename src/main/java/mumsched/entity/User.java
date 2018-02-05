@@ -24,25 +24,22 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Email(message="*Please provide a valid Email")
-    @NotEmpty(message="*Please provide an email")
+    @Email(message = "*Please provide a valid Email")
+    @NotEmpty(message = "*Please provide an email")
+    @Column(unique = true, nullable = false)
     private String email;
 
-    @Length(min=5, message="*Your password must have at least 5 characters")
-    @NotEmpty(message="*Please provide your password")
+    @Length(min = 5, message = "*Your password must have at least 5 characters")
+    @NotEmpty(message = "*Please provide your password")
     @Transient
     private String password;
 
-    @NotEmpty(message="*Please provide your name")
-    private String name;
+    private boolean active = false;
 
-    @NotEmpty(message = "*Please provide your last name")
-    private String lastName;
-
-    private int active;
+    private String activationToken;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name="user_role", joinColumns=@JoinColumn(name="user_id"), inverseJoinColumns=@JoinColumn(name="role_id"))
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
     public Long getId() {
@@ -57,22 +54,6 @@ public class User {
         this.password = password;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -81,11 +62,11 @@ public class User {
         this.email = email;
     }
 
-    public int getActive() {
+    public boolean isActive() {
         return active;
     }
 
-    public void setActive(int active) {
+    public void setActive(boolean active) {
         this.active = active;
     }
 
@@ -97,4 +78,11 @@ public class User {
         this.roles = roles;
     }
 
+    public String getActivationToken() {
+        return activationToken;
+    }
+
+    public void setActivationToken(String activationToken) {
+        this.activationToken = activationToken;
+    }
 }
