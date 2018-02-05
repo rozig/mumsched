@@ -22,3 +22,15 @@ spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQL5Dialect
 # ==============================================================
 spring.queries.users-query=SELECT email, `password`, active FROM user WHERE email=?
 spring.queries.roles-query=SELECT u.email, r.role FROM user u INNER JOIN user_role ur ON(u.id=ur.user_id) INNER JOIN role r ON(ur.role_id=r.id) WHERE u.email=?
+
+################### JavaMail Configuration ##########################
+support.email=USERNAME@gmail.com
+spring.mail.host=smtp.gmail.com
+spring.mail.port=465
+spring.mail.protocol=smtps
+spring.mail.username=EMAIL
+spring.mail.password=PASSWORD
+spring.mail.properties.mail.transport.protocol=smtps
+spring.mail.properties.mail.smtps.auth=true
+spring.mail.properties.mail.smtps.starttls.enable=true
+spring.mail.properties.mail.smtps.timeout=8000
