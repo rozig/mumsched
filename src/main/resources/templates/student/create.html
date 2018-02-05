@@ -1,0 +1,102 @@
+<!DOCTYPE html >
+<html layout:decorator="layout/mainlayout"
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<th:block layout:fragment="content">
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>New Student</h2>
+
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+
+                    <form th:action="@{/student/create}" th:object="${student}"
+                          method="post" class="form-horizontal form-label-left">
+
+                        <div class="item form-group" th:classappend="${#fields.hasErrors('firstname')}? 'has-error'">
+                            <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12">First name <span class="required">*</span></label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" class="form-control col-md-7 col-xs-12" id="firstname" placeholder="First name" th:field="*{firstname}" required="required"/>
+                                <span class="help-block" th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}">Invalid</span>
+                            </div>
+                        </div>
+
+                        <div class="item form-group" th:classappend="${#fields.hasErrors('lastname')}? 'has-error'">
+                            <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12">Last name <span class="required">*</span></label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" class="form-control col-md-7 col-xs-12" id="lastname" placeholder="Last name" th:field="*{lastname}" required="required"/>
+                                <span class="help-block" th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}">Invalid</span>
+                            </div>
+                        </div>
+
+                        <div class="item form-group" th:classappend="${#fields.hasErrors('email')}? 'has-error'">
+                            <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12">Email <span class="required">*</span></label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" class="form-control col-md-7 col-xs-12" id="email" placeholder="Email" th:field="*{email}" required="required"/>
+                                <span class="help-block" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Invalid</span>
+                            </div>
+                        </div>
+
+                        <div class="item form-group">
+                            <label for="track" class="control-label col-md-3 col-sm-3 col-xs-12">Select track</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                              <div id="track" class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                  <input type="radio" name="track" value="male"/> MPP 
+                                </label>
+                                <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                  <input type="radio" name="track" value="female"/> FPP
+                                </label>
+                              </div>
+                            </div>
+                        </div>
+
+                        <div class="item form-group">
+                            <label for="ptType" class="control-label col-md-3 col-sm-3 col-xs-12">Select practical training type</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                              <div id="ptt" class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                  <input type="radio" name="ptt" value="cpt"/> CPT 
+                                </label>
+                                <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                  <input type="radio" name="ptt" value="opt"/> OPT
+                                </label>
+                              </div>
+                            </div>
+                        </div>
+
+                        <div class="item form-group">
+                            <label for="resident" class="control-label col-md-3 col-sm-3 col-xs-12">US resident or not?</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                              <div id="resident" class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                  <input type="radio" name="resident" value="us"/> US resident 
+                                </label>
+                                <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                  <input type="radio" name="resident" value="notus"/> Not US resident
+                                </label>
+                              </div>
+                            </div>
+                        </div>
+
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-3">
+                            	<button id="send" type="submit" class="btn btn-success">Add</button>
+                                <a th:href="@{/student/}" class="btn btn-primary">Cancel</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+</body>
+</html>
