@@ -40,18 +40,18 @@ INSERT INTO course(id, code, name, level, max_student, prereq_course_id) VALUES
     Role Seed
  */
 INSERT INTO role(role) VALUES
-    ('USER'),
+    ('STUDENT'),
     ('ADMIN'),
     ('FACULTY');
 
 /*
     User Seed
  */
-INSERT INTO user(active, email, last_name, firstname, password) VALUES
-    (1, 'gerdenebat@mum.edu', 'Erdenebat', 'Ganzorig', '$2a$10$8NFDu5a1mhVOiHavtl2cbOPXKTQNw2/9PEwJF1xhZvhyBj4mJrY4O'),
-    (2, 'egalsandorj@mum.edu', 'Galsandorj', 'Enkhbayasgalan', '$2a$10$8NFDu5a1mhVOiHavtl2cbOPXKTQNw2/9PEwJF1xhZvhyBj4mJrY4O'),
-    (3, 'student@mum.edu', 'Doe', 'John', '$2a$10$8NFDu5a1mhVOiHavtl2cbOPXKTQNw2/9PEwJF1xhZvhyBj4mJrY4O'),
-    (4, 'faculty@mum.edu', 'Nolle', 'Steve', '$2a$10$8NFDu5a1mhVOiHavtl2cbOPXKTQNw2/9PEwJF1xhZvhyBj4mJrY4O');
+INSERT INTO user(id, active, email, password, activation_token) VALUES
+    (1, TRUE, 'gerdenebat@mum.edu', '$2a$10$8NFDu5a1mhVOiHavtl2cbOPXKTQNw2/9PEwJF1xhZvhyBj4mJrY4O', '' ),
+    (2, TRUE, 'egalsandorj@mum.edu', '$2a$10$8NFDu5a1mhVOiHavtl2cbOPXKTQNw2/9PEwJF1xhZvhyBj4mJrY4O', '' ),
+    (3, FALSE, 'student@mum.edu', '$2a$10$8NFDu5a1mhVOiHavtl2cbOPXKTQNw2/9PEwJF1xhZvhyBj4mJrY4O', 'cc0af8d8-9339-4add-8b36-6167d30c56eb' ),
+    (4, TRUE, 'faculty@mum.edu', '$2a$10$8NFDu5a1mhVOiHavtl2cbOPXKTQNw2/9PEwJF1xhZvhyBj4mJrY4O', '' );
 
 /*
     User-Role Seed

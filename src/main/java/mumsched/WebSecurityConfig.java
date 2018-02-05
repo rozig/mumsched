@@ -1,5 +1,6 @@
 package mumsched;
 
+import mumsched.entity.UserRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -35,7 +36,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/register").permitAll()
-                .antMatchers("/dashboard").hasAuthority("ADMIN").anyRequest()
+                .antMatchers("/registerConfirm/*").permitAll()
+                .antMatchers("/dashboard").hasAnyAuthority(
+                    UserRoles.ADMIN.getValue(), UserRoles.FACULTY.getValue(), UserRoles.STUDENT.getValue()).anyRequest()
                 .authenticated().and().csrf().disable()
             .formLogin()
                 .loginPage("/login")
