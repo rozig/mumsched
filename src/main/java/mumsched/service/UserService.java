@@ -1,5 +1,6 @@
 package mumsched.service;
 
+import mumsched.entity.Student;
 import mumsched.entity.User;
 
 public interface UserService {
@@ -8,4 +9,6 @@ public interface UserService {
     public void save(User user);
 
     public User findByActivationToken(String token);
+
+    public void saveNewStudentUserWithProfile(User user, Student student);
 }
