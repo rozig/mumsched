@@ -1,10 +1,9 @@
 package mumsched.controller;
 
-import mumsched.entity.Role;
-import mumsched.entity.User;
-import mumsched.entity.UserRoles;
+import mumsched.entity.*;
 import mumsched.repository.RoleRepository;
 import mumsched.repository.UserRepository;
+import mumsched.service.EntryService;
 import mumsched.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailMessage;
@@ -13,11 +12,9 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -31,6 +28,8 @@ import java.util.UUID;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private EntryService entryService;
     @Autowired
     private RoleRepository roleRepo;
     @Autowired
@@ -52,31 +51,32 @@ public class UserController {
     public ModelAndView registration() {
         ModelAndView modelAndView = new ModelAndView();
         User user = new User();
+        Student profile = new Student();
         modelAndView.addObject("user", user);
+        modelAndView.addObject("profile", profile);
+        modelAndView.addObject("entries", entryService.findAll());
         modelAndView.setViewName("register");
         return modelAndView;
     }
 
     @RequestMapping(value="/register", method=RequestMethod.POST)
-    public ModelAndView createNewUser(@Valid User user, BindingResult bindingResult, WebRequest request) {
-        ModelAndView modelAndView = new ModelAndView();
+    public String createNewUser(@Valid @ModelAttribute("User") User user, BindingResult resultUser,
+                                @Valid @ModelAttribute("Profile") Student profile, BindingResult resultProfile,
+                                Model model,
+                                WebRequest request) {
 
         User userExists = userService.findByEmail(user.getEmail());
         if(userExists != null) {
-            bindingResult.rejectValue("email", "error.user", "There is already a user registered with the email provided");
+            resultUser.rejectValue("email", "error.user", "There is already a user registered with the email provided");
         }
-        if(bindingResult.hasErrors()) {
-            System.out.println(bindingResult.getAllErrors().toString());
-            modelAndView.setViewName("register");
-        } else {
+        if(!resultUser.hasErrors()) {
             String password = bCryptPasswordEncoder.encode(user.getPassword());
             user.setActivationToken(UUID.randomUUID().toString());
             user.setPassword(password);
             Role userRole = roleRepo.findByRole(UserRoles.STUDENT.getValue());
             user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
             userService.save(user);
-            modelAndView.addObject("message", "Student has been registered successfully");
-            modelAndView.setViewName("login");
+            userService.saveNewStudentUserWithProfile(user, profile);
 
             // send confirmation email to user
             String token = user.getActivationToken();
@@ -92,8 +92,12 @@ public class UserController {
             email.setSubject(subject);
             email.setText(message + " \r\n" + "http://localhost:8080" + confirmationUrl);
             mailSender.send(email);
+
+            // redirect
+            model.addAttribute("message", "Student has been registered successfully");
+            return "redirect:/login";
         }
-        return modelAndView;
+        return "register";
     }
 
     @RequestMapping(value = "/registerConfirm/{token}", method = RequestMethod.GET)
