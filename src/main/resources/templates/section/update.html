@@ -1,0 +1,91 @@
+<!DOCTYPE html >
+<html layout:decorator="layout/mainlayout"
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<th:block layout:fragment="content">
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Edit Section</h2>
+
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <form th:action="@{/section/update/{id}(id=${section.id})}" th:object="${section}"
+                          method="post" class="form-horizontal form-label-left">
+                        <input type="hidden" th:field="*{id}" />
+                        <th:block th:if="${#fields.hasErrors('${section.*}')}">
+                            <div class="alert alert-dismissable alert-danger">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <span th:text="${'Form contains errors. Please try again.'}">Test</span>
+                            </div>
+                        </th:block>
+                        <div class="item form-group" th:classappend="${#fields.hasErrors('building')}? 'has-error'">
+                            <label for="building" class="control-label col-md-3 col-sm-3 col-xs-12">Building<span class="required">*</span></label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" class="form-control col-md-7 col-xs-12" id="building" placeholder="Building" th:field="*{building}" required="required"/>
+                                <span class="help-block" th:if="${#fields.hasErrors('building')}" th:errors="*{building}">Invalid</span>
+                            </div>
+                        </div>
+                        <div class="item form-group" th:classappend="${#fields.hasErrors('roomNumber')}? 'has-error'">
+                            <label for="room-number" class="control-label col-md-3 col-sm-3 col-xs-12">Room Number<span class="required">*</span></label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" class="form-control col-md-7 col-xs-12" id="room-number" placeholder="Room Number" th:field="*{roomNumber}" required="required"/>
+                                <span class="help-block" th:if="${#fields.hasErrors('roomNumber')}" th:errors="*{roomNumber}">Invalid</span>
+                            </div>
+                        </div>
+                        <div class="item form-group" th:classappend="${#fields.hasErrors('block')}? 'has-error'">
+                            <label for="blocks" class="control-label col-md-3 col-sm-3 col-xs-12">Block</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <select class="form-control col-md-7 col-xs-12 select2" id="blocks" th:field="*{block}" required="required">
+                                    <option th:each="b : ${blocks}"
+                                            th:field="*{block}"
+                                            th:value="${b.id}"
+                                            th:text="${b.name}">Block name</option>
+                                </select>
+                                <span class="help-block" th:if="${#fields.hasErrors('block')}" th:errors="*{block}">Invalid</span>
+                            </div>
+                        </div>
+                        <div class="item form-group" th:classappend="${#fields.hasErrors('course')}? 'has-error'">
+                            <label for="courses" class="control-label col-md-3 col-sm-3 col-xs-12">Course</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <select class="form-control col-md-7 col-xs-12 select2" id="courses" th:field="*{course}" required="required">
+                                    <option th:each="c : ${courses}"
+                                            th:field="*{course}"
+                                            th:value="${c.id}"
+                                            th:text="${c.name}">Course name</option>
+                                </select>
+                                <span class="help-block" th:if="${#fields.hasErrors('course')}" th:errors="*{course}">Invalid</span>
+                            </div>
+                        </div>
+                        <div class="item form-group" th:classappend="${#fields.hasErrors('faculty')}? 'has-error'">
+                            <label for="faculties" class="control-label col-md-3 col-sm-3 col-xs-12">Faculty</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <select class="form-control col-md-7 col-xs-12 select2" id="faculties" th:field="*{faculty}" required="required">
+                                    <option th:each="f : ${faculties}"
+                                            th:field="*{faculty}"
+                                            th:value="${f.id}"
+                                            th:text="${f.firstname} + ' ' + ${f.lastname}">Faculty name</option>
+                                </select>
+                                <span class="help-block" th:if="${#fields.hasErrors('faculty')}" th:errors="*{faculty}">Invalid</span>
+                            </div>
+                        </div>
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-3">
+                                <button id="send" type="submit" class="btn btn-success">Save</button>
+                                <a th:href="@{/section/}" class="btn btn-primary">Cancel</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+</body>
+</html>
