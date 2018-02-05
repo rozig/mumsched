@@ -34,12 +34,13 @@ public class User {
     @Transient
     private String password;
 
-<<<<<<< HEAD
-    @NotEmpty(message="*Please provide your name")
+    @NotEmpty(message="*Please provide your first name")
     private String firstname;
-=======
+    
+    @NotEmpty(message="*Please provide your last name")
+    private String lastname;
+    
     private boolean active = false;
->>>>>>> master
 
     private String activationToken;
 
@@ -59,7 +60,6 @@ public class User {
         this.password = password;
     }
 
-<<<<<<< HEAD
     public String getFirstName() {
         return firstname;
     }
@@ -69,15 +69,13 @@ public class User {
     }
 
     public String getLastName() {
-        return lastName;
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastName(String lastname) {
+        this.lastname = lastname;
     }
-
-=======
->>>>>>> master
+    
     public String getEmail() {
         return email;
     }
