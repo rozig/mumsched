@@ -28,7 +28,7 @@ public class Section {
     private List<Student> enrolledStudents;
 
     @ManyToOne
-    @JoinColumn(name="faculty_id", nullable=false)
+    @JoinColumn(name="faculty_id", nullable=true)
     private Faculty faculty;
 
     @ManyToOne
