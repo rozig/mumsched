@@ -10,7 +10,7 @@ import java.util.List;
 @Service("sectionService")
 public class SectionServiceImpl implements SectionService {
     @Autowired
-    SectionRepository sectionRepository;\
+    SectionRepository sectionRepository;
 
     @Override
     public List<Section> findAll() {
