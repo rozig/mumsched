@@ -3,6 +3,9 @@ package mumsched.service;
 import mumsched.entity.Student;
 import mumsched.entity.User;
 import mumsched.repository.StudentRepository;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,4 +34,9 @@ public class StudentServiceImpl implements StudentService {
     public void delete(Long id) {
     	studentRepository.delete(id);
     }
+
+	@Override
+	public Student findByUser(User user) {
+		return studentRepository.findByUser(user);
+	}
 }

@@ -33,14 +33,6 @@ public class User {
     @NotEmpty(message = "*Please provide your password")
     @Transient
     private String password;
-
-    @NotEmpty(message="*Please provide your first name")
-    @Column(nullable = true)
-    private String firstname;
-    
-    @NotEmpty(message="*Please provide your last name")
-    @Column(nullable = true)
-    private String lastname;
     
     private boolean active = false;
 
@@ -60,22 +52,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getFirstName() {
-        return firstname;
-    }
-
-    public void setFirstName(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastName() {
-        return lastname;
-    }
-
-    public void setLastName(String lastname) {
-        this.lastname = lastname;
     }
     
     public String getEmail() {
