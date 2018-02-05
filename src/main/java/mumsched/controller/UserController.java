@@ -2,6 +2,7 @@ package mumsched.controller;
 
 import mumsched.entity.Role;
 import mumsched.entity.User;
+import mumsched.entity.UserRoles;
 import mumsched.repository.RoleRepository;
 import mumsched.repository.UserRepository;
 import mumsched.service.UserService;
@@ -71,7 +72,7 @@ public class UserController {
             String password = bCryptPasswordEncoder.encode(user.getPassword());
             user.setActivationToken(UUID.randomUUID().toString());
             user.setPassword(password);
-            Role userRole = roleRepo.findByRole("STUDENT");
+            Role userRole = roleRepo.findByRole(UserRoles.STUDENT.getValue());
             user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
             userService.save(user);
             modelAndView.addObject("message", "Student has been registered successfully");
@@ -98,16 +99,12 @@ public class UserController {
     @RequestMapping(value = "/registerConfirm/{token}", method = RequestMethod.GET)
     public String registrationConfirm(@PathVariable(value = "token") String token) {
 
-        System.out.println("Token: " +token);
         if (token != null && token.length() > 0) {
             User user = userService.findByActivationToken(token);
             if (user != null) {
                 user.setActive(true);
                 user.setActivationToken("");
                 userService.save(user);
-                System.out.println("User updated");
-            } else {
-                System.out.println("User not found");
             }
         }
 
