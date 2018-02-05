@@ -44,15 +44,29 @@
             <!-- sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
-                <ul class="nav side-menu">
+                <ul class="nav side-menu" th:if="${#authorization.expr('hasAuthority(''ADMIN'')') }">
                   <li><a href="/dashboard"><i class="fa fa-home"></i> Dashboard</a></li>
                   <li><a href="/course/"><i class="fa fa-edit"></i> Courses</a></li>
                   <li><a href="/student/"><i class="fa fa-desktop"></i> Students</a></li>
-                  <li><a href="/faculty"><i class="fa fa-table"></i> Faculties</a></li>
-                  <li><a href="/section"><i class="fa fa-bar-chart-o"></i> Sections</a></li>
-                  <li><a href="/schedule"><i class="fa fa-clone"></i> Schedules</a></li>
+                  <li><a href="/faculty/"><i class="fa fa-table"></i> Faculties</a></li>
+                  <li><a href="/section/"><i class="fa fa-bar-chart-o"></i> Sections</a></li>
+                  <li><a href="/schedule/"><i class="fa fa-clone"></i> Schedules</a></li>
                   <li><a href="/block/"><i class="fa fa-edit"></i> Blocks</a></li>
                   <li><a href="/entry/"><i class="fa fa-edit"></i> Entries</a></li>
+                  <li><a href="/changePassword/"><i class="fa fa-edit"></i> Change password</a></li>
+                </ul>
+                <ul class="nav side-menu" th:if="${#authorization.expr('hasAuthority(''FACULTY'')') }">
+                  <li><a href="/dashboard"><i class="fa fa-home"></i> Dashboard</a></li>
+                  <li><a href="/faculty/"><i class="fa fa-table"></i> My Profile</a></li>
+                  <li><a href="/schedule/"><i class="fa fa-clone"></i> View Schedule</a></li>
+                  <li><a href="/changePassword/"><i class="fa fa-edit"></i> Change password</a></li>
+                </ul>
+                <ul class="nav side-menu" th:if="${#authorization.expr('hasAuthority(''STUDENT'')') }">
+                  <li><a href="/dashboard"><i class="fa fa-home"></i> Dashboard</a></li>
+                  <li><a href="/student/"><i class="fa fa-desktop"></i> My Profile</a></li>
+                  <li><a href="/schedule/"><i class="fa fa-clone"></i> View Schedules</a></li>
+                  <li><a href="/entry/"><i class="fa fa-edit"></i> Entries</a></li>
+                  <li><a href="/changePassword/"><i class="fa fa-edit"></i> Change password</a></li>
                 </ul>
               </div>
             </div>
