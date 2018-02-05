@@ -46,7 +46,12 @@
               <div class="menu_section">
                 <ul class="nav side-menu" th:if="${#authorization.expr('hasAuthority(''ADMIN'')') }">
                   <li><a href="/dashboard"><i class="fa fa-home"></i> Dashboard</a></li>
-                  <li><a href="/course/"><i class="fa fa-edit"></i> Courses</a></li>
+                  <li><a><i class="fa fa-edit"></i> Courses <span class="fa fa-chevron-down"></span></a>
+                  	<ul class="nav child_menu">
+                  	  <li><a href="/course/">Course list</a></li>
+                      <li><a href="/course/prereq">Prerequisite courses</a></li>
+                    </ul>
+                  </li>
                   <li><a href="/student/"><i class="fa fa-desktop"></i> Students</a></li>
                   <li><a href="/faculty/"><i class="fa fa-table"></i> Faculties</a></li>
                   <li><a href="/section/"><i class="fa fa-bar-chart-o"></i> Sections</a></li>
