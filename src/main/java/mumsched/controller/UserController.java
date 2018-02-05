@@ -97,6 +97,9 @@ public class UserController {
             model.addAttribute("message", "Student has been registered successfully");
             return "redirect:/login";
         }
+        model.addAttribute("user", user);
+        model.addAttribute("profile", profile);
+        model.addAttribute("entries", entryService.findAll());
         return "register";
     }
 
