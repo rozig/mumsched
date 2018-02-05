@@ -1,0 +1,59 @@
+<!DOCTYPE html >
+<html layout:decorator="layout/mainlayout"
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<th:block layout:fragment="content">
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Section details</h2>
+
+                <a th:href="@{/section/}" class="btn btn-info pull-right" role="button">Back</a>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th scope="row">ID</th>
+                        <td th:text="${section.id}"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Building</th>
+                        <td th:text="${section.building}"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Room Number</th>
+                        <td th:text="${section.roomNumber}"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Block</th>
+                        <td>
+                            <a th:href="@{/block/read/{id}(id=${section.block.id})}" th:text="${section.block.name}"></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Course</th>
+                        <td>
+                            <a th:href="@{/course/read/{id}(id=${section.course.id})}" th:text="${section.course.name}"></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Faculty</th>
+                        <td>
+                            <a th:href="@{/faculty/read/{id}(id=${section.faculty.id})}" th:text="${section.faculty.firstname} + ' ' + ${section.faculty.lastname}"></a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</th:block>
+
+</body>
+</html>

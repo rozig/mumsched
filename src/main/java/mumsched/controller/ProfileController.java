@@ -5,16 +5,25 @@ import mumsched.entity.User;
 import mumsched.entity.UserRoles;
 import mumsched.service.FacultyService;
 import mumsched.service.StudentService;
+import mumsched.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.Collection;
+
 @Controller
 @RequestMapping(path = "/profile")
 public class ProfileController {
+
+    @Autowired
+    UserService userService;
 
     @Autowired
     StudentService studentService;
@@ -25,13 +34,16 @@ public class ProfileController {
     @RequestMapping(value="/", method= RequestMethod.GET)
     public String myProfile(Model model) {
 
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String email = ((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        User user = userService.findByEmail(email);
 
         Profile profile;
 
-        if (user.getRoles().contains(UserRoles.STUDENT.getValue())) {
+        Collection<? extends GrantedAuthority> authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+
+        if (authorities.contains(new SimpleGrantedAuthority(UserRoles.STUDENT.getValue()))) {
             profile = studentService.findByUser(user);
-        } else if (user.getRoles().contains(UserRoles.FACULTY.getValue())) {
+        } else if (authorities.contains(new SimpleGrantedAuthority(UserRoles.FACULTY.getValue()))) {
             profile = facultyService.findByUser(user);
         } else {
             return "redirect:/dashboard";

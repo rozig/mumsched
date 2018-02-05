@@ -35,8 +35,8 @@ public class StudentServiceImpl implements StudentService {
     	studentRepository.delete(id);
     }
 
-	@Override
-	public Student findByUser(User user) {
-		return studentRepository.findByUser(user);
-	}
+    @Override
+    public Student findByUser(User user) {
+        return studentRepository.findByUser(user);
+    }
 }
