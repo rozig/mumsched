@@ -35,9 +35,11 @@ public class User {
     private String password;
 
     @NotEmpty(message="*Please provide your first name")
+    @Column(nullable = true)
     private String firstname;
     
     @NotEmpty(message="*Please provide your last name")
+    @Column(nullable = true)
     private String lastname;
     
     private boolean active = false;
