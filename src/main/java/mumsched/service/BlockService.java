@@ -10,4 +10,6 @@ public interface BlockService {
     Block save(Block block);
     Block findOne(Long id);
     void delete(Long id);
+    
+    public List<Block> findBlocksByEntryId(Long entryId);
 }

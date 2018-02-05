@@ -36,4 +36,9 @@ public class BlockServiceImpl implements BlockService {
     public void delete(Long id) {
         blockRepository.delete(id);
     }
+    
+    @Override
+    public List<Block> findBlocksByEntryId(Long entryId) {
+        return blockRepository.findBlocksByEntryId(entryId);
+    }
 }
