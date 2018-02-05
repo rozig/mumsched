@@ -1,8 +1,6 @@
 package mumsched.controller;
 
-import mumsched.entity.Profile;
-import mumsched.entity.User;
-import mumsched.entity.UserRoles;
+import mumsched.entity.*;
 import mumsched.service.FacultyService;
 import mumsched.service.StudentService;
 import mumsched.service.UserService;
@@ -37,14 +35,22 @@ public class ProfileController {
         String email = ((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
         User user = userService.findByEmail(email);
 
-        Profile profile;
+        Profile profile = new Profile();
 
         Collection<? extends GrantedAuthority> authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
 
         if (authorities.contains(new SimpleGrantedAuthority(UserRoles.STUDENT.getValue()))) {
-            profile = studentService.findByUser(user);
+            Student student = studentService.findByUser(user);
+            if (student != null) {
+                profile = student;
+                model.addAttribute("student", student);
+            }
         } else if (authorities.contains(new SimpleGrantedAuthority(UserRoles.FACULTY.getValue()))) {
-            profile = facultyService.findByUser(user);
+            Faculty faculty = facultyService.findByUser(user);
+            if (faculty != null) {
+                profile = faculty;
+                model.addAttribute("faculty", faculty);
+            }
         } else {
             return "redirect:/dashboard";
         }
