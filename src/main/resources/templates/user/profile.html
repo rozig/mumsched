@@ -1,0 +1,49 @@
+<!DOCTYPE html >
+<html layout:decorator="layout/mainlayout"
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<th:block layout:fragment="content">
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>My Profile</h2>
+
+                <a th:href="@{/dashboard/}" class="btn btn-info pull-right" role="button">Back</a>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th scope="row">ID</th>
+                        <td th:text="${profile.id}"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">First Name</th>
+                        <td th:text="${profile.firstname}"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Last Name</th>
+                        <td th:text="${profile.lastname}"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Email</th>
+                        <td th:text="${profile.email}"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Bio</th>
+                        <td th:text="${profile.description}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</th:block>
+
+</body>
+</html>

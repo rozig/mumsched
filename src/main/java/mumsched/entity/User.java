@@ -53,26 +53,6 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
-<<<<<<< HEAD
-    public String getFirstName() {
-        return firstname;
-    }
-
-    public void setFirstName(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-=======
->>>>>>> origin/enk
     public String getEmail() {
         return email;
     }
