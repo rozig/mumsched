@@ -12,18 +12,20 @@ INSERT INTO entry(id, name, date, mpp_number, fpp_number, opt_number) VALUES
     Course Seed
  */
 INSERT INTO course(id, code, name, level, max_student, prereq_course_id) VALUES
-    (1, 'CS472',  'Web Programming', 400, 25, null),
-    (2, 'CS525',  'Advanced Software Development', 500, 25, null),
-    (3, 'CS544',  'Enterprise Architecture', 500, 25, 1),
-    (4, 'CS545',  'Web Application Architecture', 500, 25, 1),
-    (5, 'CS435',  'Algorithms', 400, 25, null),
-    (6, 'CS471',  'Parallel Programming', 400, 25, null),
-    (7, 'CS473',  'Mobile Device Programming', 400, 25, null),
-    (8, 'CS522',  'Big Data', 500, 25, null),
-    (9, 'CS572',  'Modern Web Applications', 500, 25, 1),
-    (10, 'CS523', 'Big Data Technology', 500, 25, null),
-    (11, 'CS582', 'Machine Learning', 500, 25, null),
-    (12, 'CS425', 'Software Engineering', 400, 25, null);
+    (1, 'CS390', 'Fundamental Programming Practices', 400, 25, mull),
+    (2, 'CS401', 'Modern Programming Practices', 400, 25, null),
+    (3, 'CS472',  'Web Programming', 400, 25, null),
+    (4, 'CS525',  'Advanced Software Development', 500, 25, null),
+    (5, 'CS544',  'Enterprise Architecture', 500, 25, 1),
+    (6, 'CS545',  'Web Application Architecture', 500, 25, 1),
+    (7, 'CS435',  'Algorithms', 400, 25, null),
+    (8, 'CS471',  'Parallel Programming', 400, 25, null),
+    (9, 'CS473',  'Mobile Device Programming', 400, 25, null),
+    (10, 'CS522',  'Big Data', 500, 25, null),
+    (11, 'CS572',  'Modern Web Applications', 500, 25, 1),
+    (12, 'CS523', 'Big Data Technology', 500, 25, null),
+    (13, 'CS582', 'Machine Learning', 500, 25, null),
+    (14, 'CS425', 'Software Engineering', 400, 25, null);
 
 
 
