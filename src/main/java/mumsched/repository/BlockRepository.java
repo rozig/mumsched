@@ -11,4 +11,7 @@ public interface BlockRepository extends JpaRepository<Block, Long> {
 
     @Query("SELECT c FROM Block c WHERE c.id <> :id")
     public List<Block> findAllExcept(@Param("id") Long id);
+    
+    List<Block> findByStartDateAfter(Long id);
+    List<Block> findByStartDateBefore(Long id);
 }

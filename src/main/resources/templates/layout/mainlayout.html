@@ -69,7 +69,9 @@
                 <ul class="nav side-menu" th:if="${#authorization.expr('hasAuthority(''STUDENT'')') }">
                   <li><a href="/dashboard"><i class="fa fa-home"></i> Dashboard</a></li>
                   <li><a href="/profile/"><i class="fa fa-desktop"></i> My Profile</a></li>
+                  <li><a href="/course/prereq">Prerequisite courses</a></li>
                   <li><a href="/schedule/"><i class="fa fa-clone"></i> View Schedules</a></li>
+                  <li><a href="/registersection/"><i class="fa fa-clone"></i> Register courses</a></li>
                   <li><a href="/changePassword/"><i class="fa fa-edit"></i> Change password</a></li>
                 </ul>
               </div>
