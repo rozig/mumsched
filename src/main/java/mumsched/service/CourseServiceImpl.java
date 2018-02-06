@@ -36,4 +36,9 @@ public class CourseServiceImpl implements CourseService {
     public void delete(Long id) {
         courseRepository.delete(id);
     }
+
+	@Override
+	public List<Course> findAllPrereq() {
+		return courseRepository.findByPreRequisiteNotNull();
+	}
 }

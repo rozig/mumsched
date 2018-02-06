@@ -29,6 +29,16 @@ public class CourseController {
         modelAndView.setViewName("course/index");
         return modelAndView;
     }
+    
+    @RequestMapping(value = "/prereq", method = RequestMethod.GET)
+    public ModelAndView prereq() {
+        List<Course> courses = courseService.findAllPrereq();
+        
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("courses", courses);
+        modelAndView.setViewName("course/prereq");
+        return modelAndView;
+    }
 
     @RequestMapping(value = "/read/{id}", method = RequestMethod.GET)
     public String read(@PathVariable(value = "id") Long id, Model model) {
