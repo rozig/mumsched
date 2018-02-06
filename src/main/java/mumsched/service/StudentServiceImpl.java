@@ -3,10 +3,11 @@ package mumsched.service;
 import mumsched.entity.Student;
 import mumsched.entity.User;
 import mumsched.repository.StudentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service("studentService")
 public class StudentServiceImpl implements StudentService {
@@ -31,7 +32,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void delete(Long id) {
-        studentRepository.delete(id);
+    	studentRepository.delete(id);
     }
 
     @Override

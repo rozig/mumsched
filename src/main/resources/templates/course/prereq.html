@@ -8,10 +8,7 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Schedule</h2>
-
-                <a th:href="@{/section/new}" class="btn btn-success pull-right" role="button"><i class="fa fa-plus"></i> Add new section</a>
-
+                <h2>Prerequisite courses list</h2>
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
@@ -19,23 +16,17 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>Building</th>
-                        <th>Room Number</th>
-                        <th>Course Name</th>
-                        <th></th>
+                        <th>Code</th>
+                        <th>Name</th>
+                        <th>Prerequisite</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="section : ${sections}">
-                        <th scope="row" th:text="${section.id}"></th>
-                        <td th:text="${section.building}"></td>
-                        <td th:text="${section.roomNumber}"></td>
-                        <td th:text="${section.course.name}"></td>
-                        <td>
-                            <a th:href="@{/section/read/{id}(id=${section.id})}" class="btn btn-sm btn-info">Details</a>
-                            <a th:href="@{/section/edit/{id}(id=${section.id})}" class="btn btn-sm btn-primary">Edit</a>
-                            <button class="delete btn btn-sm btn-danger" th:attr="data-id=${section.id}">Remove</button>
-                        </td>
+                    <tr th:each="course,iterStat : ${courses}">
+                        <th th:text="${iterStat.count}"></th>
+                        <td th:text="${course.code}"></td>
+                        <td th:text="${course.name}"></td>
+                        <td th:text="${course.preRequisite.name}"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -73,7 +64,7 @@
                 console.log(id);
                 if (id && confirm('Confirm delete')) {
                     $.ajax({
-                        url: '/section/delete/' + id,
+                        url: '/course/delete/' + id,
                         method: 'DELETE'
                     }).done(function (response) {
                         console.log("success", response);
