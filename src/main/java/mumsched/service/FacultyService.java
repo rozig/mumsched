@@ -5,4 +5,5 @@ import mumsched.entity.User;
 
 public interface FacultyService {
     Faculty findByUser(User user);
+    public void save(Faculty faculty);
 }

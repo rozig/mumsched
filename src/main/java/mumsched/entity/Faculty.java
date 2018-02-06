@@ -30,6 +30,10 @@ public class Faculty extends Profile {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public List<Course> getCourses() {
         return courses;
     }
