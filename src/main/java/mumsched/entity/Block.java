@@ -24,11 +24,7 @@ public class Block {
     private LocalDate endDate;
 
     @ManyToMany(
-        fetch=FetchType.LAZY,
-        cascade={
-            CascadeType.PERSIST,
-            CascadeType.MERGE
-        }
+        fetch=FetchType.LAZY
     )
     @JoinTable(
         name="entry_blocks",
@@ -52,6 +48,10 @@ public class Block {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public LocalDate getStartDate() {

@@ -1,55 +1,130 @@
 <!DOCTYPE html >
-<html layout:decorator="shared/homelayout"
-	xmlns:th="http://www.thymeleaf.org">
+<html layout:decorator="layout/mainlayout"
+      xmlns:th="http://www.thymeleaf.org">
 <body>
-	<th:block layout:fragment="header">
-		<link rel="stylesheet" type="text/css" th:href="@{/css/studentedit.css}" />
-	</th:block>
-	
-	<th:block layout:fragment="content">
-			
-		<h2>Student Info</h2> <br/>
-	
-		<form class="form-horizontal" action="/student" method="POST" th:object="${student}">
-		      <input type="hidden" name="id" th:value="${student.id}" />
-		  <div class="form-group">
-		    <label class="control-label col-sm-2" for="firstname">First name:</label>
-		     <label th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"
-									class="validation-message"></label>
-		    <div class="col-sm-10"> 
-		      <input type="text" class="form-control" id="firstname" name="firstName"  th:field="*{firstName}">
-		    </div>
-		  </div>
-		  <div class="form-group">
-		    <label class="control-label col-sm-2" for="lastname">Last name:</label>
-		     <label th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
-									class="validation-message"></label>
-		    <div class="col-sm-10"> 
-		      <input type="text" class="form-control" id="lastname" name="lastName"  th:value="${student.lastName}">
-		    </div>
-		  </div>
-		  <div class="form-group">
-		    <label class="control-label col-sm-2" for="email">Email:</label>
-		     <label th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
-									class="validation-message"></label>
-									
-		    <div class="col-sm-10">
-		      <input type="email" class="form-control" id="email" name="email"  th:value="${student.email}">
-		    </div>
-		  </div>
-		  <div class="form-group"> 
-		    <div class="col-sm-offset-2 col-sm-10">
-		      <button type="submit" class="btn btn-default">Submit</button>
-		    </div>
-		  </div>
-		</form>
-		<br/>
-		
-		<a href="/students">Student List</a>
-	</th:block>
-	
-	<th:block layout:fragment="footer">
-	</th:block>
-	
+
+<th:block layout:fragment="content">
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Update Student Info</h2>
+
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+
+                    <form th:action="@{/student/update}" method="post" class="form-horizontal form-label-left">
+                    	<input type="hidden" id="id" th:field="*{student.id}"/>
+                    	<input type="hidden" th:field="*{student.user.password}"/>
+                    	<input type="hidden" th:field="*{student.user.id}"/>
+                        <div class="item form-group" th:classappend="${#fields.hasErrors('student.entry')}? 'has-error'">
+                            <label for="entry" class="control-label col-md-3 col-sm-3 col-xs-12">Entry<span class="required">*</span></label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <select class="form-control select2 col-md-7 col-xs-12" id="entry" th:field="*{student.entry}">
+                                    <option th:each="e : ${entries}"
+                                            th:value="${e.id}"
+                                            th:text="${e.name}">Entry name</option>
+                                </select>
+                                <span class="help-block" th:if="${#fields.hasErrors('student.entry')}" th:errors="*{student.entry}">Invalid</span>
+                            </div>
+                        </div>
+
+                        <div class="item form-group" th:classappend="${#fields.hasErrors('student.firstname')}? 'has-error'">
+                            <label for="firstname" class="control-label col-md-3 col-sm-3 col-xs-12">First name<span class="required">*</span></label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" class="form-control col-md-7 col-xs-12" id="firstname" placeholder="First name" th:field="*{student.firstname}" required="required"/>
+                            </div>
+                        </div>
+
+                        <div class="item form-group" th:classappend="${#fields.hasErrors('student.lastname')}? 'has-error'">
+                            <label for="lastname" class="control-label col-md-3 col-sm-3 col-xs-12">Last name<span class="required">*</span></label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" class="form-control col-md-7 col-xs-12" id="lastname" placeholder="Last name" th:field="*{student.lastname}" required="required"/>
+                                <span class="help-block" th:if="${#fields.hasErrors('student.lastname')}" th:errors="*{student.lastname}">Invalid</span>
+                            </div>
+                        </div>
+
+                        <div class="item form-group" th:classappend="${#fields.hasErrors('student.description')}? 'has-error'">
+                            <label for="description" class="control-label col-md-3 col-sm-3 col-xs-12">Description<span class="required">*</span></label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" class="form-control col-md-7 col-xs-12" id="description" placeholder="Description" th:field="*{student.description}" required="required"/>
+                                <span class="help-block" th:if="${#fields.hasErrors('student.description')}" th:errors="*{student.description}">Invalid</span>
+                            </div>
+                        </div>
+
+                        <div class="item form-group" th:classappend="${#fields.hasErrors('student.user.email')}? 'has-error'">
+                            <label for="email" class="control-label col-md-3 col-sm-3 col-xs-12">Email<span class="required">*</span></label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="email" class="form-control col-md-7 col-xs-12" id="email" placeholder="Email" th:field="*{student.user.email}" required="required"/>
+                                <span class="help-block" th:if="${#fields.hasErrors('student.user.email')}" th:errors="*{student.user.email}">Invalid</span>
+                            </div>
+                        </div>
+
+                        <div class="item form-group" th:classappend="${#fields.hasErrors('student.birthDate')}? 'has-error'">
+                            <label for="birth-date" class="control-label col-md-3 col-sm-3 col-xs-12">Birth date</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="date" class="form-control col-md-7 col-xs-12" id="birth-date" placeholder="Birth Date" th:field="*{student.birthDate}" />
+                                <span class="help-entry" th:if="${#fields.hasErrors('student.birthDate')}" th:errors="*{student.birthDate}">Invalid</span>
+                            </div>
+                        </div>
+
+                        <div class="item form-group">
+                            <label for="track" class="control-label col-md-3 col-sm-3 col-xs-12">Select track</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                              <div id="track" class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                  <input type="radio" th:field="*{student.track}" value="1"/> MPP
+                                </label>
+                                <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                  <input type="radio" th:field="*{student.track}" value="0"/> FPP
+                                </label>
+                              </div>
+                            </div>
+                        </div>
+
+                        <div class="item form-group">
+                            <label for="ptType" class="control-label col-md-3 col-sm-3 col-xs-12">Select practical training type</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                              <div id="ptType" class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                  <input type="radio" th:field="*{student.ptType}" value="0"/> CPT
+                                </label>
+                                <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                  <input type="radio" th:field="*{student.ptType}" value="1"/> OPT
+                                </label>
+                              </div>
+                            </div>
+                        </div>
+
+                        <div class="item form-group">
+                            <label for="resident" class="control-label col-md-3 col-sm-3 col-xs-12">US resident or not?</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                              <div id="resident" class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                  <input type="radio" th:field="*{student.isUSResident}" value="1"/> US resident
+                                </label>
+                                <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                  <input type="radio" th:field="*{student.isUSResident}" value="0"/> Non-US resident
+                                </label>
+                              </div>
+                            </div>
+                        </div>
+
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-3">
+                            	<button id="send" type="submit" class="btn btn-success">Update</button>
+                                <a th:href="@{/student/}" class="btn btn-primary">Cancel</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+
 </body>
 </html>

@@ -19,6 +19,10 @@ public class Role {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getRole() {
         return role;
     }

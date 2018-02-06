@@ -90,26 +90,54 @@ INSERT INTO course(id, code, name, level, max_student, prereq_course_id) VALUES
     (10, 'CS523', 'Big Data Technology', 500, 25, null),
     (11, 'CS582', 'Machine Learning', 500, 25, null),
     (12, 'CS425', 'Software Engineering', 400, 25, null),
-    (13, 'FPP', 'Fundamental Programming Practices', 400, 25, null),
-    (14, 'MPP', 'Modern Programming Practices', 500, 25, null);
+    (13, 'CS390', 'Fundamental Programming Practices', 400, 25, null),
+    (14, 'CS401', 'Modern Programming Practices', 500, 25, null);
+
+
+/*
+    Role Seed
+ */
+INSERT INTO role(role) VALUES
+    ('STUDENT'),
+    ('ADMIN'),
+    ('FACULTY');
+
+
+
+/*
+    User Seed
+ */
+INSERT INTO user(id, active, email, password, activation_token) VALUES
+    (1, TRUE, 'gerdenebat@mum.edu', '$2a$10$8NFDu5a1mhVOiHavtl2cbOPXKTQNw2/9PEwJF1xhZvhyBj4mJrY4O', '' ),
+    (2, TRUE, 'egalsandorj@mum.edu', '$2a$10$8NFDu5a1mhVOiHavtl2cbOPXKTQNw2/9PEwJF1xhZvhyBj4mJrY4O', '' ),
+    (3, TRUE, 'student@mum.edu', '$2a$10$8NFDu5a1mhVOiHavtl2cbOPXKTQNw2/9PEwJF1xhZvhyBj4mJrY4O', 'cc0af8d8-9339-4add-8b36-6167d30c56eb' ),
+    (4, TRUE, 'faculty@mum.edu', '$2a$10$8NFDu5a1mhVOiHavtl2cbOPXKTQNw2/9PEwJF1xhZvhyBj4mJrY4O', '' ),
+    (5, FALSE, 'student2@mum.edu', '$2a$10$8NFDu5a1mhVOiHavtl2cbOPXKTQNw2/9PEwJF1xhZvhyBj4mJrY4O', 'cc0af8d8-9339-4add-8b36-6167d30c56eb' )
+;
 
 
 /*
     Faculty Seed
  */
+
 INSERT INTO faculty(id, description, email, firstname, lastname, user_id) VALUES
     (1, "Mr President mfuckers", "gerdenebat@mum.edu", "Ganzorig", "Erdenebat", 1),
     (2, null, "faculty1@mum.edu", "Faculty1 firstname", "Faculty1 lastname", 5),
     (3, null, "faculty2@mum.edu", "Faculty2 firstname", "Faculty2 lastname", 6),
     (4, null, "faculty3@mum.edu", "Faculty3 firstname", "Faculty3 lastname", 7),
     (5, null, "faculty4@mum.edu", "Faculty4 firstname", "Faculty4 lastname", 8);
-    
+
 
 /*
     Student Seed
  */
-INSERT INTO student(id, description, email, firstname, lastname, birth_date, isusresident, pt_type, track, user_id, entry_id) VALUES
-    (1, null, "student1@mum.edu", "Ganzorig", "Ganbat", "1995-06-01 00:00:00", 0, 0, 1, 4, 2);
+INSERT INTO user_role(user_id, role_id) VALUES
+    (1, 2),
+    (2, 2),
+    (3, 1),
+    (4, 3),
+    (5, 1)
+;
 
 
 /*
@@ -150,3 +178,17 @@ INSERT INTO section(building, room_number, block_id, course_id, faculty_id) VALU
     ("Mc Laughlin", "109", 6, 3, 2),
     ("Mc Laughlin", "208", 6, 4, 3)
     ;
+
+/*
+    Faculty Course Seed
+ */
+INSERT INTO faculty_courses(faculty_id, course_id) VALUES
+    (2, 12),
+    (2, 13);
+
+/*
+    Student Seed
+ */
+INSERT INTO student(id, description, firstname, lastname, birth_date, isusresident, pt_type, track, user_id, entry_id) VALUES
+    (1, '', 'Student1', 'John', '1988-01-21', FALSE, TRUE, TRUE, 3, 2)
+;

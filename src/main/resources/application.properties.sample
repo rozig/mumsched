@@ -25,12 +25,12 @@ spring.queries.roles-query=SELECT u.email, r.role FROM user u INNER JOIN user_ro
 
 ################### JavaMail Configuration ##########################
 support.email=USERNAME@gmail.com
-spring.mail.host=smtp.gmail.com
-spring.mail.port=465
-spring.mail.protocol=smtps
-spring.mail.username=EMAIL
-spring.mail.password=PASSWORD
-spring.mail.properties.mail.transport.protocol=smtps
-spring.mail.properties.mail.smtps.auth=true
-spring.mail.properties.mail.smtps.starttls.enable=true
-spring.mail.properties.mail.smtps.timeout=8000
+spring.mail.host=smtp.mailtrap.io
+spring.mail.port=2525
+spring.mail.protocol=smtp
+spring.mail.username=d8be977e535a59
+spring.mail.password=850f937a0ee6c0
+spring.mail.properties.mail.transport.protocol=smtp
+spring.mail.properties.mail.smtp.auth=true
+#spring.mail.properties.mail.smtps.starttls.enable=true
+#spring.mail.properties.mail.smtps.timeout=8000

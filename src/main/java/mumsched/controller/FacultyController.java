@@ -26,20 +26,20 @@ import java.util.UUID;
 import mumsched.AjaxResponse;
 
 import mumsched.service.EntryService;
-import mumsched.service.StudentService;
+import mumsched.service.FacultyService;
 import mumsched.service.UserService;
 import mumsched.entity.Entry;
-import mumsched.entity.Student;
+import mumsched.entity.Faculty;
 import mumsched.entity.Role;
 import mumsched.entity.User;
 import mumsched.entity.UserRoles;
 import mumsched.repository.RoleRepository;
 
 @Controller
-@RequestMapping(path="/student")
-public class StudentController {
+@RequestMapping(path="/faculty")
+public class FacultyController {
     @Autowired
-    private StudentService studentServ;
+    private FacultyService facultyService;
     @Autowired
     private EntryService entryService;
     @Autowired
@@ -53,40 +53,39 @@ public class StudentController {
 
     @RequestMapping(value="/", method=RequestMethod.GET)
     public ModelAndView index() {
-        List<Student> students = studentServ.findAll();
+        List<Faculty> faculties = facultyService.findAll();
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("students", students);
-        modelAndView.setViewName("student/index");
+        modelAndView.addObject("faculties", faculties);
+        modelAndView.setViewName("faculty/index");
         return modelAndView;
     }
 
     @RequestMapping(value="/read/{id}", method=RequestMethod.GET)
     public String read(@PathVariable(value="id") Long id, Model model) {
 
-        Student student = studentServ.findOne(id);
-        if(student == null) {
+        Faculty faculty = facultyService.findOne(id);
+        if(faculty == null) {
             // not found
             return "404";
         }
-        model.addAttribute("student", student);
+        model.addAttribute("faculty", faculty);
 
-        return "student/read";
+        return "faculty/read";
     }
 
     @RequestMapping(value="/new", method=RequestMethod.GET)
-    public ModelAndView newStudent(Model model) {
+    public ModelAndView newFaculty(Model model) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("student", new Student());
+        modelAndView.addObject("faculty", new Faculty());
         modelAndView.addObject("user", new User());
-        modelAndView.addObject("entries", entryService.findAll());
-        modelAndView.setViewName("student/create");
+        modelAndView.setViewName("faculty/create");
         return modelAndView;
     }
 
     @RequestMapping(value="/create", method=RequestMethod.POST)
     public String create(
-        @Valid @ModelAttribute("Student") Student student,
-        BindingResult bindingResultStudent,
+        @Valid @ModelAttribute("Faculty") Faculty faculty,
+        BindingResult bindingResultFaculty,
         @Valid @ModelAttribute("User") User user,
         BindingResult bindingResultUser,
         Model model, WebRequest request
@@ -99,10 +98,10 @@ public class StudentController {
             String password = bCryptPasswordEncoder.encode(user.getPassword());
             user.setPassword(password);
             user.setActive(true);
-            Role userRole = roleRepo.findByRole(UserRoles.STUDENT.getValue());
+            Role userRole = roleRepo.findByRole(UserRoles.FACULTY.getValue());
             user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
             userService.save(user);
-            userService.saveNewStudentUserWithProfile(user, student);
+            userService.saveNewFacultyUserWithProfile(user, faculty);
 
             String recipientAddress = user.getEmail();
             String subject = "Welcome to the MUMSched";
@@ -117,63 +116,60 @@ public class StudentController {
             mailSender.send(email);
 
             // redirect
-            model.addAttribute("message", "Student has been registered successfully");
-            return "redirect:/student/";
+            model.addAttribute("message", "Faculty has been registered successfully");
+            return "redirect:/faculty/";
         }
+        System.out.println(bindingResultUser.getAllErrors().toString());
         model.addAttribute("user", user);
-        model.addAttribute("student", student);
-        model.addAttribute("entries", entryService.findAll());
-        return "student/create";
+        model.addAttribute("faculty", faculty);
+        return "faculty/create";
     }
 
     @RequestMapping(value="/edit/{id}", method=RequestMethod.GET)
     public String edit(@PathVariable(value="id") Long id, Model model) {
-        Student student = studentServ.findOne(id);
-        if(student == null) {
+        Faculty faculty = facultyService.findOne(id);
+        if(faculty == null) {
             // not found
             return "404";
         }
-        model.addAttribute("student", student);
-        model.addAttribute("entries", entryService.findAll());
+        model.addAttribute("faculty", faculty);
 
-        return "student/update";
+        return "faculty/update";
     }
 
     @RequestMapping(value="/update", method=RequestMethod.POST)
     public String update(
-        @Valid @ModelAttribute("student") Student student,
-        BindingResult resultStudent,
+        @Valid @ModelAttribute("faculty") Faculty faculty,
+        BindingResult resultFaculty,
         Model model, WebRequest request
     ) {
-        if(!resultStudent.hasErrors()) {
-            User user = student.getUser();
+        if(!resultFaculty.hasErrors()) {
+            User user = faculty.getUser();
             userService.save(user);
-            student.setUser(user);
-            studentServ.save(student);
+            facultyService.save(faculty);
 
             // redirect
-            model.addAttribute("message", "Student info has been updated successfully");
-            return "redirect:/student/";
+            model.addAttribute("message", "Faculty info has been updated successfully");
+            return "redirect:/faculty/";
         }
-        model.addAttribute("student", student);
-        model.addAttribute("entries", entryService.findAll());
-        return "student/update";
+        model.addAttribute("faculty", faculty);
+        return "faculty/update";
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody AjaxResponse delete(@PathVariable(value="id") Long id) {
-        Student student = studentServ.findOne(id);
-        Long userId = student.getUser().getId();
+        Faculty faculty = facultyService.findOne(id);
+        Long userId = faculty.getUser().getId();
         AjaxResponse response = new AjaxResponse();
-        if(student != null) {
+        if(faculty != null) {
             try {
-                studentServ.delete(id);
+                facultyService.delete(id);
                 userService.delete(userId);
                 response.success = true;
                 response.msg = "Successfully deleted.";
-            } catch (DataIntegrityViolationException ignore) {
+            } catch(DataIntegrityViolationException ignore) {
                 response.success = false;
-                response.msg = "Cannot remove student that is registered in active section.";
+                response.msg = "Cannot remove faculty that is registered in active section.";
             }
         }
         return response;
