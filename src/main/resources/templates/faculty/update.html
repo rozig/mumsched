@@ -51,6 +51,16 @@
                             </div>
                         </div>
 
+                        <div class="item form-group" th:classappend="${#fields.hasErrors('faculty.courses')}? 'has-error'">
+                            <label for="courses" class="control-label col-md-3 col-sm-3 col-xs-12">Courses</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <select class="form-control col-md-7 col-xs-12 select2" id="courses" th:field="*{faculty.courses}" multiple="multiple" required="required">
+                                    <option th:each="c : ${courses}" th:field="*{faculty.courses}" th:value="${c.id}" th:text="${c.name}">Course name</option>
+                                </select>
+                                <span class="help-block" th:if="${#fields.hasErrors('faculty.courses')}" th:errors="*{faculty.courses}">Invalid</span>
+                            </div>
+                        </div>
+
                         <div class="ln_solid"></div>
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-3">
