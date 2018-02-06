@@ -1,5 +1,6 @@
 package mumsched.repository;
 
+import mumsched.entity.Block;
 import mumsched.entity.Section;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -11,4 +12,6 @@ public interface SectionRepository extends JpaRepository<Section, Long> {
 
     @Query("SELECT s FROM Section s WHERE s.id <> :id")
     public List<Section> findAllExcept(@Param("id") Long id);
+    
+    List<Section> findByBlock(Block block);
 }

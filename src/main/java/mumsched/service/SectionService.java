@@ -1,5 +1,6 @@
 package mumsched.service;
 
+import mumsched.entity.Block;
 import mumsched.entity.Section;
 
 import java.util.List;
@@ -10,4 +11,6 @@ public interface SectionService {
     Section save(Section section);
     Section findOne(Long id);
     void delete(Long id);
+    
+    List<Section> findByBlock(Block block);
 }

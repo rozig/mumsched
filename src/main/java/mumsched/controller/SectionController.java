@@ -1,8 +1,6 @@
 package mumsched.controller;
 
 import mumsched.AjaxResponse;
-import mumsched.entity.Block;
-import mumsched.entity.Course;
 import mumsched.entity.Section;
 import mumsched.service.BlockService;
 import mumsched.service.CourseService;

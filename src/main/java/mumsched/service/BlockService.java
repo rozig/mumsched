@@ -10,4 +10,7 @@ public interface BlockService {
     Block save(Block block);
     Block findOne(Long id);
     void delete(Long id);
+    
+    List<Block> findByStartDateAfter(Long id);
+    List<Block> findByStartDateBefore(Long id);
 }

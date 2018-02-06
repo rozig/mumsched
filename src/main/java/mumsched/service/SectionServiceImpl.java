@@ -1,5 +1,6 @@
 package mumsched.service;
 
+import mumsched.entity.Block;
 import mumsched.entity.Section;
 import mumsched.repository.SectionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +36,10 @@ public class SectionServiceImpl implements SectionService {
     @Override
     public void delete(Long id) {
         sectionRepository.delete(id);
+    }
+    
+    @Override
+    public List<Section> findByBlock(Block block){
+    	return sectionRepository.findByBlock(block);
     }
 }
