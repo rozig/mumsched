@@ -45,30 +45,8 @@ public class ScheduleController {
 		Entry entry = entryService.findOne(entryId);
 		// TODO check if this entry have schedules generated
 		
-		// TODO check if exist 
-		List<Block> blocks = blockService.findBlocksByEntryId(entryId);
-		for (int i = 0; i < blocks.size(); i++) {
-			// get section list in each block
-			List<Section> section = blocks.get(i).getSections();
-			// for section
-			for(int j=i;j<section.size();j++) {
-				// first block , calculate how many mpp/fpp students, assign mpp/fpp to sections
-				if(i==1) {
-					int mpp = entry.getMppNumber();
-					int fpp = entry.getFppNumber();
-				}
-				// second block , based on how many fpp sections, assign how many mpp sections
-				// based on how many mpp sections, crate how many 400-level
-				else if(i==2) {
-					
-				}else {
-					//other blocks 
-				}
-				
-				
-			}
-		}
-		//update 
+		// TODO check if exist MPP and FPP courses
+		
 	}
 
 }

@@ -1,23 +1,27 @@
 package mumsched.controller;
 
-import mumsched.AjaxResponse;
-import mumsched.entity.Block;
-import mumsched.entity.Course;
-import mumsched.entity.Section;
-import mumsched.service.BlockService;
-import mumsched.service.CourseService;
-import mumsched.service.SectionService;
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.validation.Valid;
-import java.util.List;
+import mumsched.AjaxResponse;
+import mumsched.entity.Section;
+import mumsched.service.BlockService;
+import mumsched.service.CourseService;
+import mumsched.service.SectionService;
 
 @Controller
 @RequestMapping(path = "/section")
