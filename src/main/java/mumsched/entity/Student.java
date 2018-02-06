@@ -43,6 +43,16 @@ public class Student extends Profile {
     )
     private List<Section> registeredSections = new ArrayList<>();
 
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @ManyToOne
     @JoinColumn(name="entry_id", nullable=false)
     private Entry entry;

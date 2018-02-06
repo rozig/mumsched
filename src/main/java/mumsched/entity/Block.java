@@ -54,6 +54,10 @@ public class Block {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public LocalDate getStartDate() {
         return startDate;
     }
