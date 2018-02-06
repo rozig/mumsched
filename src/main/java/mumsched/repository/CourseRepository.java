@@ -20,4 +20,6 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
     
     @Query("ELECT c1.* FROM Course c1,Course c2 WHERE c1.id <> c2.preRequisite order by c1.code,c1.preRequisite desc")
     public List<Course> findCourses();
+    
+    public List<Course> findByPreRequisiteNotNull();
 }
