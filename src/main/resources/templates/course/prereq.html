@@ -1,0 +1,92 @@
+<!DOCTYPE html >
+<html layout:decorator="layout/mainlayout"
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<th:block layout:fragment="content">
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Prerequisite courses list</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Code</th>
+                        <th>Name</th>
+                        <th>Prerequisite</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="course,iterStat : ${courses}">
+                        <th th:text="${iterStat.count}"></th>
+                        <td th:text="${course.code}"></td>
+                        <td th:text="${course.name}"></td>
+                        <td th:text="${course.preRequisite.name}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</th:block>
+
+
+<th:block layout:fragment="footer">
+    <script type="text/javascript" th:inline="javascript">
+        /*<![CDATA[*/
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+        $(document).ready(function () {
+            $(document).on('click', '.delete', function () {
+                var id = $(this).data('id');
+                var that = $(this);
+                console.log(id);
+                if (id && confirm('Confirm delete')) {
+                    $.ajax({
+                        url: '/course/delete/' + id,
+                        method: 'DELETE'
+                    }).done(function (response) {
+                        console.log("success", response);
+                        if (response.success) {
+                            toastr.success(response.msg);
+                            that.fadeOut("slow", function () {
+                                that.parent().parent().remove();
+                            });
+                        } else {
+                            toastr["error"](response.msg);
+                        }
+                    }).fail(function (error) {
+                        console.log("error", error);
+                    }).always(function () {
+                        //window.location.reload();
+                    });
+                }
+            })
+        });
+        /*]]>*/
+    </script>
+</th:block>
+
+</body>
+</html>
