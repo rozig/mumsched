@@ -1,0 +1,73 @@
+<!DOCTYPE html >
+<html layout:decorator="layout/mainlayout"
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<th:block layout:fragment="content">
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>New Faculty</h2>
+
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+
+                    <form th:action="@{/faculty/create}" method="post" class="form-horizontal form-label-left">
+                        <div class="item form-group" th:classappend="${#fields.hasErrors('faculty.firstname')}? 'has-error'">
+                            <label for="firstname" class="control-label col-md-3 col-sm-3 col-xs-12">First name<span class="required">*</span></label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" class="form-control col-md-7 col-xs-12" id="firstname" placeholder="First name" th:field="*{faculty.firstname}" required="required"/>
+                            </div>
+                        </div>
+
+                        <div class="item form-group" th:classappend="${#fields.hasErrors('faculty.lastname')}? 'has-error'">
+                            <label for="lastname" class="control-label col-md-3 col-sm-3 col-xs-12">Last name<span class="required">*</span></label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" class="form-control col-md-7 col-xs-12" id="lastname" placeholder="Last name" th:field="*{faculty.lastname}" required="required"/>
+                                <span class="help-block" th:if="${#fields.hasErrors('faculty.lastname')}" th:errors="*{faculty.lastname}">Invalid</span>
+                            </div>
+                        </div>
+
+                        <div class="item form-group" th:classappend="${#fields.hasErrors('faculty.description')}? 'has-error'">
+                            <label for="description" class="control-label col-md-3 col-sm-3 col-xs-12">Description<span class="required">*</span></label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" class="form-control col-md-7 col-xs-12" id="description" placeholder="Description" th:field="*{faculty.description}" required="required"/>
+                                <span class="help-block" th:if="${#fields.hasErrors('faculty.description')}" th:errors="*{faculty.description}">Invalid</span>
+                            </div>
+                        </div>
+
+                        <div class="item form-group" th:classappend="${#fields.hasErrors('user.email')}? 'has-error'">
+                            <label for="email" class="control-label col-md-3 col-sm-3 col-xs-12">Email<span class="required">*</span></label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="email" class="form-control col-md-7 col-xs-12" id="email" placeholder="Email" th:field="*{user.email}" required="required"/>
+                                <span class="help-block" th:if="${#fields.hasErrors('user.email')}" th:errors="*{user.email}">Invalid</span>
+                            </div>
+                        </div>
+
+                        <div class="item form-group" th:classappend="${#fields.hasErrors('user.password')}? 'has-error'">
+                            <label for="password" class="control-label col-md-3 col-sm-3 col-xs-12">Password<span class="required">*</span></label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="password" class="form-control col-md-7 col-xs-12" id="password" placeholder="Password" th:field="*{user.password}" required="required"/>
+                                <span class="help-block" th:if="${#fields.hasErrors('user.password')}" th:errors="*{user.password}">Invalid</span>
+                            </div>
+                        </div>
+
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-3">
+                                <button id="send" type="submit" class="btn btn-success">Add</button>
+                                <a th:href="@{/faculty/}" class="btn btn-primary">Cancel</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+</body>
+</html>

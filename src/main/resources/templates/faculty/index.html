@@ -8,9 +8,9 @@ xmlns:th="http://www.thymeleaf.org">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Student list</h2>
+                <h2>Faculty list</h2>
 
-                <a th:href="@{/student/new}" class="btn btn-success pull-right" role="button"><i class="fa fa-plus"></i> Add new student</a>
+                <a th:href="@{/faculty/new}" class="btn btn-success pull-right" role="button"><i class="fa fa-plus"></i> Add new faculty</a>
 
                 <div class="clearfix"></div>
             </div>
@@ -25,14 +25,14 @@ xmlns:th="http://www.thymeleaf.org">
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="student : ${students}">
-                            <th scope="row" th:text="${student.id}"></th>
-                            <td th:text="${student.firstname}"></td>
-                            <td th:text="${student.user.email}"></td>
+                        <tr th:each="faculty : ${faculties}">
+                            <th scope="row" th:text="${faculty.id}"></th>
+                            <td th:text="${faculty.firstname}"></td>
+                            <td th:text="${faculty.user.email}"></td>
                             <td>
-                                <a th:href="@{/student/read/{id}(id=${student.id})}" class="btn btn-sm btn-info">Details</a>
-                                <a th:href="@{/student/edit/{id}(id=${student.id})}" class="btn btn-sm btn-primary">Edit</a>
-                                <button class="delete btn btn-sm btn-danger" th:attr="data-id=${student.id}">Remove</button>
+                                <a th:href="@{/faculty/read/{id}(id=${faculty.id})}" class="btn btn-sm btn-info">Details</a>
+                                <a th:href="@{/faculty/edit/{id}(id=${faculty.id})}" class="btn btn-sm btn-primary">Edit</a>
+                                <button class="delete btn btn-sm btn-danger" th:attr="data-id=${faculty.id}">Remove</button>
                             </td>
                         </tr>
                     </tbody>
@@ -70,7 +70,7 @@ xmlns:th="http://www.thymeleaf.org">
                     console.log(id);
                     if (id && confirm('Confirm delete')) {
                         $.ajax({
-                            url: '/student/delete/' + id,
+                            url: '/faculty/delete/' + id,
                             method: 'DELETE'
                         }).done(function (response) {
                             console.log("success", response);

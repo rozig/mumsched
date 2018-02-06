@@ -34,11 +34,7 @@ public class Student extends Profile {
     private Boolean isUSResident;
 
     @ManyToMany(
-        fetch=FetchType.LAZY,
-        cascade={
-            CascadeType.PERSIST,
-            CascadeType.MERGE
-        }
+        fetch=FetchType.LAZY
     )
     @JoinTable(
         name="section_students",
@@ -46,6 +42,10 @@ public class Student extends Profile {
         inverseJoinColumns={@JoinColumn(name="section_id")}
     )
     private List<Section> registeredSections = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name="entry_id", nullable=false)
+    private Entry entry;
 
     @Override
     public Long getId() {
@@ -56,10 +56,6 @@ public class Student extends Profile {
     public void setId(Long id) {
         this.id = id;
     }
-
-    @ManyToOne
-    @JoinColumn(name="entry_id", nullable=false)
-    private Entry entry;
 
     public LocalDate getBirthDate() {
         return birthDate;

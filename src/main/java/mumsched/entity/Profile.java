@@ -17,11 +17,9 @@ public class Profile {
 
     protected String lastname;
 
-    protected String email;
-
     protected String description;
 
-    @OneToOne(cascade=CascadeType.ALL)
+    @OneToOne
     private User user;
 
     public Long getId() {
@@ -46,14 +44,6 @@ public class Profile {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getDescription() {

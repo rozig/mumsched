@@ -55,9 +55,9 @@ INSERT INTO user(id, active, email, password, activation_token) VALUES
 /*
     Faculty Seed
  */
-INSERT INTO faculty(id, description, email, firstname, lastname, user_id) VALUES
-    (1,'Mr President', 'gerdenebat@mum.edu', 'Ganzorig', 'Erdenebat', 1),
-    (2,'Associate Chairman and Associate Professor of Computer Science\nB.A., University of Missouri\nM.S., University of Kansas', 'snolle@mum.edu', 'Steve', 'Nolle', 4);
+INSERT INTO faculty(id, description, firstname, lastname, user_id) VALUES
+    (1,'Mr President', 'Ganzorig', 'Erdenebat', 1),
+    (2,'Associate Chairman and Associate Professor of Computer Science\nB.A., University of Missouri\nM.S., University of Kansas', 'Steve', 'Nolle', 4);
 
 
 
@@ -98,7 +98,7 @@ INSERT INTO faculty_courses(faculty_id, course_id) VALUES
 /*
     Student Seed
  */
-INSERT INTO student(id, description, email, firstname, lastname, birth_date, isusresident, pt_type, track, user_id, entry_id) VALUES
-    (1, '', 'student@mum.edu', 'Student1', 'John', '1988-01-21', FALSE, TRUE, TRUE, 3, 2)
+INSERT INTO student(id, description, firstname, lastname, birth_date, isusresident, pt_type, track, user_id, entry_id) VALUES
+    (1, '', 'Student1', 'John', '1988-01-21', FALSE, TRUE, TRUE, 3, 2)
 ;
 

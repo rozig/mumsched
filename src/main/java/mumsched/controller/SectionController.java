@@ -7,6 +7,7 @@ import mumsched.entity.Section;
 import mumsched.service.BlockService;
 import mumsched.service.CourseService;
 import mumsched.service.SectionService;
+import mumsched.service.FacultyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.MediaType;
@@ -28,6 +29,8 @@ public class SectionController {
     private CourseService courseService;
     @Autowired
     private SectionService sectionService;
+    @Autowired
+    private FacultyService facultyService;
 
     @RequestMapping(value="/", method=RequestMethod.GET)
     public ModelAndView index() {
@@ -55,7 +58,7 @@ public class SectionController {
         model.addAttribute("section", new Section());
         model.addAttribute("blocks", blockService.findAll());
         model.addAttribute("courses", courseService.findAll());
-        // model.addAttribute("faculties", facultyService.findAll());
+        model.addAttribute("faculties", facultyService.findAll());
 
         return "section/create";
     }
@@ -67,7 +70,7 @@ public class SectionController {
             model.addAttribute("section", section);
             model.addAttribute("blocks", blockService.findAll());
             model.addAttribute("courses", courseService.findAll());
-            // model.addAttribute("faculties", facultyService.findAll());
+            model.addAttribute("faculties", facultyService.findAll());
             return "section/create";
         }
 
@@ -86,7 +89,7 @@ public class SectionController {
         model.addAttribute("section", section);
         model.addAttribute("blocks", blockService.findAll());
         model.addAttribute("courses", courseService.findAll());
-        // model.addAttribute("faculties", facultyService.findAll());
+        model.addAttribute("faculties", facultyService.findAll());
 
         return "section/update";
     }
@@ -99,7 +102,7 @@ public class SectionController {
             model.addAttribute("errors", result.getAllErrors());
             model.addAttribute("blocks", blockService.findAll());
             model.addAttribute("courses", courseService.findAll());
-            // model.addAttribute("faculties", facultyService.findAll());
+            model.addAttribute("faculties", facultyService.findAll());
             return "section/update";
         }
         Section s = sectionService.findOne(id);
