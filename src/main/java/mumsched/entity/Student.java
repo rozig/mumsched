@@ -1,5 +1,7 @@
 package mumsched.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
@@ -21,7 +24,8 @@ public class Student extends Profile {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
-    private Date birthDate;
+    @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
+    private LocalDate birthDate;
 
     private Boolean track;
 
@@ -57,11 +61,11 @@ public class Student extends Profile {
     @JoinColumn(name="entry_id", nullable=false)
     private Entry entry;
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 

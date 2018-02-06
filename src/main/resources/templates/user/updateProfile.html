@@ -1,0 +1,121 @@
+<!DOCTYPE html >
+<html layout:decorator="layout/mainlayout"
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<th:block layout:fragment="content">
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Edit Profile</h2>
+
+                <a th:href="@{/profile/}" class="btn btn-info pull-right" role="button">Back</a>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <form autocomplete="off" th:action="@{/profile/update}" method="post">
+
+                    <fieldset>
+                        <legend>Basic info</legend>
+
+                        <div class="form-group">
+                            <label for="firstname">First Name</label>
+                            <input type="text" class="form-control" required="required" id="firstname" placeholder="First Name" th:field="*{profile.firstname}" />
+                            <label th:if="${#fields.hasErrors('profile.firstname')}" class="validation-message"></label>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname">Last Name</label>
+                            <input type="text" class="form-control" required="required" id="lastname" placeholder="Last Name" th:field="*{profile.lastname}" />
+                            <label th:if="${#fields.hasErrors('profile.lastname')}" class="validation-message"></label>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email address</label>
+                            <input type="email" class="form-control" required="required" id="email" placeholder="Email address" th:field="*{profile.email}" />
+                            <label th:if="${#fields.hasErrors('profile.email')}" class="validation-message"></label>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Bio</label>
+                            <textarea class="form-control" id="description" th:field="*{profile.description}" rows="6">...</textarea>
+                            <label th:if="${#fields.hasErrors('profile.description')}" class="validation-message"></label>
+                        </div>
+                    </fieldset>
+
+                    <fieldset th:if="${student}">
+                        <legend>Details</legend>
+
+                        <input type="hidden" th:field="${student.id}" />
+
+                        <div class="form-group" th:classappend="${#fields.hasErrors('student.entry')}? 'has-error'">
+                            <label for="entry" class="control-label">Entry</label>
+                            <select class="form-control select2" id="entry" th:field="*{student.entry}">
+                                <option th:each="e : ${entries}"
+                                        th:value="${e.id}"
+                                        th:text="${e.name}"
+                                        th:selected="${e.id == student.entry.id}">Entry name</option>
+                            </select>
+                            <span class="help-block" th:if="${#fields.hasErrors('student.entry')}" th:errors="*{student.entry}">Invalid</span>
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <div class="form-group" th:classappend="${#fields.hasErrors('student.birthDate')}? 'has-error'">
+                            <label for="birthdate" class="control-label">Birth date</label>
+                            <input type="date" class="form-control" id="birthdate" placeholder="Birth Date" th:field="*{student.birthDate}" />
+                            <span class="help-entry" th:if="${#fields.hasErrors('student.birthDate')}" th:errors="*{student.birthDate}">Invalid</span>
+                        </div>
+
+                        <div class="form-group" th:classappend="${#fields.hasErrors('student.isUSResident')}? 'has-error'">
+                            <label for="isUSResident" class="control-label">Is US Resident?</label>
+                            <input type="checkbox" class="form-control" id="isUSResident" placeholder="Is US Resident?" th:field="*{student.isUSResident}" />
+                            <span class="help-entry" th:if="${#fields.hasErrors('student.isUSResident')}" th:errors="*{student.isUSResident}">Invalid</span>
+                        </div>
+
+                        <div class="form-group" th:classappend="${#fields.hasErrors('student.track')}? 'has-error'">
+                            <label for="track" class="control-label">Is Data Science Track?</label>
+                            <input type="checkbox" class="form-control" id="track" placeholder="Is Data Science Track?" th:field="*{student.track}" />
+                            <span class="help-entry" th:if="${#fields.hasErrors('student.track')}" th:errors="*{student.track}">Invalid</span>
+                        </div>
+
+                        <div class="form-group" th:classappend="${#fields.hasErrors('student.ptType')}? 'has-error'">
+                            <label for="ptType" class="control-label">Is OPT?</label>
+                            <input type="checkbox" class="form-control" id="ptType" placeholder="Is OPT?" th:field="*{student.ptType}" />
+                            <span class="help-entry" th:if="${#fields.hasErrors('student.ptType')}" th:errors="*{student.ptType}">Invalid</span>
+                        </div>
+                    </fieldset>
+
+                    <fieldset th:if="${faculty}">
+                        <legend>Details</legend>
+
+                        <input type="hidden" th:field="${faculty.id}" />
+
+                        <div class="item form-group" th:classappend="${#fields.hasErrors('faculty.courses')}? 'has-error'">
+                            <label for="courses" class="control-label">Courses</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <select class="form-control col-md-7 col-xs-12 select2" id="courses" th:field="*{faculty.courses}" multiple="multiple" required="required">
+                                    <option th:each="c : ${courses}"
+                                            th:field="*{faculty.courses}"
+                                            th:value="${c.id}"
+                                            th:text="${c.name}">Course name</option>
+                                </select>
+                                <span class="help-block" th:if="${#fields.hasErrors('faculty.courses')}" th:errors="*{faculty.courses}">Invalid</span>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <div class="ln_solid"></div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-md-offset-3">
+                            <button id="send" type="submit" class="btn btn-success">Save</button>
+                            <a th:href="@{/block/}" class="btn btn-primary">Cancel</a>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</th:block>
+
+</body>
+</html>

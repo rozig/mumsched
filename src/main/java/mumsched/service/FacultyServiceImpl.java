@@ -16,4 +16,9 @@ public class FacultyServiceImpl implements FacultyService {
     public Faculty findByUser(User user) {
         return facultyRepository.findByUser(user);
     }
+
+    @Override
+    public void save(Faculty faculty) {
+        facultyRepository.save(faculty);
+    }
 }
