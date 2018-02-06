@@ -12,7 +12,7 @@ INSERT INTO entry(id, name, date, mpp_number, fpp_number, opt_number) VALUES
     Course Seed
  */
 INSERT INTO course(id, code, name, level, max_student, prereq_course_id) VALUES
-    (1, 'CS390', 'Fundamental Programming Practices', 400, 25, mull),
+    (1, 'CS390', 'Fundamental Programming Practices', 400, 25, null),
     (2, 'CS401', 'Modern Programming Practices', 400, 25, null),
     (3, 'CS472',  'Web Programming', 400, 25, null),
     (4, 'CS525',  'Advanced Software Development', 500, 25, null),
