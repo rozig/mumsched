@@ -29,6 +29,8 @@ public class StudentRegistrationController {
     
     @Autowired
     UserService userService;
+    
+    Student student;
 
     @Autowired
     StudentService studentService;
@@ -39,12 +41,10 @@ public class StudentRegistrationController {
     	String email = ((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
         User user = userService.findByEmail(email);
 
-        Student student;
-
         Collection<? extends GrantedAuthority> authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
 
         if (authorities.contains(new SimpleGrantedAuthority(UserRoles.STUDENT.getValue()))) {
-        	student = studentService.findByUser(user);
+        	this.student = studentService.findByUser(user);
         }else {
         	return "redirect:/dashboard";
         }

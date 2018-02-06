@@ -40,4 +40,10 @@ public class StudentRegistrationSubsystemFacade implements StudentRegistrationSu
 		
 		return sectionList;
 	}
+	
+	public boolean registerToSection(Section section, Student student){
+		
+		
+		return false;
+	}
 }
