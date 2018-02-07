@@ -19,4 +19,5 @@ public interface SectionService {
     List<Section> findByFaculty(Faculty faculty);
     List<Section> findByBlockAndEnrolledStudents(Block block, Student student);
     List<Section> findByCourseAndEnrolledStudents(Course course, Student student);
+    List<Section> findByFacultyAndCourseAndBlock(Faculty faculty, Course course, Block block);
 }

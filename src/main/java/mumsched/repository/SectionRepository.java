@@ -25,4 +25,6 @@ public interface SectionRepository extends JpaRepository<Section, Long> {
     List<Section> findByBlockAndEnrolledStudents(Block block, Student student);
     List<Section> findByCourseAndEnrolledStudents(Course course, Student student);
     List<Section> findByFaculty(Faculty faculty);
+    
+    List<Section> findByFacultyAndCourseAndBlock(Faculty faculty, Course course, Block block);
 }

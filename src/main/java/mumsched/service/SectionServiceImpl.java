@@ -60,6 +60,11 @@ public class SectionServiceImpl implements SectionService {
 	public List<Section> findByFaculty(Faculty faculty) {
 		return sectionRepository.findByFaculty(faculty);
 	}
+
+	@Override
+	public List<Section> findByFacultyAndCourseAndBlock(Faculty faculty, Course course, Block block) {
+		return sectionRepository.findByFacultyAndCourseAndBlock(faculty, course, block);
+	}
     
     
 }

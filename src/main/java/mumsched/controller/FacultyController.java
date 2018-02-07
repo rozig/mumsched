@@ -23,6 +23,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.MediaType;
 import javax.validation.Valid;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
@@ -34,10 +36,14 @@ import mumsched.service.EntryService;
 import mumsched.service.FacultyService;
 import mumsched.service.SectionService;
 import mumsched.service.UserService;
+import mumsched.service.BlockService;
 import mumsched.service.CourseService;
+import mumsched.entity.Block;
+import mumsched.entity.Course;
 import mumsched.entity.Entry;
 import mumsched.entity.Faculty;
 import mumsched.entity.Role;
+import mumsched.entity.Section;
 import mumsched.entity.Student;
 import mumsched.entity.User;
 import mumsched.entity.UserRoles;
@@ -50,6 +56,8 @@ public class FacultyController {
     private FacultyService facultyService;
     @Autowired
     private SectionService sectionService;
+    @Autowired
+    private BlockService blockService;
     @Autowired
     private EntryService entryService;
     @Autowired
@@ -102,6 +110,41 @@ public class FacultyController {
         model.addAttribute("faculty", faculty);
 
         return "faculty/read";
+    }
+    
+    @RequestMapping(value="/course/{id}/{block_id}", method=RequestMethod.GET)
+    public String course(@PathVariable(value="id") Long id, @PathVariable(value="block_id") Long block_id, Model model) {
+        Course course = courseService.findOne(id);
+        Block block = blockService.findOne(block_id);
+        
+        if(course == null || block==null) {
+            // not found
+            return "404";
+        }
+        
+        Faculty faculty;
+    	String email = ((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        User user = userService.findByEmail(email);
+
+        Collection<? extends GrantedAuthority> authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+
+        if (authorities.contains(new SimpleGrantedAuthority(UserRoles.FACULTY.getValue()))) {
+        	faculty = facultyService.findByUser(user);
+        }else {
+        	return "redirect:/dashboard";
+        }
+        
+        List<Section> list = sectionService.findByFacultyAndCourseAndBlock(faculty, course, block);
+        List<Student> st = new ArrayList();
+        
+        for(Section s: list) {
+        	st.addAll( s.getEnrolledStudents() );
+        }
+        
+        model.addAttribute("students", st);
+        model.addAttribute("course", course);
+
+        return "faculty/students";
     }
 
     @RequestMapping(value="/new", method=RequestMethod.GET)
