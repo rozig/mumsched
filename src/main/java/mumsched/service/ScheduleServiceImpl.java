@@ -289,4 +289,19 @@ public class ScheduleServiceImpl implements ScheduleService {
 		return targetCourse;
 	}
 
+	@Override
+	public List<Schedule> findAll() {
+		return scheduleRepository.findAll();
+	}
+
+	@Override
+	public Schedule findOne(Long id) {
+		return scheduleRepository.findOne(id);
+	}
+
+	@Override
+	public Schedule save(Schedule schedule) {
+		return scheduleRepository.save(schedule);
+	}
+
 }
