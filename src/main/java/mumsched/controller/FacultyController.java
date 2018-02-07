@@ -98,6 +98,14 @@ public class FacultyController {
         
         return "faculty/view";
     }
+    
+    @RequestMapping(value="/schedule", method=RequestMethod.GET)
+    public String schedule(Model model) {
+    	
+        model.addAttribute("blocks", blockService.findAll());
+        
+        return "faculty/schedule";
+    }
 
     @RequestMapping(value="/read/{id}", method=RequestMethod.GET)
     public String read(@PathVariable(value="id") Long id, Model model) {
