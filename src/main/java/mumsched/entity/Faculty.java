@@ -10,11 +10,7 @@ public class Faculty extends Profile {
     private Long id;
 
     @ManyToMany(
-        fetch=FetchType.LAZY,
-        cascade={
-            CascadeType.PERSIST,
-            CascadeType.MERGE
-        }
+        fetch=FetchType.LAZY
     )
     @JoinTable(
         name="faculty_courses",
@@ -28,6 +24,10 @@ public class Faculty extends Profile {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public List<Course> getCourses() {

@@ -25,10 +25,6 @@ public class Section {
 
     @ManyToMany(
         fetch=FetchType.LAZY,
-        cascade={
-            CascadeType.PERSIST,
-            CascadeType.MERGE
-        },
         mappedBy="registeredSections"
     )
     private List<Student> enrolledStudents;
@@ -51,6 +47,10 @@ public class Section {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getRoomNumber() {

@@ -10,12 +10,17 @@
             <div class="x_title">
                 <h2>My Profile</h2>
 
-                <a th:href="@{/dashboard/}" class="btn btn-info pull-right" role="button">Back</a>
+                <a th:href="@{/profile/edit}" class="btn btn-info pull-right" role="button">Update</a>
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
 
                 <table class="table">
+                    <thead>
+                    <tr>
+                        <th colspan="2">Basic info</th>
+                    </tr>
+                    </thead>
                     <tbody>
                     <tr>
                         <th scope="row">ID</th>
@@ -31,7 +36,7 @@
                     </tr>
                     <tr>
                         <th scope="row">Email</th>
-                        <td th:text="${profile.email}"></td>
+                        <td th:text="${profile.user.email}"></td>
                     </tr>
                     <tr>
                         <th scope="row">Bio</th>
@@ -40,6 +45,49 @@
                     </tbody>
                 </table>
 
+                <table class="table" th:if="${student}">
+                    <thead>
+                    <tr>
+                        <th colspan="2">Details</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Entry</th>
+                            <td th:text="${student.entry.name}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Birth date</th>
+                            <td th:text="${student.birthDate}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Is US resident?</th>
+                            <td th:text="${student.isUSResident ? 'Yes' : 'No'}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Is Data Science track?</th>
+                            <td th:text="${student.track ? 'Yes' : 'No'}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Is OPT?</th>
+                            <td th:text="${student.ptType ? 'Yes' : 'No'}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table class="table" th:if="${faculty}">
+                    <thead>
+                    <tr>
+                        <th colspan="2">Details</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Courses</th>
+                            <td><span th:each="e: ${faculty.courses}" th:text="${e.name + ', '}"></span></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

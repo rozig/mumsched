@@ -1,5 +1,6 @@
 package mumsched.repository;
 
+import mumsched.entity.Block;
 import mumsched.entity.Section;
 
 import org.hibernate.annotations.SQLDeleteAll;
@@ -16,4 +17,6 @@ public interface SectionRepository extends JpaRepository<Section, Long> {
     
     @SQLDeleteAll(sql = "truncate table section")
     public void deleteAll();
+    
+    List<Section> findByBlock(Block block);
 }

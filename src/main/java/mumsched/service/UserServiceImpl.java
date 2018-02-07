@@ -2,6 +2,7 @@ package mumsched.service;
 
 import mumsched.entity.Profile;
 import mumsched.entity.Student;
+import mumsched.entity.Faculty;
 import mumsched.entity.User;
 import mumsched.entity.UserRoles;
 import mumsched.repository.FacultyRepository;
@@ -41,6 +42,13 @@ public class UserServiceImpl implements UserService {
         studentRepository.save(student);
     }
 
+    @Override
+    public void saveNewFacultyUserWithProfile(User user, Faculty faculty) {
+        save(user);
+        faculty.setUser(user);
+        facultyRepository.save(faculty);
+    }
+
     public Profile getUserProfile(User user) {
         if (user.getRoles().contains(UserRoles.STUDENT.getValue())) {
             return studentRepository.findByUser(user);
@@ -49,5 +57,10 @@ public class UserServiceImpl implements UserService {
         }
 
         return null;
+    }
+
+    @Override
+    public void delete(Long id) {
+        userRepository.delete(id);
     }
 }

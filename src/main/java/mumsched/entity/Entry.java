@@ -26,15 +26,11 @@ public class Entry {
 
     private Integer optNumber;
 
-    @OneToMany(cascade=CascadeType.ALL, mappedBy="entry")
+    @OneToMany(mappedBy="entry")
     private List<Student> students = new ArrayList<>();
 
     @ManyToMany(
         fetch=FetchType.LAZY,
-        cascade={
-            CascadeType.PERSIST,
-            CascadeType.MERGE
-        },
         mappedBy="entries"
     )
     private List<Block> blocks = new ArrayList<>();
@@ -48,6 +44,10 @@ public class Entry {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public LocalDate getDate() {

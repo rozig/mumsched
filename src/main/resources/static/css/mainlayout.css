@@ -23,3 +23,12 @@
     background-color: #f5f5f5;
     outline: 0;	
 }
+.block_row{
+	font-weight: bold;
+	font-size: 1.2em;
+	background-color: #f5f5f5;
+}
+.block_chosen_row{
+	background-color: #5ABDD5;
+	color: white;
+}
