@@ -1,6 +1,5 @@
 package mumschedRegistrationSubsystem;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +7,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 
 import mumsched.AjaxResponse;
-import mumsched.entity.Block;
-import mumsched.entity.Entry;
 import mumsched.entity.Section;
 import mumsched.entity.Student;
 import mumsched.entity.TrackCode;
@@ -70,22 +67,6 @@ public class StudentRegistrationSubsystemFacade implements StudentRegistrationSu
 		}
 		
 		return false;
-	}
-	
-	public List<Section> getSectionList(Student student){
-		Entry entry = student.getEntry();
-		
-		List<Block> blockList = entry.getBlocks();
-		
-		List<Section> sectionList = new ArrayList();
-		
-		for(Block b: blockList) {
-			List<Section> sections = sectionService.findByBlock(b);
-			
-			sectionList.addAll(sections);
-		}
-		
-		return sectionList;
 	}
 	
 	public AjaxResponse registerToSection(Section section, Student student){
