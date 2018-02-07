@@ -1,9 +1,7 @@
 package mumsched.controller;
 
-import mumschedRegistrationSubsystem.StudentRegistrationSubsystemFacade;
 import mumschedRegistrationSubsystem.StudentRegistrationSubsystem;
 import mumsched.AjaxResponse;
-import mumsched.entity.Course;
 import mumsched.entity.Section;
 import mumsched.entity.Student;
 import mumsched.entity.User;
@@ -12,9 +10,7 @@ import mumsched.service.SectionService;
 import mumsched.service.StudentService;
 import mumsched.service.UserService;
 
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -23,10 +19,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Collection;
-import java.util.List;
 
 @Controller
 @RequestMapping(path = "/registersection")

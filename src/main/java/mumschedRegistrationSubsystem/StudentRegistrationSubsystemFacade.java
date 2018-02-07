@@ -33,7 +33,8 @@ public class StudentRegistrationSubsystemFacade implements StudentRegistrationSu
 	
 	//3. If students track is MPP then can't choose FPP
 	private boolean mppToChooseFpp(Section section, Student student) {
-		return ( section.getCourse().getCode() == TrackCode.FPP.getCode() && student.getTrack() );
+		System.out.println(TrackCode.FPP.getCode()+"======="+section.getCourse().getCode());
+		return ( section.getCourse().getCode().equals( TrackCode.FPP.getCode() ) && student.getTrack() );
 	}
 	
 	//4. Can't choose chosen course again.
