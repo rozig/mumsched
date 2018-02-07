@@ -37,6 +37,14 @@
                         <th scope="row">Description</th>
                         <td th:text="${faculty.description}"></td>
                     </tr>
+                    <tr>
+                        <th scope="row">Courses</th>
+                        <td>
+                            <ul>
+                                <li th:each="c : ${faculty.courses}" th:text="${c.name}"></li>
+                            </ul>
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
 

@@ -28,6 +28,7 @@ import mumsched.AjaxResponse;
 import mumsched.service.EntryService;
 import mumsched.service.FacultyService;
 import mumsched.service.UserService;
+import mumsched.service.CourseService;
 import mumsched.entity.Entry;
 import mumsched.entity.Faculty;
 import mumsched.entity.Role;
@@ -44,6 +45,8 @@ public class FacultyController {
     private EntryService entryService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private CourseService courseService;
     @Autowired
     private RoleRepository roleRepo;
     @Autowired
@@ -78,6 +81,7 @@ public class FacultyController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("faculty", new Faculty());
         modelAndView.addObject("user", new User());
+        modelAndView.addObject("courses", courseService.findAll());
         modelAndView.setViewName("faculty/create");
         return modelAndView;
     }
@@ -122,6 +126,7 @@ public class FacultyController {
         System.out.println(bindingResultUser.getAllErrors().toString());
         model.addAttribute("user", user);
         model.addAttribute("faculty", faculty);
+        model.addAttribute("courses", courseService.findAll());
         return "faculty/create";
     }
 
@@ -133,6 +138,7 @@ public class FacultyController {
             return "404";
         }
         model.addAttribute("faculty", faculty);
+        model.addAttribute("courses", courseService.findAll());
 
         return "faculty/update";
     }
@@ -153,6 +159,7 @@ public class FacultyController {
             return "redirect:/faculty/";
         }
         model.addAttribute("faculty", faculty);
+        model.addAttribute("courses", courseService.findAll());
         return "faculty/update";
     }
 
