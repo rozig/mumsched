@@ -1,0 +1,144 @@
+<!DOCTYPE html >
+<html layout:decorator="layout/mainlayout"
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<th:block layout:fragment="content">
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Schedule list</h2>
+                	<div class="item form-group" th:classappend="${#fields.hasErrors('entries')}? 'has-error'">
+                    
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <label for="entries" class="control-label col-md-3 col-sm-3 col-xs-12">Entries</label> 
+                        <select class="form-control col-md-7 col-xs-12 select2" id="entries" th:field="*{entries}">
+                            <option th:each="e : ${entries}"
+                                    th:field="*{entries}"
+                                    th:value="${e.id}"
+                                    th:text="${e.name}">Entry name</option>
+                        </select>
+                        <input type="hidden" id="entryId"/>
+                    </div>
+                </div>
+                <a class="btn btn-success pull-right" role="button" id="generateScheduleBtn">
+                <i class="fa fa-plus"></i> 
+                	Generate Schedule</a>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Entry</th>
+                        <th>Block</th>
+                        <th>Building Name</th>
+                        <th>Room Number</th>
+                        <th>Course Code</th>
+                        <th>Course Name</th>
+                        <th>Faculty</th>
+                        <th>Capacity</th>
+                        <th>Enrolled</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="section : ${sections}">
+                        <th scope="row" th:text="${section.id}"></th>
+                        <!-- th:text="${section.block.entries.first.name}" -->
+                        <td >to get entry name</td>
+                        <td th:text="${section.block.name}"></td>
+                        <td th:text="${section.building}"></td>
+                        <td th:text="${section.roomNumber}"></td>
+                        <td th:text="${section.course.code}"></td>
+                        <td th:text="${section.course.name}"></td>
+                        <td th:text="${section.faculty.firstname}"></td>
+                        <td>25</td>
+                        <th>0</th>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</th:block>
+
+
+<th:block layout:fragment="footer">
+    <script type="text/javascript" th:inline="javascript">
+        /*<![CDATA[*/
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+        $(document).ready(function () {
+            $(document).on('click', '.delete', function () {
+                var id = $(this).data('id');
+                var that = $(this);
+                console.log(id);
+                if (id && confirm('Confirm delete')) {
+                    $.ajax({
+                        url: '/block/delete/' + id,
+                        method: 'DELETE'
+                    }).done(function (response) {
+                        console.log("success", response);
+                        if (response.success) {
+                            toastr.success(response.msg);
+                            that.fadeOut("slow", function () {
+                                that.parent().parent().remove();
+                            });
+                        } else {
+                            toastr["error"](response.msg);
+                        }
+                    }).fail(function (error) {
+                        console.log("error", error);
+                    }).always(function () {
+                        //window.location.reload();
+                    });
+                }
+                
+            });
+            
+            $("#generateScheduleBtn").on('click',function(){
+            		var entryId = $("#entries").val();
+	            	$.ajax({
+                    url: '/schedule/generate/' + entryId,
+                    method: 'POST'
+                }).done(function (response) {
+                    console.log("success", response);
+                    if (response.success) {
+                        toastr.success(response.msg);
+                        that.fadeOut("slow", function () {
+                            that.parent().parent().remove();
+                        });
+                    } else {
+                        toastr["error"](response.msg);
+                    }
+                }).fail(function (error) {
+                    console.log("error", error);
+                }).always(function () {
+                    //window.location.reload();
+                });
+		 	});
+        });
+        /*]]>*/
+    </script>
+</th:block>
+
+</body>
+</html>
