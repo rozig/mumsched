@@ -1,15 +1,16 @@
 package mumsched.service;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import mumsched.entity.Block;
 import mumsched.entity.Course;
 import mumsched.entity.Faculty;
 import mumsched.entity.Section;
 import mumsched.entity.Student;
 import mumsched.repository.SectionRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service("sectionService")
 public class SectionServiceImpl implements SectionService {
@@ -19,6 +20,11 @@ public class SectionServiceImpl implements SectionService {
     @Override
     public List<Section> findAll() {
         return sectionRepository.findAll();
+    }
+    
+    @Override
+    public List<Section> findAllOrderByBlock() {
+        return sectionRepository.findAllOrderByBlock();
     }
 
     @Override

@@ -95,11 +95,11 @@ public class ProfileController {
         if (!initProfile(model))
             return "redirect:/dashboard";
 
-        if (this.isStudent) {
+        if (isStudent) {
             student.setUser(this.student.getUser());
             studentService.save(student);
             return "redirect:/profile/";
-        } else if (this.isFaculty) {
+        } else if (isFaculty) {
             faculty.setUser(this.faculty.getUser());
             facultyService.save(faculty);
             return "redirect:/profile/";

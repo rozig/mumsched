@@ -4,16 +4,13 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import mumsched.AjaxResponse;
 import mumsched.entity.Entry;
 import mumsched.entity.Schedule;
 import mumsched.entity.ScheduleStatus;
@@ -58,7 +55,7 @@ public class ScheduleController {
             return "404";
         }
         	// find all sections
- 		List<Section> sections = sectionService.findAll();
+ 		List<Section> sections = sectionService.findAllOrderByBlock();
  		//sections.stream().sorted(Comparator<Section>.comparing(s->s.))
         model.addAttribute("sections", sections);
         model.addAttribute("entry", entry);
@@ -67,20 +64,20 @@ public class ScheduleController {
 	
 
 	@RequestMapping(value = "/generate/{entryId}", method = RequestMethod.POST)
-	public @ResponseBody AjaxResponse generate(@PathVariable(value = "entryId") Long entryId) {
+	public String generate(@PathVariable(value = "entryId") Long entryId) {
 		Entry entry = entryService.findOne(entryId);
 		// TODO check if this entry have schedules generated
 		scheduleService.generate(entry);
 		
-		AjaxResponse response = new AjaxResponse();
-		try {
-            response.success = true;
-            response.msg = "Schedule Generated.";
-        } catch (DataIntegrityViolationException ignore) {
-            response.success = false;
-            response.msg = "Unforturenatly, fail to generate the schedule";
-        }
-        return response;
+//		AjaxResponse response = new AjaxResponse();
+//		try {
+//            response.success = true;
+//            response.msg = "Schedule Generated.";
+//        } catch (DataIntegrityViolationException ignore) {
+//            response.success = false;
+//            response.msg = "Unforturenatly, fail to generate the schedule";
+//        }
+		return "redirect:/schedule/";
 	}
 	
 	@RequestMapping(value = "/approve/{id}", method = RequestMethod.GET)

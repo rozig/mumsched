@@ -1,46 +1,37 @@
 package mumsched.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.mail.MailMessage;
+import org.springframework.http.MediaType;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.context.request.WebRequest;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.http.MediaType;
-import javax.validation.Valid;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.UUID;
 import mumsched.AjaxResponse;
-
-import mumsched.service.EntryService;
-import mumsched.service.FacultyService;
-import mumsched.service.SectionService;
-import mumsched.service.UserService;
-import mumsched.service.BlockService;
-import mumsched.service.CourseService;
 import mumsched.entity.Block;
 import mumsched.entity.Course;
-import mumsched.entity.Entry;
 import mumsched.entity.Faculty;
 import mumsched.entity.Role;
 import mumsched.entity.Section;
@@ -48,6 +39,11 @@ import mumsched.entity.Student;
 import mumsched.entity.User;
 import mumsched.entity.UserRoles;
 import mumsched.repository.RoleRepository;
+import mumsched.service.BlockService;
+import mumsched.service.CourseService;
+import mumsched.service.FacultyService;
+import mumsched.service.SectionService;
+import mumsched.service.UserService;
 
 @Controller
 @RequestMapping(path="/faculty")
@@ -58,8 +54,6 @@ public class FacultyController {
     private SectionService sectionService;
     @Autowired
     private BlockService blockService;
-    @Autowired
-    private EntryService entryService;
     @Autowired
     private UserService userService;
     @Autowired
@@ -143,10 +137,10 @@ public class FacultyController {
         }
         
         List<Section> list = sectionService.findByFacultyAndCourseAndBlock(faculty, course, block);
-        List<Student> st = new ArrayList();
+        List<Student> st = new ArrayList<Student>();
         
         for(Section s: list) {
-        	st.addAll( s.getEnrolledStudents() );
+        		st.addAll( s.getEnrolledStudents() );
         }
         
         model.addAttribute("students", st);
