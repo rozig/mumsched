@@ -1,0 +1,102 @@
+<!DOCTYPE html >
+<html layout:decorator="layout/mainlayout"
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<th:block layout:fragment="content">
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Schedule Detail-- Entry: <th scope="row" th:text="${entry.name}"></th> </h2>
+                <a th:href="@{/schedule/approve/{id}(id=${entry.id})}" class="approve btn btn-sm btn-primary">Approve</a>
+                	<a th:href="@{/schedule/}" class="btn btn-primary">Back</a>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Block</th>
+                        <th>Building Name</th>
+                        <th>Room Number</th>
+                        <th>Course Code</th>
+                        <th>Course Name</th>
+                        <th>Faculty</th>
+                        <th>Capacity</th>
+                        <th>Enrolled</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="section : ${sections}">
+                        <th scope="row" th:text="${section.id}"></th>
+                        <!-- th:text="${section.block.entries.first.name}" -->
+                        <td th:text="${section.block.name}"></td>
+                        <td th:text="${section.building}"></td>
+                        <td th:text="${section.roomNumber}"></td>
+                        <td th:text="${section.course.code}"></td>
+                        <td th:text="${section.course.name}"></td>
+                        <!-- th:text="${section.faculty.firstname}" -->
+                        <td >first name</td>
+                        <td>25</td>
+                        <th>0</th>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</th:block>
+
+
+<th:block layout:fragment="footer">
+    <script type="text/javascript" th:inline="javascript">
+        /*<![CDATA[*/
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+        $(document).ready(function () {
+	        	$("#approveBtn").on('click',function(){
+	        		var entryId = $("#entryId").val();
+	            	$.ajax({
+	                url: '/schedule/approve/' + entryId,
+	                method: 'POST'
+	            }).done(function (response) {
+	                console.log("success", response);
+	                if (response.success) {
+	                    toastr.success(response.msg);
+	                    that.fadeOut("slow", function () {
+	                        that.parent().parent().remove();
+	                    });
+	                } else {
+	                    toastr["error"](response.msg);
+	                }
+	            }).fail(function (error) {
+	                console.log("error", error);
+	            }).always(function () {
+	                window.location.reload();
+	            });
+		 	});
+        });
+        /*]]>*/
+    </script>
+</th:block>
+
+</body>
+</html>

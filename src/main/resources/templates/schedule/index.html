@@ -33,29 +33,23 @@
                     <tr>
                         <th>#</th>
                         <th>Entry</th>
-                        <th>Block</th>
-                        <th>Building Name</th>
-                        <th>Room Number</th>
-                        <th>Course Code</th>
-                        <th>Course Name</th>
-                        <th>Faculty</th>
-                        <th>Capacity</th>
-                        <th>Enrolled</th>
+                        <th>Status</th>
+                        <th>Date Generated</th>
+                        <th>Date Approved</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="section : ${sections}">
-                        <th scope="row" th:text="${section.id}"></th>
-                        <!-- th:text="${section.block.entries.first.name}" -->
-                        <td >to get entry name</td>
-                        <td th:text="${section.block.name}"></td>
-                        <td th:text="${section.building}"></td>
-                        <td th:text="${section.roomNumber}"></td>
-                        <td th:text="${section.course.code}"></td>
-                        <td th:text="${section.course.name}"></td>
-                        <td th:text="${section.faculty.firstname}"></td>
-                        <td>25</td>
-                        <th>0</th>
+                    <tr th:each="schedule : ${schedules}">
+                        <th scope="row" th:text="${schedule.id}"></th>
+                        <td th:text="${schedule.entry.name}"></td>
+                        <td th:text="${schedule.status}"></td>
+                        <td th:text="${schedule.generatedDate}"></td>
+                        <td th:text="${schedule.approvedDate}"></td>
+                        <td>
+                        		<a th:href="@{/schedule/detail/{id}(id=${schedule.entry.id})}" class="btn btn-sm btn-info">Details</a>
+                        		<a th:href="@{/schedule/approve/{id}(id=${schedule.id})}" class="approve btn btn-sm btn-primary">Approve</a>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
@@ -87,14 +81,14 @@
             "hideMethod": "fadeOut"
         };
         $(document).ready(function () {
-            $(document).on('click', '.delete', function () {
+            $(document).on('click', '.approve', function () {
                 var id = $(this).data('id');
                 var that = $(this);
                 console.log(id);
-                if (id && confirm('Confirm delete')) {
+                if (id && confirm('Confirm to approve ?')) {
                     $.ajax({
-                        url: '/block/delete/' + id,
-                        method: 'DELETE'
+                        url: '/schedule/approve/' + id,
+                        method: 'POST'
                     }).done(function (response) {
                         console.log("success", response);
                         if (response.success) {
@@ -108,10 +102,9 @@
                     }).fail(function (error) {
                         console.log("error", error);
                     }).always(function () {
-                        //window.location.reload();
+                        window.location.reload();
                     });
                 }
-                
             });
             
             $("#generateScheduleBtn").on('click',function(){
@@ -132,7 +125,7 @@
                 }).fail(function (error) {
                     console.log("error", error);
                 }).always(function () {
-                    //window.location.reload();
+                    window.location.reload();
                 });
 		 	});
         });
