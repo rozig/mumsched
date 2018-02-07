@@ -89,9 +89,7 @@
                         console.log("success", response);
                         if (response.success) {
                             toastr.success(response.msg);
-                            that.fadeOut("slow", function () {
-                                that.parent().parent().remove();
-                            });
+                            that.parent().parent().addClass("block_chosen_row");
                         } else {
                             toastr["error"](response.msg);
                         }

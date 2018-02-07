@@ -95,23 +95,12 @@ public class StudentRegistrationController {
         	student = studentService.findByUser(user);
         }else {
         	response.success = false;
-            response.msg = "Cannot register course.";
+            response.msg = "This is not student.";
             return response;
         }
         
+        response = facade.registerToSection(section, student);
         
-        if (section != null && student != null) {
-            try {
-            	student.addRegisteredSection(section);
-            	studentService.save(student);
-                response.success = true;
-                response.msg = "Successfully registered.";
-            } catch (DataIntegrityViolationException ignore) {
-                // Cannot remove course that is prerequisite of other course.
-                response.success = false;
-                response.msg = "Cannot register course.";
-            }
-        }
         return response;
     }
     

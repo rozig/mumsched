@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 
 import mumsched.AjaxResponse;
@@ -42,11 +43,20 @@ public class StudentRegistrationSubsystemFacade implements StudentRegistrationSu
 		return sectionList;
 	}
 	
-	public boolean registerToSection(Section section, Student student){
+	public AjaxResponse registerToSection(Section section, Student student){
 		AjaxResponse response = new AjaxResponse();
 		
+		try {
+        	student.addRegisteredSection(section);
+        	studentService.save(student);
+            response.success = true;
+            response.msg = "Successfully registered.";
+        } catch (DataIntegrityViolationException ignore) {
+            response.success = false;
+            response.msg = "Cannot register course. Because:" + ignore.getMessage();
+        }
 		
 		
-		return false;
+		return response;
 	}
 }
