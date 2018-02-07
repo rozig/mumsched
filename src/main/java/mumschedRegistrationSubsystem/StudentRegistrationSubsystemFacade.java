@@ -14,7 +14,7 @@ import mumsched.service.SectionServiceImpl;
 import mumsched.service.StudentServiceImpl;
 
 @Component
-public class StudentRegistrationSubsystemFacade implements StudentRegistrationSubsystem{
+class StudentRegistrationSubsystemFacade implements StudentRegistrationSubsystem{
     @Autowired
     private SectionServiceImpl sectionService;
     

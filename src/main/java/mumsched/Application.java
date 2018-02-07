@@ -10,10 +10,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
-import mumschedRegistrationSubsystem.StudentRegistrationSubsystemFacade;
+
+import mumschedRegistrationSubsystem.StudentRegistrationSubsystem;
 
 @EntityScan(
-    basePackageClasses = {Application.class, Jsr310JpaConverters.class, StudentRegistrationSubsystemFacade.class}
+    basePackageClasses = {Application.class, Jsr310JpaConverters.class, StudentRegistrationSubsystem.class}
 )
 @SpringBootApplication
 @ComponentScan(basePackages = {"mumsched", "mumschedRegistrationSubsystem"})
