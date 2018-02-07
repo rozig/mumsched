@@ -8,7 +8,7 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Choose courses to study</h2>
+                <h2>View <span th:text="${course.name}"></span> registered students</h2>
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
@@ -16,24 +16,20 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>Course Number</th>
-                        <th>Course Name</th>
-                        <th>Building</th>
-                        <th>Room Number</th>
-                        <th>Professor</th>
+                        <th>Student id</th>
+                        <th>Entry</th>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
                     </tr>
                     </thead>
                     <tbody>
-					<tr th:each="section,counter : ${sections}">
-					    <td th:text="${section.block}" colspan="10" class="block_row"></td>
-					    
+					<tr th:each="student,counter : ${students}">
 					    <tr> 
 	                        <th scope="row" th:text="${counter.count}"></th>
-	                        <td th:text="${section.course.code}"></td>
-	                        <td th:text="${section.course.name}"></td>
-	                        <td th:text="${section.building}"></td>
-	                        <td th:text="${section.roomNumber}"></td>
-	                        <td th:text="${section.faculty.firstname}"></td>
+	                        <td th:text="${student.id}"></td>
+	                        <td th:text="${student.entry.name}"></td>
+	                        <td th:text="${student.firstname}"></td>
+	                        <td th:text="${student.lastname}"></td>
 	                    </tr>
 					</tr>
                     </tbody>

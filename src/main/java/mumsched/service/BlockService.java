@@ -1,6 +1,7 @@
 package mumsched.service;
 
 import mumsched.entity.Block;
+import mumsched.entity.Entry;
 
 import java.util.List;
 
@@ -11,6 +12,5 @@ public interface BlockService {
     Block findOne(Long id);
     void delete(Long id);
     
-    List<Block> findByStartDateAfter(Long id);
     List<Block> findByStartDateBefore(Long id);
 }

@@ -32,7 +32,7 @@
 					<tr th:each="block : ${entry.blocks}">
 					    <td th:text="${block.name}" colspan="10" class="block_row"></td>
 					    
-					    <tr th:each="section,counter : ${block.sections}">
+					    <tr th:each="section,counter : ${block.sections}" th:class="${#lists.contains(sections, section)} ? 'block_chosen_row' : ''">
 	                        <th scope="row" th:text="${counter.count}"></th>
 	                        <td th:text="${section.course.code}"></td>
 	                        <td th:text="${section.course.name}"></td>

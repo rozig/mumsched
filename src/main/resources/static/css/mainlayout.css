@@ -28,7 +28,10 @@
 	font-size: 1.2em;
 	background-color: #f5f5f5;
 }
-.block_chosen_row{
-	background-color: #5ABDD5;
-	color: white;
+.block_chosen_row,
+.block_chosen_row:hover,
+.block_chosen_row:focus,
+.block_chosen_row:active{
+	background-color: #5ABDD5 !important;
+    color: white !important;
 }

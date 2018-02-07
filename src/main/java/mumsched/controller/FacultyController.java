@@ -10,6 +10,10 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.stereotype.Controller;
@@ -19,7 +23,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.MediaType;
 import javax.validation.Valid;
+
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.UUID;
@@ -27,11 +34,17 @@ import mumsched.AjaxResponse;
 
 import mumsched.service.EntryService;
 import mumsched.service.FacultyService;
+import mumsched.service.SectionService;
 import mumsched.service.UserService;
+import mumsched.service.BlockService;
 import mumsched.service.CourseService;
+import mumsched.entity.Block;
+import mumsched.entity.Course;
 import mumsched.entity.Entry;
 import mumsched.entity.Faculty;
 import mumsched.entity.Role;
+import mumsched.entity.Section;
+import mumsched.entity.Student;
 import mumsched.entity.User;
 import mumsched.entity.UserRoles;
 import mumsched.repository.RoleRepository;
@@ -41,6 +54,10 @@ import mumsched.repository.RoleRepository;
 public class FacultyController {
     @Autowired
     private FacultyService facultyService;
+    @Autowired
+    private SectionService sectionService;
+    @Autowired
+    private BlockService blockService;
     @Autowired
     private EntryService entryService;
     @Autowired
@@ -62,6 +79,25 @@ public class FacultyController {
         modelAndView.setViewName("faculty/index");
         return modelAndView;
     }
+    
+    @RequestMapping(value="/view", method=RequestMethod.GET)
+    public String view(Model model) {
+    	Faculty faculty;
+    	String email = ((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        User user = userService.findByEmail(email);
+
+        Collection<? extends GrantedAuthority> authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+
+        if (authorities.contains(new SimpleGrantedAuthority(UserRoles.FACULTY.getValue()))) {
+        	faculty = facultyService.findByUser(user);
+        }else {
+        	return "redirect:/dashboard";
+        }
+    	
+        model.addAttribute("sections", sectionService.findByFaculty(faculty));
+        
+        return "faculty/view";
+    }
 
     @RequestMapping(value="/read/{id}", method=RequestMethod.GET)
     public String read(@PathVariable(value="id") Long id, Model model) {
@@ -74,6 +110,41 @@ public class FacultyController {
         model.addAttribute("faculty", faculty);
 
         return "faculty/read";
+    }
+    
+    @RequestMapping(value="/course/{id}/{block_id}", method=RequestMethod.GET)
+    public String course(@PathVariable(value="id") Long id, @PathVariable(value="block_id") Long block_id, Model model) {
+        Course course = courseService.findOne(id);
+        Block block = blockService.findOne(block_id);
+        
+        if(course == null || block==null) {
+            // not found
+            return "404";
+        }
+        
+        Faculty faculty;
+    	String email = ((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        User user = userService.findByEmail(email);
+
+        Collection<? extends GrantedAuthority> authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+
+        if (authorities.contains(new SimpleGrantedAuthority(UserRoles.FACULTY.getValue()))) {
+        	faculty = facultyService.findByUser(user);
+        }else {
+        	return "redirect:/dashboard";
+        }
+        
+        List<Section> list = sectionService.findByFacultyAndCourseAndBlock(faculty, course, block);
+        List<Student> st = new ArrayList();
+        
+        for(Section s: list) {
+        	st.addAll( s.getEnrolledStudents() );
+        }
+        
+        model.addAttribute("students", st);
+        model.addAttribute("course", course);
+
+        return "faculty/students";
     }
 
     @RequestMapping(value="/new", method=RequestMethod.GET)
@@ -123,7 +194,6 @@ public class FacultyController {
             model.addAttribute("message", "Faculty has been registered successfully");
             return "redirect:/faculty/";
         }
-        System.out.println(bindingResultUser.getAllErrors().toString());
         model.addAttribute("user", user);
         model.addAttribute("faculty", faculty);
         model.addAttribute("courses", courseService.findAll());
@@ -163,7 +233,7 @@ public class FacultyController {
         return "faculty/update";
     }
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value="/delete/{id}", method=RequestMethod.DELETE, produces=MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody AjaxResponse delete(@PathVariable(value="id") Long id) {
         Faculty faculty = facultyService.findOne(id);
         Long userId = faculty.getUser().getId();

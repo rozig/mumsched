@@ -8,7 +8,7 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Choose courses to study</h2>
+                <h2>View scheduled courses</h2>
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
@@ -21,6 +21,7 @@
                         <th>Building</th>
                         <th>Room Number</th>
                         <th>Professor</th>
+                        <th>Entrolled students</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -29,11 +30,16 @@
 					    
 					    <tr> 
 	                        <th scope="row" th:text="${counter.count}"></th>
-	                        <td th:text="${section.course.code}"></td>
-	                        <td th:text="${section.course.name}"></td>
+	                        <td>
+	                        	<a th:text="${section.course.code}" th:href="${'/faculty/course/'+{section.course.id} + '/' + {section.block.id} }">Course code</a>
+	                        </td>
+	                        <td>
+	                        	<a th:text="${section.course.name}" th:href="${'/faculty/course/'+{section.course.id} + '/' + {section.block.id} }">Course code</a>
+	                        </td>
 	                        <td th:text="${section.building}"></td>
 	                        <td th:text="${section.roomNumber}"></td>
 	                        <td th:text="${section.faculty.firstname}"></td>
+	                        <td th:text="${section.enrolledStudentsCount}"></td>
 	                    </tr>
 					</tr>
                     </tbody>

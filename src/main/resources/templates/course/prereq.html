@@ -8,14 +8,7 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-<<<<<<< HEAD:src/main/resources/templates/schedule/index.html
-                <h2>Entries list</h2>
-
-                <a th:href="@{/entry/new}" class="btn btn-success pull-right" role="button"><i class="fa fa-plus"></i>Generate Schedule</a>
-                
-=======
                 <h2>Prerequisite courses list</h2>
->>>>>>> master:src/main/resources/templates/course/prereq.html
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
@@ -23,32 +16,10 @@
                     <thead>
                     <tr>
                         <th>#</th>
-<<<<<<< HEAD:src/main/resources/templates/schedule/index.html
-                        <th>Block</th>
-                        <th>Section</th>
-                        <th>MPP</th>
-                        <th>FPP</th>
-                        <th>OPT</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="entry : ${entries}">
-                        <th scope="row" th:text="${entry.id}"></th>
-                        <td th:text="${entry.name}"></td>
-                        <td th:text="${entry.date}"></td>
-                        <td th:text="${entry.mppNumber}"></td>
-                        <td th:text="${entry.fppNumber}"></td>
-                        <td th:text="${entry.optNumber}"></td>
-                        <td>
-                            <a th:href="@{/entry/read/{id}(id=${entry.id})}" class="btn btn-sm btn-info">Details</a>
-                            <a th:href="@{/entry/edit/{id}(id=${entry.id})}" class="btn btn-sm btn-primary">Edit</a>
-                            <button class="delete btn btn-sm btn-danger" th:attr="data-id=${entry.id}">Remove</button>
-                        </td>
-=======
                         <th>Code</th>
                         <th>Name</th>
                         <th>Prerequisite</th>
+                        <th>Prerequisite code</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -57,7 +28,7 @@
                         <td th:text="${course.code}"></td>
                         <td th:text="${course.name}"></td>
                         <td th:text="${course.preRequisite.name}"></td>
->>>>>>> master:src/main/resources/templates/course/prereq.html
+                        <td th:text="${course.preRequisite.code}"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -69,58 +40,6 @@
 
 
 <th:entry layout:fragment="footer">
-    <script type="text/javascript" th:inline="javascript">
-        /*<![CDATA[*/
-        toastr.options = {
-            "closeButton": false,
-            "debug": false,
-            "newestOnTop": false,
-            "progressBar": false,
-            "positionClass": "toast-top-right",
-            "preventDuplicates": false,
-            "onclick": null,
-            "showDuration": "300",
-            "hideDuration": "1000",
-            "timeOut": "5000",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
-        };
-        $(document).ready(function () {
-            $(document).on('click', '.delete', function () {
-                var id = $(this).data('id');
-                var that = $(this);
-                console.log(id);
-                if (id && confirm('Confirm delete')) {
-                    $.ajax({
-<<<<<<< HEAD:src/main/resources/templates/schedule/index.html
-                        url: '/entry/delete/' + id,
-=======
-                        url: '/course/delete/' + id,
->>>>>>> master:src/main/resources/templates/course/prereq.html
-                        method: 'DELETE'
-                    }).done(function (response) {
-                        console.log("success", response);
-                        if (response.success) {
-                            toastr.success(response.msg);
-                            that.fadeOut("slow", function () {
-                                that.parent().parent().remove();
-                            });
-                        } else {
-                            toastr["error"](response.msg);
-                        }
-                    }).fail(function (error) {
-                        console.log("error", error);
-                    }).always(function () {
-                        //window.location.reload();
-                    });
-                }
-            })
-        });
-        /*]]>*/
-    </script>
 </th:entry>
 
 </body>

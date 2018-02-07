@@ -1,6 +1,7 @@
 package mumsched.controller;
 
 import mumschedRegistrationSubsystem.StudentRegistrationSubsystemFacade;
+import mumschedRegistrationSubsystem.StudentRegistrationSubsystem;
 import mumsched.AjaxResponse;
 import mumsched.entity.Course;
 import mumsched.entity.Section;
@@ -31,7 +32,7 @@ import java.util.List;
 @RequestMapping(path = "/registersection")
 public class StudentRegistrationController {
     @Autowired
-    private StudentRegistrationSubsystemFacade facade;
+    private StudentRegistrationSubsystem facade;
     
     @Autowired
     UserService userService;
@@ -57,6 +58,7 @@ public class StudentRegistrationController {
         }
     	
         model.addAttribute("entry", student.getEntry());
+        model.addAttribute("sections", student.getRegisteredSections());
         
         return "studentRegistration/index";
     }
@@ -95,7 +97,7 @@ public class StudentRegistrationController {
         	student = studentService.findByUser(user);
         }else {
         	response.success = false;
-            response.msg = "This is not student.";
+            response.msg = "This is not a student.";
             return response;
         }
         
