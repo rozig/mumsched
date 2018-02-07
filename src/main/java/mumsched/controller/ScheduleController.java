@@ -64,19 +64,15 @@ public class ScheduleController {
 	
 
 	@RequestMapping(value = "/generate/{entryId}", method = RequestMethod.POST)
-	public String generate(@PathVariable(value = "entryId") Long entryId) {
+	public String generate(@PathVariable(value = "entryId") Long entryId, Model model) {
 		Entry entry = entryService.findOne(entryId);
 		// TODO check if this entry have schedules generated
-		scheduleService.generate(entry);
-		
-//		AjaxResponse response = new AjaxResponse();
-//		try {
-//            response.success = true;
-//            response.msg = "Schedule Generated.";
-//        } catch (DataIntegrityViolationException ignore) {
-//            response.success = false;
-//            response.msg = "Unforturenatly, fail to generate the schedule";
-//        }
+		Schedule schedule = scheduleService.findByEntryAndStatus(entry, ScheduleStatus.APPROVED);
+		if(schedule!=null) {
+			model.addAttribute("errorMessage","Schedule Already Exist");
+		}else {
+			scheduleService.generate(entry);
+		}
 		return "redirect:/schedule/";
 	}
 	

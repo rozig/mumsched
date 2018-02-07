@@ -304,4 +304,9 @@ public class ScheduleServiceImpl implements ScheduleService {
 		return scheduleRepository.save(schedule);
 	}
 
+	@Override
+	public Schedule findByEntryAndStatus(Entry entry, ScheduleStatus status) {
+		return scheduleRepository.findByEntryAndStatus(entry, status);
+	}
+
 }
