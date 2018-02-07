@@ -58,13 +58,13 @@
                   <li><a href="/schedule/"><i class="fa fa-clone"></i> Schedules</a></li>
                   <li><a href="/block/"><i class="fa fa-edit"></i> Blocks</a></li>
                   <li><a href="/entry/"><i class="fa fa-edit"></i> Entries</a></li>
-                  <li><a href="/changePassword/"><i class="fa fa-edit"></i> Change password</a></li>
+                  <li><a href="/profile/changePassword/"><i class="fa fa-edit"></i> Change password</a></li>
                 </ul>
                 <ul class="nav side-menu" th:if="${#authorization.expr('hasAuthority(''FACULTY'')') }">
                   <li><a href="/dashboard"><i class="fa fa-home"></i> Dashboard</a></li>
                   <li><a href="/profile/"><i class="fa fa-table"></i> My Profile</a></li>
                   <li><a href="/schedule/"><i class="fa fa-clone"></i> View Schedule</a></li>
-                  <li><a href="/changePassword/"><i class="fa fa-edit"></i> Change password</a></li>
+                  <li><a href="/profile/changePassword/"><i class="fa fa-edit"></i> Change password</a></li>
                 </ul>
                 <ul class="nav side-menu" th:if="${#authorization.expr('hasAuthority(''STUDENT'')') }">
                   <li><a href="/dashboard"><i class="fa fa-home"></i> Dashboard</a></li>
@@ -72,7 +72,7 @@
                   <li><a href="/course/prereq"><i class="fa fa-desktop"></i> Prerequisite Courses</a></li>
                   <li><a href="/registersection/view"><i class="fa fa-clone"></i> View Registered Courses</a></li>
                   <li><a href="/registersection/"><i class="fa fa-clone"></i> Register Courses</a></li>
-                  <li><a href="/changePassword/"><i class="fa fa-edit"></i> Change Password</a></li>
+                  <li><a href="/profile/changePassword/"><i class="fa fa-edit"></i> Change Password</a></li>
                 </ul>
               </div>
             </div>

@@ -50,6 +50,30 @@ public class ProfileController {
 
         return "user/profile";
     }
+    
+    @RequestMapping(value="/changePassword", method= RequestMethod.GET)
+    public String changePassword(Model model) {
+    	String email = ((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        User user = userService.findByEmail(email);
+        
+        model.addAttribute("profile", user);
+        
+        if (!initProfile(model))
+            return "redirect:/dashboard";
+
+        return "user/changePassword";
+    }
+    
+    @RequestMapping(value="/updatePassword", method= RequestMethod.POST)
+    public String updatePassword(@Valid @ModelAttribute("User") User user, BindingResult resultFaculty, Model model) {
+
+		if (!initProfile(model))
+		return "redirect:/dashboard";
+		
+		faculty.setUser(this.faculty.getUser());
+		userService.save(user);
+		return "redirect:/profile/";
+	}
 
     @RequestMapping(value="/edit", method= RequestMethod.GET)
     public String editProfile(Model model) {
