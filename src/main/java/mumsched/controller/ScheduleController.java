@@ -1,5 +1,6 @@
 package mumsched.controller;
 
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,7 @@ public class ScheduleController {
 		
 		// find all sections
 		List<Section> sections = sectionService.findAll();
+		//sections.stream().sorted(Comparator<Section>.comparing(s->s.))
 		modelAndView.addObject("sections", sections);
 		
 		modelAndView.setViewName("schedule/index");

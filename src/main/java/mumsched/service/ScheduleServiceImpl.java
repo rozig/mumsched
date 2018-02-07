@@ -53,14 +53,16 @@ public class ScheduleServiceImpl implements ScheduleService {
 		MPP = courseRepository.findByCode(mppCode);
 		FPP = courseRepository.findByCode(fppCode);
 		
-		// TODO Check the number of block is right
+		// remove all before generating
+		sectionRepository.deleteAll();
+		
+		// remove all the blocks
+		blockRepository.deleteAll();
+		
 		List<Block> blocks = blockRepository.findByEntryId(entry.getId());
 		if(blocks.size()==0) {
 			blocks = buildBlocks(entry);
 		}
-		
-		// remove all before generating
-		sectionRepository.deleteAll();
 		
 		List<Section> sectionsForFpp = buildSectionsForFpp(blocks, countSections(entry.getFppNumber()));
 		List<Section> sectionsForMpp = buildSectionsFoMpp(blocks, countSections(entry.getMppNumber()));
