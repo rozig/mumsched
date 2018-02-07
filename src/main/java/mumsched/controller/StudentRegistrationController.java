@@ -1,14 +1,20 @@
 package mumsched.controller;
 
 import mumschedRegistrationSubsystem.StudentRegistrationSubsystemFacade;
+import mumsched.AjaxResponse;
+import mumsched.entity.Course;
 import mumsched.entity.Section;
 import mumsched.entity.Student;
 import mumsched.entity.User;
 import mumsched.entity.UserRoles;
+import mumsched.service.SectionService;
 import mumsched.service.StudentService;
 import mumsched.service.UserService;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,29 +36,85 @@ public class StudentRegistrationController {
     @Autowired
     UserService userService;
     
-    Student student;
+    @Autowired
+    SectionService sectionService;
 
     @Autowired
     StudentService studentService;
-
+    
     @RequestMapping(value="/", method=RequestMethod.GET)
     public String index(Model model) {
-    	
+    	Student student;
     	String email = ((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
         User user = userService.findByEmail(email);
 
         Collection<? extends GrantedAuthority> authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
 
         if (authorities.contains(new SimpleGrantedAuthority(UserRoles.STUDENT.getValue()))) {
-        	this.student = studentService.findByUser(user);
+        	student = studentService.findByUser(user);
         }else {
         	return "redirect:/dashboard";
         }
     	
-        List<Section> sections = facade.getSectionList( student );
-        model.addAttribute("sections", sections);
+        model.addAttribute("entry", student.getEntry());
         
         return "studentRegistration/index";
     }
+    
+    @RequestMapping(value="/view", method=RequestMethod.GET)
+    public String view(Model model) {
+    	Student student;
+    	String email = ((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        User user = userService.findByEmail(email);
+
+        Collection<? extends GrantedAuthority> authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+
+        if (authorities.contains(new SimpleGrantedAuthority(UserRoles.STUDENT.getValue()))) {
+        	student = studentService.findByUser(user);
+        }else {
+        	return "redirect:/dashboard";
+        }
+    	
+        model.addAttribute("sections", student.getRegisteredSections());
+        
+        return "studentRegistration/view";
+    }
+    
+    @RequestMapping(value = "/register/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody AjaxResponse create(@PathVariable(value = "id") Long id) {
+        Section section = sectionService.findOne(id);
+        
+        Student student;
+    	String email = ((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        User user = userService.findByEmail(email);
+
+        Collection<? extends GrantedAuthority> authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+        AjaxResponse response = new AjaxResponse();
+        
+        if (authorities.contains(new SimpleGrantedAuthority(UserRoles.STUDENT.getValue()))) {
+        	student = studentService.findByUser(user);
+        }else {
+        	response.success = false;
+            response.msg = "Cannot register course.";
+            return response;
+        }
+        
+        
+        if (section != null && student != null) {
+            try {
+            	student.addRegisteredSection(section);
+            	studentService.save(student);
+                response.success = true;
+                response.msg = "Successfully registered.";
+            } catch (DataIntegrityViolationException ignore) {
+                // Cannot remove course that is prerequisite of other course.
+                response.success = false;
+                response.msg = "Cannot register course.";
+            }
+        }
+        return response;
+    }
+    
+    
 
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import mumsched.AjaxResponse;
 import mumsched.entity.Block;
 import mumsched.entity.Entry;
 import mumsched.entity.Section;
@@ -42,6 +43,8 @@ public class StudentRegistrationSubsystemFacade implements StudentRegistrationSu
 	}
 	
 	public boolean registerToSection(Section section, Student student){
+		AjaxResponse response = new AjaxResponse();
+		
 		
 		
 		return false;

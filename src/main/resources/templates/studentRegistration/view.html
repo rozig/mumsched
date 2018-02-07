@@ -22,29 +22,19 @@
                         <th>Building</th>
                         <th>Room Number</th>
                         <th>Professor</th>
-                        <th>Capacity</th>
-                        <th>Enrolled</th>
-                        <th>Seats Available</th>
-                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
-					<tr th:each="block : ${entry.blocks}">
-					    <td th:text="${block.name}" colspan="10" class="block_row"></td>
+					<tr th:each="section,counter : ${sections}">
+					    <td th:text="${section.block}" colspan="10" class="block_row"></td>
 					    
-					    <tr th:each="section,counter : ${block.sections}">
+					    <tr> 
 	                        <th scope="row" th:text="${counter.count}"></th>
 	                        <td th:text="${section.course.code}"></td>
 	                        <td th:text="${section.course.name}"></td>
 	                        <td th:text="${section.building}"></td>
 	                        <td th:text="${section.roomNumber}"></td>
 	                        <td th:text="${section.faculty.firstname}"></td>
-	                        <td th:text="${section.course.maxStudent}"></td>
-	                        <td th:text="${section.enrolledStudentsCount}"></td>
-	                        <td th:text="${section.course.maxStudent}"></td>
-	                        <td>
-	                        	<button class="register btn btn-sm btn-info" th:attr="data-id=${section.id}">+</button>
-	                        </td>
 	                    </tr>
 					</tr>
                     </tbody>
@@ -77,14 +67,14 @@
             "hideMethod": "fadeOut"
         };
         $(document).ready(function () {
-            $(document).on('click', '.register', function () {
+            $(document).on('click', '.delete', function () {
                 var id = $(this).data('id');
                 var that = $(this);
                 console.log(id);
-                if (id && confirm('Confirm register?')) {
+                if (id && confirm('Confirm delete')) {
                     $.ajax({
-                        url: '/registersection/register/' + id,
-                        method: 'POST'
+                        url: '/section/delete/' + id,
+                        method: 'DELETE'
                     }).done(function (response) {
                         console.log("success", response);
                         if (response.success) {
