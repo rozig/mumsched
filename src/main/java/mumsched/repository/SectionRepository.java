@@ -1,17 +1,17 @@
 package mumsched.repository;
 
-import mumsched.entity.Block;
-import mumsched.entity.Course;
-import mumsched.entity.Faculty;
-import mumsched.entity.Section;
-import mumsched.entity.Student;
+import java.util.List;
 
 import org.hibernate.annotations.SQLDeleteAll;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.util.List;
+import mumsched.entity.Block;
+import mumsched.entity.Course;
+import mumsched.entity.Faculty;
+import mumsched.entity.Section;
+import mumsched.entity.Student;
 
 public interface SectionRepository extends JpaRepository<Section, Long> {
 
@@ -27,4 +27,8 @@ public interface SectionRepository extends JpaRepository<Section, Long> {
     List<Section> findByFaculty(Faculty faculty);
     
     List<Section> findByFacultyAndCourseAndBlock(Faculty faculty, Course course, Block block);
+    
+    
+    @Query(value="SELECT s.* FROM section s order by s.block_id",nativeQuery=true)
+    public List<Section> findAllOrderByBlock();
 }

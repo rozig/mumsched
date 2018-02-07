@@ -2,10 +2,9 @@ package mumsched.entity;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.CascadeType;
-import javax.persistence.OneToOne;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToOne;
 
 @MappedSuperclass
 public class Profile {
@@ -31,7 +30,7 @@ public class Profile {
     }
 
     public String getFirstname() {
-        return firstname;
+        return null==firstname?"":firstname;
     }
 
     public void setFirstname(String firstname) {
