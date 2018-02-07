@@ -2,6 +2,7 @@ package mumsched.repository;
 
 import mumsched.entity.Block;
 import mumsched.entity.Course;
+import mumsched.entity.Faculty;
 import mumsched.entity.Section;
 import mumsched.entity.Student;
 
@@ -23,4 +24,5 @@ public interface SectionRepository extends JpaRepository<Section, Long> {
     List<Section> findByBlock(Block block);
     List<Section> findByBlockAndEnrolledStudents(Block block, Student student);
     List<Section> findByCourseAndEnrolledStudents(Course course, Student student);
+    List<Section> findByFaculty(Faculty faculty);
 }

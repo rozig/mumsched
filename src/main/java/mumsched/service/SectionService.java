@@ -2,6 +2,7 @@ package mumsched.service;
 
 import mumsched.entity.Block;
 import mumsched.entity.Course;
+import mumsched.entity.Faculty;
 import mumsched.entity.Section;
 import mumsched.entity.Student;
 
@@ -15,6 +16,7 @@ public interface SectionService {
     void delete(Long id);
     
     List<Section> findByBlock(Block block);
+    List<Section> findByFaculty(Faculty faculty);
     List<Section> findByBlockAndEnrolledStudents(Block block, Student student);
     List<Section> findByCourseAndEnrolledStudents(Course course, Student student);
 }

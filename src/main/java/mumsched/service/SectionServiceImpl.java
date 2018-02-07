@@ -2,6 +2,7 @@ package mumsched.service;
 
 import mumsched.entity.Block;
 import mumsched.entity.Course;
+import mumsched.entity.Faculty;
 import mumsched.entity.Section;
 import mumsched.entity.Student;
 import mumsched.repository.SectionRepository;
@@ -53,6 +54,11 @@ public class SectionServiceImpl implements SectionService {
 	@Override
 	public List<Section> findByCourseAndEnrolledStudents(Course course, Student student) {
 		return sectionRepository.findByCourseAndEnrolledStudents(course, student);
+	}
+
+	@Override
+	public List<Section> findByFaculty(Faculty faculty) {
+		return sectionRepository.findByFaculty(faculty);
 	}
     
     

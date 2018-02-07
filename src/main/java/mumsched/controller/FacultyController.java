@@ -10,6 +10,10 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.stereotype.Controller;
@@ -20,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.MediaType;
 import javax.validation.Valid;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.UUID;
@@ -27,11 +32,13 @@ import mumsched.AjaxResponse;
 
 import mumsched.service.EntryService;
 import mumsched.service.FacultyService;
+import mumsched.service.SectionService;
 import mumsched.service.UserService;
 import mumsched.service.CourseService;
 import mumsched.entity.Entry;
 import mumsched.entity.Faculty;
 import mumsched.entity.Role;
+import mumsched.entity.Student;
 import mumsched.entity.User;
 import mumsched.entity.UserRoles;
 import mumsched.repository.RoleRepository;
@@ -41,6 +48,8 @@ import mumsched.repository.RoleRepository;
 public class FacultyController {
     @Autowired
     private FacultyService facultyService;
+    @Autowired
+    private SectionService sectionService;
     @Autowired
     private EntryService entryService;
     @Autowired
@@ -61,6 +70,25 @@ public class FacultyController {
         modelAndView.addObject("faculties", faculties);
         modelAndView.setViewName("faculty/index");
         return modelAndView;
+    }
+    
+    @RequestMapping(value="/view", method=RequestMethod.GET)
+    public String view(Model model) {
+    	Faculty faculty;
+    	String email = ((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        User user = userService.findByEmail(email);
+
+        Collection<? extends GrantedAuthority> authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+
+        if (authorities.contains(new SimpleGrantedAuthority(UserRoles.FACULTY.getValue()))) {
+        	faculty = facultyService.findByUser(user);
+        }else {
+        	return "redirect:/dashboard";
+        }
+    	
+        model.addAttribute("sections", sectionService.findByFaculty(faculty));
+        
+        return "faculty/view";
     }
 
     @RequestMapping(value="/read/{id}", method=RequestMethod.GET)
