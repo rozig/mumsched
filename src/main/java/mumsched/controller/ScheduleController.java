@@ -1,7 +1,5 @@
 package mumsched.controller;
 
-import static org.mockito.Matchers.intThat;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,40 +10,41 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import mumsched.entity.Block;
 import mumsched.entity.Entry;
 import mumsched.entity.Section;
-import mumsched.service.BlockService;
 import mumsched.service.EntryService;
+import mumsched.service.ScheduleService;
+import mumsched.service.SectionService;
 
 @Controller
 @RequestMapping(path = "/schedule")
 public class ScheduleController {
 	@Autowired
-	private BlockService blockService;
-	@Autowired
 	private EntryService entryService;
+	@Autowired
+	private ScheduleService scheduleService;
+	@Autowired
+	private SectionService sectionService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView index() {
-		List<Block> blocks = blockService.findAll();
+		List<Entry> entries = entryService.findAll();
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("blocks", blocks);
+		modelAndView.addObject("entries", entries);
+		
+		// find all sections
+		List<Section> sections = sectionService.findAll();
+		modelAndView.addObject("sections", sections);
+		
 		modelAndView.setViewName("schedule/index");
 		return modelAndView;
 	}
 
-	// generate schedule
-	// 1.get list of blocks order by startDate
-	// 2. do loops on blocks
-	// 3. for each block ,get a list of sections
-	// 4. do loops on section
-	@RequestMapping(value = "/generate/{entryId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/generate/{entryId}", method = RequestMethod.POST)
 	public void generate(@PathVariable(value = "entryId") Long entryId, Model model) {
-		Entry entry = entryService.findOne(entryId);
 		// TODO check if this entry have schedules generated
-		
-		// TODO check if exist MPP and FPP courses
+		Entry entry = entryService.findOne(entryId);
+		scheduleService.generate(entry);
 		
 	}
 

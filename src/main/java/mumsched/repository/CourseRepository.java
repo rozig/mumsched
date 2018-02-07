@@ -15,10 +15,12 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
     @Query("SELECT c FROM Course c WHERE c.code = :code")
     public Course findByCode(@Param("code") String code);
     
-    @Query("SELECT c1.* FROM Course c1,Course c2 WHERE c1.id = c2.preRequisite and c2.preRequisite >0")
+    @Query(value = "SELECT c1.* FROM course c1 INNER JOIN course c2 ON c1.id = c2.prereq_course_id WHERE c2.prereq_course_id >0"
+    		,nativeQuery=true)
     public List<Course> findPreRequisiteCourses();
     
-    @Query("ELECT c1.* FROM Course c1,Course c2 WHERE c1.id <> c2.preRequisite order by c1.code,c1.preRequisite desc")
+    @Query(value = "SELECT c.* FROM course c WHERE not exists(select 1 from course c1 where c1.prereq_course_id=c.id)"
+    		,nativeQuery=true)
     public List<Course> findCourses();
     
     public List<Course> findByPreRequisiteNotNull();

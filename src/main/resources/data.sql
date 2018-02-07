@@ -54,7 +54,8 @@ INSERT INTO user(id, active, email, password, activation_token) VALUES
     Faculty Seed
  */
 INSERT INTO faculty(description, email, firstname, lastname, user_id) VALUES
-    ("Mr President mfuckers", "gerdenebat@mum.edu", "Ganzorig", "Erdenebat", 1);
+("Mr President mfuckers", "gerdenebat@mum.edu", "Ganzorig", "Erdenebat", 1),
+("Mr President mfuckers", "gerdenebat@mum.edu", "Ganzorig", "Erdenebat", 1);
 
 
 

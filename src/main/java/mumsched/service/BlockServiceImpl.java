@@ -1,11 +1,12 @@
 package mumsched.service;
 
-import mumsched.entity.Block;
-import mumsched.repository.BlockRepository;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import mumsched.entity.Block;
+import mumsched.repository.BlockRepository;
 
 @Service("blockService")
 public class BlockServiceImpl implements BlockService {
@@ -35,10 +36,5 @@ public class BlockServiceImpl implements BlockService {
     @Override
     public void delete(Long id) {
         blockRepository.delete(id);
-    }
-    
-    @Override
-    public List<Block> findBlocksByEntryId(Long entryId) {
-        return blockRepository.findBlocksByEntryId(entryId);
     }
 }
