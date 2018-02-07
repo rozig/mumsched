@@ -123,7 +123,6 @@ public class FacultyController {
             model.addAttribute("message", "Faculty has been registered successfully");
             return "redirect:/faculty/";
         }
-        System.out.println(bindingResultUser.getAllErrors().toString());
         model.addAttribute("user", user);
         model.addAttribute("faculty", faculty);
         model.addAttribute("courses", courseService.findAll());
@@ -163,7 +162,7 @@ public class FacultyController {
         return "faculty/update";
     }
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value="/delete/{id}", method=RequestMethod.DELETE, produces=MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody AjaxResponse delete(@PathVariable(value="id") Long id) {
         Faculty faculty = facultyService.findOne(id);
         Long userId = faculty.getUser().getId();
