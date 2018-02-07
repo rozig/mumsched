@@ -1,7 +1,9 @@
 package mumsched.service;
 
 import mumsched.entity.Block;
+import mumsched.entity.Course;
 import mumsched.entity.Section;
+import mumsched.entity.Student;
 import mumsched.repository.SectionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,4 +44,16 @@ public class SectionServiceImpl implements SectionService {
     public List<Section> findByBlock(Block block){
     	return sectionRepository.findByBlock(block);
     }
+    
+    @Override
+	public List<Section> findByBlockAndEnrolledStudents(Block block, Student student) {
+		return sectionRepository.findByBlockAndEnrolledStudents(block, student);
+	}
+    
+	@Override
+	public List<Section> findByCourseAndEnrolledStudents(Course course, Student student) {
+		return sectionRepository.findByCourseAndEnrolledStudents(course, student);
+	}
+    
+    
 }

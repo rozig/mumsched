@@ -16,7 +16,9 @@ import javax.persistence.Id;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.Date;
+import java.util.HashSet;
 
 @Entity
 public class Student extends Profile {

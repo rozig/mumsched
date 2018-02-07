@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mumsched.entity.Block;
+import mumsched.entity.Entry;
 import mumsched.repository.BlockRepository;
 
 @Service("blockService")
@@ -37,14 +38,9 @@ public class BlockServiceImpl implements BlockService {
     public void delete(Long id) {
         blockRepository.delete(id);
     }
-    
-    @Override
-	public List<Block> findByStartDateAfter(Long id) {
-		return blockRepository.findByStartDateAfter(id);
-	}
 
 	@Override
 	public List<Block> findByStartDateBefore(Long id) {
-		return blockRepository.findByStartDateAfter(id);
+		return blockRepository.findByStartDateBefore(id);
 	}
 }

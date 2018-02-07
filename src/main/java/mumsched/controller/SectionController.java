@@ -131,7 +131,6 @@ public class SectionController {
                 response.success = true;
                 response.msg = "Successfully deleted.";
             } catch(DataIntegrityViolationException ignore) {
-                // Cannot remove block that is prerequisite of other block.
                 response.success = false;
                 response.msg = "Cannot remove block that is prerequisite of other block.";
             }
