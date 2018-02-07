@@ -29,11 +29,11 @@ public class Student extends Profile {
     @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
     private LocalDate birthDate;
 
-    private Boolean track;
+    private Boolean track = false;
 
-    private Boolean ptType;
+    private Boolean ptType = false;
 
-    private Boolean isUSResident;
+    private Boolean isUSResident = false;
 
     @ManyToMany(
         fetch=FetchType.LAZY

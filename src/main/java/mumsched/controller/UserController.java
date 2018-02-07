@@ -10,6 +10,7 @@ import org.springframework.mail.MailMessage;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,11 +39,13 @@ public class UserController {
     private JavaMailSender mailSender;
 
     @RequestMapping(value="/login", method=RequestMethod.GET)
-    public String login() {
+    public String login(Model model, WebRequest request) {
         Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if(user instanceof User) {
+        if(user instanceof UserDetails) {
             return "redirect:/dashboard";
         } else {
+            if ("true".equals(request.getParameter("error")))
+                model.addAttribute("error", true);
             return "login";
         }
     }
@@ -68,6 +71,7 @@ public class UserController {
         User userExists = userService.findByEmail(user.getEmail());
         if(userExists != null) {
             resultUser.rejectValue("email", "error.user", "There is already a user registered with the email provided");
+            model.addAttribute("error", "There is already a user registered with the email provided");
         }
         if(!resultUser.hasErrors()) {
             String password = bCryptPasswordEncoder.encode(user.getPassword());
