@@ -46,7 +46,6 @@ public class EntryController {
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String newEntry(Model model) {
         model.addAttribute("entry", new Entry());
-        model.addAttribute("entries", entryService.findAll());
 
         return "entry/create";
     }
@@ -57,7 +56,6 @@ public class EntryController {
         if (bindingResult.hasErrors()) {
             model.addAttribute("errors", bindingResult.getAllErrors());
             model.addAttribute("entry", entry);
-            model.addAttribute("entries", entryService.findAll());
             return "entry/create";
         }
 
@@ -75,7 +73,6 @@ public class EntryController {
             return "404";
         }
         model.addAttribute("entry", entry);
-        model.addAttribute("entries", entryService.findAllExcept(entry.getId()));
 
         return "entry/update";
     }
@@ -86,7 +83,6 @@ public class EntryController {
                          BindingResult result, Model model) {
 
         if (result.hasErrors()) {
-            model.addAttribute("entries", entryService.findAllExcept(entry.getId()));
             model.addAttribute("entry", entry);
             model.addAttribute("errors", result.getAllErrors());
             return "entry/update";

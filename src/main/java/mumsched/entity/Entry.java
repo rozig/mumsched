@@ -15,9 +15,11 @@ public class Entry {
     private Long id;
 
     @NotBlank(message="{notBlank.message}")
+    @Column(unique = true, nullable = false)
     private String name;
 
     @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
+    @Column(unique = true, nullable = false)
     private LocalDate date;
 
     private Integer mppNumber;

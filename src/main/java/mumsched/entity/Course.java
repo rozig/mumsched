@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Column;
 import javax.persistence.CascadeType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -24,9 +25,11 @@ public class Course {
     private Long id;
 
     @NotBlank(message="{notBlank.message}")
+    @Column(unique = true, nullable = false)
     private String name;
 
     @NotBlank(message="{notBlank.message}")
+    @Column(unique = true, nullable = false)
     private String code;
 
     @Digits(integer=10, fraction=0, message = "{invalidNumber.message}")
